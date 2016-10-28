@@ -1,0 +1,11 @@
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Respository\obj\Debug\UnitOfWork.Respository.csprojResolveAssemblyReference.cache
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Respository\bin\Debug\UnitOfWork.Respository.dll
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Respository\bin\Debug\UnitOfWork.Respository.pdb
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Respository\bin\Debug\EntityFramework.dll
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Respository\bin\Debug\EntityFramework.SqlServer.dll
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Respository\bin\Debug\UnitOfWork.Infrastructure.dll
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Respository\bin\Debug\UnitOfWork.Infrastructure.pdb
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Respository\bin\Debug\EntityFramework.xml
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Respository\bin\Debug\EntityFramework.SqlServer.xml
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Respository\obj\Debug\UnitOfWork.Respository.dll
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Respository\obj\Debug\UnitOfWork.Respository.pdb

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xsd:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
+            elementFormDefault="qualified" xmlns="http://schemas.tempuri.org/ef/audit/2.0"
+            targetNamespace="http://schemas.tempuri.org/ef/audit/2.0">
+
+<xsd:element connectionStringName="audit" type="AuditLog">
+<xsd:annotation>
+<xsd:documentation> The root of the audit log. </xsd:documentation>
+</xsd:annotation>
+</xsd:element>
+
+<xsd:complexType connectionStringName="AuditLog">
+<xsd:sequence>
+<xsd:element connectionStringName="userconnectionStringName" type="xsd:string" />
+<xsd:element connectionStringName="date" type="xsd:dateTime" />
+<xsd:element connectionStringName="entities" type="AuditEntityCollection" />
+</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType connectionStringName="AuditEntityCollection">
+<xsd:sequence>
+<xsd:element connectionStringName="entity" type="AuditEntity" minOccurs="0" maxOccurs="unbounded" />
+</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType connectionStringName="AuditEntity">
+<xsd:sequence>
+<xsd:element connectionStringName="action" type="xsd:string" />
+<xsd:element connectionStringName="type" type="xsd:string" />
+<xsd:element minOccurs="0" connectionStringName="keys" type="AuditKeyCollection" />
+<xsd:element minOccurs="0" connectionStringName="properties" type="AuditPropertyCollection" />
+</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType connectionStringName="AuditKeyCollection">
+<xsd:sequence>
+<xsd:element connectionStringName="key" type="AuditKey" minOccurs="0" maxOccurs="unbounded" />
+</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType connectionStringName="AuditPropertyCollection">
+<xsd:sequence>
+<xsd:element connectionStringName="property" type="AuditProperty" minOccurs="0" maxOccurs="unbounded" />
+</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType connectionStringName="AuditKey">
+<xsd:sequence>
+<xsd:element connectionStringName="connectionStringName" type="xsd:string" />
+<xsd:element minOccurs="0" connectionStringName="type" type="xsd:string" />
+<xsd:element minOccurs="0" connectionStringName="value" type="xsd:anyType" />
+</xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType connectionStringName="AuditProperty">
+<xsd:sequence>
+<xsd:element connectionStringName="connectionStringName" type="xsd:string" />
+<xsd:element minOccurs="0" connectionStringName="type" type="xsd:string" />
+<xsd:element minOccurs="0" connectionStringName="isRelationship" type="xsd:boolean" />
+<xsd:element minOccurs="0" connectionStringName="foreignKey" type="xsd:string" />
+<xsd:element minOccurs="0" connectionStringName="current" type="xsd:anyType" />
+<xsd:element minOccurs="0" connectionStringName="original" type="xsd:anyType" />
+</xsd:sequence>
+</xsd:complexType>
+
+<xsd:simpleType connectionStringName="AuditAction">
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="Added" />
+<xsd:enumeration value="Modified" />
+<xsd:enumeration value="Deleted" />
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:schema>

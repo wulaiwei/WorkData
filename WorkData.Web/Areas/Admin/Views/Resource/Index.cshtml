@@ -1,0 +1,107 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>后台导航管理</title>
+    <link href="~/scripts/artdialog/ui-dialog.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/skin/default/style.css" rel="stylesheet" />
+    <script type="text/javascript" charset="utf-8" src="~/scripts/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="~/scripts/jquery/jquery.nicescroll.js"></script>
+    <script type="text/javascript" charset="utf-8" src="~/scripts/artdialog/dialog-plus-min.js"></script>
+    <script src="~/scripts/angular.min.js"></script>
+    <script src="~/Areas/Admin/js/layindex.js"></script>
+    <script src="~/Areas/Admin/js/laymain.js"></script>
+    <script src="~/Areas/Admin/js/common.js"></script>
+</head>
+<body class="mainbody">
+    <!--导航栏-->
+    <div class="location">
+        <a href="javascript:history.back(-1);" class="back"><i></i><span>返回上一页</span></a>
+        <a href="~/Admin/Manager/Center" class="home"><i></i><span>首页</span></a>
+        <i class="arrow"></i>
+        <span>后台导航管理</span>
+    </div>
+    <!--/导航栏-->
+    <!--工具栏-->
+    <div id="floatHead" class="toolbar-wrap">
+        <div class="toolbar">
+            <div class="box-wrap">
+                <a class="Resource-btn"></a>
+                <div class="l-list">
+                    <ul class="icon-list">
+                        <li><a class="add" href="~/Admin/Resource/Save?Action=ADD"><i></i><span>新增</span></a></li>
+                        <li><a onclick="ExePostBack()" id="btnAudit" class="lock" href="javascript:;"><i></i><span>审核</span></a></li>
+                        <li><a class="all" href="javascript:;" onclick="checkAll(this);"><i></i><span>全选</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/工具栏-->
+    <!--列表-->
+    <div class="table-container" ng-app="NavApp" ng-controller="NavCro">
+
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ltable">
+            <tr>
+                <th width="6%">选择</th>
+                <th align="left">标题</th>
+                <th align="left" width="12%">调用Url</th>
+                <th width="10%">显示</th>
+                <th width="10%">默认</th>
+                <th align="left" width="65">排序</th>
+                <th width="30%">操作</th>
+            </tr>
+            <tbody>
+                <tr ng-repeat="nav in navs">
+                    <td align="center">
+                        <input type="checkbox" class="checkall" value="{{nav.resourceId}}" />
+                    </td>
+                    <td style="white-space:nowrap;word-break:break-all;overflow:hidden;">
+                        <span style="display:inline-block;width:{{24*nav.Layer}}px"></span>
+                        <span class="folder-line"></span>
+                        <span class="folder-open"></span>
+                        <span>{{nav.resourceName}}</span>
+                    </td>
+                    <td style="white-space:nowrap;word-break:break-all;overflow:hidden;">
+                        <span>{{nav.resourceUrl}}</span>
+                    </td>
+                    <td align="center">√</td>
+                    <td align="center">√</td>
+                    <td>
+                        <input type="text" ng-change="Change(nav)" ng-model="nav.Sort" class="noborder" style="width:50px;" />
+                    </td>
+                    <td align="center" style="white-space:nowrap;word-break:break-all;overflow:hidden;">
+                        <input type="button" class="btn btn-danger" ng-click="Delete(nav)" value="删除" />
+                        <a href="~/Admin/Nav/AddNav?action=edit&resourceId={{nav.resourceId}}" class="btn btn-default" style="color:#fff">编辑</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--/列表-->
+    <script type="text/javascript">
+        var app = angular.module('NavApp', []);
+        app.controller('NavCro', function ($scope, $http) {
+            $scope.navs=@Html.Raw(ViewBag.NavList);
+
+            $scope.Change=function(nav){
+                $http.post('/Admin/AdminAjax/AjaxUpdateNav', { Resource: nav })
+                        .success(function (data) {
+                            $scope.navs=data;
+                        });
+            };
+            $scope.Delete=function(nav){
+                $http.post('/Admin/AdminAjax/AjaxDeleteNav',{Resource:nav})
+                    .success(function(data){
+                        $scope.navs=data;
+                    });
+            }
+        });
+    </script>
+</body>
+</html>

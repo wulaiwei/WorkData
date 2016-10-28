@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8081EB6F-54CA-444C-9370-27BDCF73C33B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WorkData.Respository</RootNamespace>
+    <AssemblyName>WorkData.Respository</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extend\Audit\AlwaysAuditAttribute.cs" />
+    <Compile Include="Extend\Audit\AuditAction.cs" />
+    <Compile Include="Extend\Audit\AuditAttribute.cs" />
+    <Compile Include="Extend\Audit\AuditConfiguration.cs" />
+    <Compile Include="Extend\Audit\AuditEntity.cs" />
+    <Compile Include="Extend\Audit\AuditEntryState.cs" />
+    <Compile Include="Extend\Audit\AuditKey.cs" />
+    <Compile Include="Extend\Audit\AuditKeyCollection.cs" />
+    <Compile Include="Extend\Audit\AuditLog.cs" />
+    <Compile Include="Extend\Audit\AuditLogger.cs" />
+    <Compile Include="Extend\Audit\AuditProperty.cs" />
+    <Compile Include="Extend\Audit\AuditPropertyCollection.cs" />
+    <Compile Include="Extend\Audit\AuditPropertyFormatAttribute.cs" />
+    <Compile Include="Extend\Audit\NotAuditedAttribute.cs" />
+    <Compile Include="Extend\Batch\IBatchRunner.cs" />
+    <Compile Include="Extend\Batch\MySqlBatchRunner.cs" />
+    <Compile Include="Extend\Batch\OracleBatchRunner.cs" />
+    <Compile Include="Extend\Batch\SqlServerBatchRunner.cs" />
+    <Compile Include="Extend\Caching\CacheExpirationMode.cs" />
+    <Compile Include="Extend\Caching\CacheKey.cs" />
+    <Compile Include="Extend\Caching\CacheManager.cs" />
+    <Compile Include="Extend\Caching\CachePolicy.cs" />
+    <Compile Include="Extend\Caching\CacheTag.cs" />
+    <Compile Include="Extend\Caching\ICacheProvider.cs" />
+    <Compile Include="Extend\Caching\MemoryCacheProvider.cs" />
+    <Compile Include="Extend\Caching\Query\Evaluator.cs" />
+    <Compile Include="Extend\Caching\Query\LocalCollectionExpander.cs" />
+    <Compile Include="Extend\Caching\Query\QueryCache.cs" />
+    <Compile Include="Extend\Caching\Query\Utility.cs" />
+    <Compile Include="Extend\Container.cs" />
+    <Compile Include="Extend\Dynamic\DynamicQueryable.cs" />
+    <Compile Include="Extend\ExtendMap.cs" />
+    <Compile Include="Extend\Extensions\AuditExtensions.cs" />
+    <Compile Include="Extend\Extensions\BatchExtensions.cs" />
+    <Compile Include="Extend\Extensions\CacheExtensions.cs" />
+    <Compile Include="Extend\Extensions\DataRecordExtensions.cs" />
+    <Compile Include="Extend\Extensions\ExpressionExtensions.cs" />
+    <Compile Include="Extend\Extensions\FutureExtensions.cs" />
+    <Compile Include="Extend\Extensions\ObjectContextExtensions.cs" />
+    <Compile Include="Extend\Extensions\ObjectQueryExtensions.cs" />
+    <Compile Include="Extend\Future\FutureContext.cs" />
+    <Compile Include="Extend\Future\FutureCount.cs" />
+    <Compile Include="Extend\Future\FutureException.cs" />
+    <Compile Include="Extend\Future\FuturePlan.cs" />
+    <Compile Include="Extend\Future\FutureQuery.cs" />
+    <Compile Include="Extend\Future\FutureQueryBase.cs" />
+    <Compile Include="Extend\Future\FutureRunner.cs" />
+    <Compile Include="Extend\Future\FutureStore.cs" />
+    <Compile Include="Extend\Future\FutureValue.cs" />
+    <Compile Include="Extend\Future\IFutureContext.cs" />
+    <Compile Include="Extend\Future\IFutureQuery.cs" />
+    <Compile Include="Extend\Future\IFutureRunner.cs" />
+    <Compile Include="Extend\IContainer.cs" />
+    <Compile Include="Extend\IQueryUnwrapper.cs" />
+    <Compile Include="Extend\Locator.cs" />
+    <Compile Include="Extend\Mapping\EntityMap.cs" />
+    <Compile Include="Extend\Mapping\IMappingProvider.cs" />
+    <Compile Include="Extend\Mapping\MappingResolver.cs" />
+    <Compile Include="Extend\Mapping\MetadataMappingProvider.cs" />
+    <Compile Include="Extend\Mapping\PropertyMap.cs" />
+    <Compile Include="Extend\Reflection\DelegateFactory.cs" />
+    <Compile Include="Extend\Reflection\DynamicProxy.cs" />
+    <Compile Include="Extend\Reflection\FieldAccessor.cs" />
+    <Compile Include="Extend\Reflection\ILGeneratorExtensions.cs" />
+    <Compile Include="Extend\Reflection\IMemberAccessor.cs" />
+    <Compile Include="Extend\Reflection\IMemberInfo.cs" />
+    <Compile Include="Extend\Reflection\IMethodAccessor.cs" />
+    <Compile Include="Extend\Reflection\LateBinder.cs" />
+    <Compile Include="Extend\Reflection\MemberAccessor.cs" />
+    <Compile Include="Extend\Reflection\MethodAccessor.cs" />
+    <Compile Include="Extend\Reflection\ObjectCloner.cs" />
+    <Compile Include="Extend\Reflection\ObjectCopier.cs" />
+    <Compile Include="Extend\Reflection\PropertyAccessor.cs" />
+    <Compile Include="Extend\Reflection\ReflectionHelper.cs" />
+    <Compile Include="Extend\Reflection\TypeAccessor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Transactions\EfTransaction.cs" />
+    <Compile Include="UnitOfWorks\UnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WorkData.Infrastructure\WorkData.Infrastructure.csproj">
+      <Project>{d85f978c-0532-4bfb-9b23-1e4c7f802bdb}</Project>
+      <Name>WorkData.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Extend\Audit\Audit.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

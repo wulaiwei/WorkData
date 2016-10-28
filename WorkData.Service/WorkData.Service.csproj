@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E63DB642-BA87-4B3B-9472-7CEA70DB689C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WorkData.Service</RootNamespace>
+    <AssemblyName>WorkData.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.5.0\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoModules\ServiceModule.cs" />
+    <Compile Include="Impl\OperationService.cs" />
+    <Compile Include="Impl\ResourceService.cs" />
+    <Compile Include="Impl\RoleService.cs" />
+    <Compile Include="Impl\UserService.cs" />
+    <Compile Include="Interface\IOperationService.cs" />
+    <Compile Include="Interface\IResourceService.cs" />
+    <Compile Include="Interface\IRoleService.cs" />
+    <Compile Include="Interface\IUserService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\WorkData.Code\WorkData.Code.csproj">
+      <Project>{24a5e32a-9feb-42d9-921e-8e9b7cf9ccb7}</Project>
+      <Name>WorkData.Code</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WorkData.Dto\WorkData.Dto.csproj">
+      <Project>{c1b4b009-95c8-4a20-a0fb-d639fa3f9994}</Project>
+      <Name>WorkData.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WorkData.Ef.Domain\WorkData.EF.Domain.csproj">
+      <Project>{70d4ae41-b6e0-4ad0-a429-b9d1804d66fd}</Project>
+      <Name>WorkData.EF.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WorkData.Infrastructure\WorkData.Infrastructure.csproj">
+      <Project>{d85f978c-0532-4bfb-9b23-1e4c7f802bdb}</Project>
+      <Name>WorkData.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

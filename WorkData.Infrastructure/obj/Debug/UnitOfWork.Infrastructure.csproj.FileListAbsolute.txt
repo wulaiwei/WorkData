@@ -1,0 +1,14 @@
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitWork.DataRepository\bin\Debug\UnitOfWork.Infrastructure.dll
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitWork.DataRepository\bin\Debug\UnitOfWork.Infrastructure.pdb
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitWork.DataRepository\bin\Debug\EntityFramework.dll
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitWork.DataRepository\bin\Debug\EntityFramework.xml
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitWork.DataRepository\obj\Debug\UnitOfWork.Infrastructure.csprojResolveAssemblyReference.cache
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitWork.DataRepository\obj\Debug\UnitOfWork.Infrastructure.dll
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitWork.DataRepository\obj\Debug\UnitOfWork.Infrastructure.pdb
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Infrastructure\bin\Debug\UnitOfWork.Infrastructure.dll
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Infrastructure\bin\Debug\UnitOfWork.Infrastructure.pdb
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Infrastructure\bin\Debug\EntityFramework.dll
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Infrastructure\bin\Debug\EntityFramework.xml
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Infrastructure\obj\Debug\UnitOfWork.Infrastructure.csprojResolveAssemblyReference.cache
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Infrastructure\obj\Debug\UnitOfWork.Infrastructure.dll
+G:\PersonGit\UnitWork\UnitWork.Demo\UnitOfWork.Infrastructure\obj\Debug\UnitOfWork.Infrastructure.pdb

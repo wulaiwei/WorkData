@@ -1,0 +1,17 @@
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.Code.dll
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.Code.pdb
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\Autofac.dll
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\AutoMapper.dll
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\Newtonsoft.Json.dll
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.Infrastructure.dll
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.Respository.dll
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\EntityFramework.dll
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.Infrastructure.pdb
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.Respository.pdb
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\AutoMapper.xml
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\Newtonsoft.Json.xml
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\EntityFramework.xml
+G:\PersonGit\WorkData\WorkData.Code\obj\Debug\WorkData.Code.csprojResolveAssemblyReference.cache
+G:\PersonGit\WorkData\WorkData.Code\obj\Debug\WorkData.Code.dll
+G:\PersonGit\WorkData\WorkData.Code\obj\Debug\WorkData.Code.pdb
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\Common.Logging.Core.dll
