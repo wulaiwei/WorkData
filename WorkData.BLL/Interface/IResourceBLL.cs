@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WorkData.Dto.Entity;
+using WorkData.Util.Entity;
 
 namespace WorkData.BLL.Interface
 {
@@ -26,40 +27,47 @@ namespace WorkData.BLL.Interface
         HtmlString CreateTopResourceHtml(int parentId = 0);
 
         /// <summary>
-        /// 查询列表
+        /// 获取资源树+延迟加载
         /// </summary>
+        /// <param name="isAll"></param>
+        /// <param name="includeName"></param>
+        /// <param name="parentId"></param>
         /// <returns></returns>
-        IList<ResourceDto> GetSourceTree(int parentId = 0);
+        IList<ResourceDto> GetSourceTree(bool isAll, string includeName, int parentId = 0);
+
+        /// <summary>
+        /// 查询实体
+        /// </summary>
+        /// <param name="saveState"></param>
+        /// <returns></returns>
+        ResourceDto Query(SaveState saveState);
 
         /// <summary>
         /// 查询列表
         /// </summary>
         /// <returns></returns>
-        IQueryable<ResourceDto> GetList();
+        IEnumerable<ResourceDto> GetList();
 
         /// <summary>
-        /// 查询列表
+        /// 保存
         /// </summary>
+        /// <param name="saveState"></param>
+        /// <returns></returns>
+        ResourceDto HttpGetSave(SaveState saveState);
+
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <param name="resourceDto"></param>
+        /// <param name="saveState"></param>
         /// <param name="array"></param>
         /// <returns></returns>
-        IQueryable<ResourceDto> GetList(int[] array);
+        void HttpPostSave(ResourceDto resourceDto, SaveState saveState,int[] array);
 
         /// <summary>
-        /// 新增
+        /// Ajax更新
         /// </summary>
-        /// <param name="entity"></param>
-        void Add(ResourceDto entity);
-
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="entity"></param>
-        void Remove(ResourceDto entity);
-
-        /// <summary>
-        /// 更新
-        /// </summary>
-        /// <param name="entity"></param>
-        void Update(ResourceDto entity);
+        /// <param name="resourceDto"></param>
+        void AjaxUpdate(ResourceDto resourceDto);
     }
 }

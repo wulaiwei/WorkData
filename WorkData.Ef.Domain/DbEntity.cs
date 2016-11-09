@@ -26,13 +26,13 @@ namespace WorkData.EF.Domain
         public DbEntity()
                 : base("name=Connection")
         {
-            //this.Configuration.AutoDetectChangesEnabled = true;//对多对多，一对多进行curd操作时需要为true
-            //this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.AutoDetectChangesEnabled = true;//对多对多，一对多进行curd操作时需要为true
+            this.Configuration.LazyLoadingEnabled = false;
             //this.Configuration.AutoDetectChangesEnabled = false;//禁止状态追踪
             //this.Configuration.ProxyCreationEnabled = false;//禁止动态拦截System.Data.Entity.DynamicProxies.
             //自动创建表，如果Entity有改到就更新到表结构
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<DbEntity, Configuration>());
-            Database.SetInitializer<DbEntity>(null);
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DbEntity, Configuration>());
+            //Database.SetInitializer<DbEntity>(null);
         }
 
         #region 关联数据上下文

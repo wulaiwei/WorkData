@@ -1,4 +1,3 @@
-using EFDTO.Entity;
 using System.Collections.Generic;
 
 namespace WorkData.Dto.Entity
@@ -8,7 +7,7 @@ namespace WorkData.Dto.Entity
         public PrivilegeDto()
         {
             this.Roles = new List<RoleDto>();
-            this.Users = new List<UserDto>();
+            //this.Users = new List<UserDto>();
         }
 
         /// <summary>
@@ -34,7 +33,7 @@ namespace WorkData.Dto.Entity
         public OperationDto Operation { get; set; }
         public ResourceDto Resource { get; set; }
         public ICollection<RoleDto> Roles { get; set; }
-        public ICollection<UserDto> Users { get; set; }
+        //public ICollection<UserDto> Users { get; set; }
 
         #endregion Íâ¼ü
     }

@@ -21,6 +21,10 @@ namespace WorkData.EF.Domain.Mapping
                 .IsRequired()
                 .HasMaxLength(250);
 
+            this.Property(t => t.Salt)
+                .IsRequired()
+                .HasMaxLength(5);
+
             this.Property(t => t.Name)
                 .HasMaxLength(200);
 
@@ -41,6 +45,8 @@ namespace WorkData.EF.Domain.Mapping
             this.Property(t => t.UserId).HasColumnName("USER_ID");
             this.Property(t => t.LoginName).HasColumnName("LOGIN_NAME");
             this.Property(t => t.Password).HasColumnName("PASSWORD");
+            this.Property(t => t.Salt).HasColumnName("SALT");
+            this.Property(t => t.IsLock).HasColumnName("IS_LOCK");
             this.Property(t => t.Name).HasColumnName("NAME");
             this.Property(t => t.CellPhone).HasColumnName("CELL_PHONE");
             this.Property(t => t.Email).HasColumnName("EMAIL");
@@ -49,21 +55,21 @@ namespace WorkData.EF.Domain.Mapping
             this.Property(t => t.WeiChatNumber).HasColumnName("WEICHAT_NUMBER");
             this.Property(t => t.AddTime).HasColumnName("ADD_TIME");
 
-            this.HasMany(t => t.Privileges)
-                .WithMany(t => t.Users)
-                .Map(m =>
-                {
-                    m.ToTable("EF_USER_PRIVILEGE");
-                    m.MapLeftKey("USER_ID");
-                    m.MapRightKey("PRIVILEGE_ID");
-                });
+            //this.HasMany(t => t.Privileges)
+            //    .WithMany(t => t.Users)
+            //    .Map(m =>
+            //    {
+            //        m.ToTable("EF_USER_PRIVILEGE");
+            //        m.MapLeftKey("USER_ID");
+            //        m.MapRightKey("PRIVILEGE_ID");
+            //    });
 
             this.HasMany(p => p.Roles)
               .WithMany(c => c.Users)
             .Map(manyToMany => manyToMany
               .ToTable("EF_USER_ROLE", "dbo")
-              .MapLeftKey("ROLE_ID")
-              .MapRightKey("USER_ID"));
+              .MapLeftKey("USER_ID")
+              .MapRightKey("ROLE_ID"));
         }
     }
 }

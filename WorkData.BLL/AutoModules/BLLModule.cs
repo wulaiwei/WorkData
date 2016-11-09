@@ -20,6 +20,10 @@ namespace WorkData.BLL.AutoModules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ResourceBll>().As<IResourceBll>();
+            builder.RegisterType<OperationBll>().As<IOperationBll>();
+            builder.RegisterType<RoleBll>().As<IRoleBll>();
+            builder.RegisterType<UserBll>().As<IUserBll>();
+
         }
     }
 }

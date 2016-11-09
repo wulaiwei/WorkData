@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using EFModel.Entity;
 using System.Linq;
 using WorkData.Dto.Entity;
+using WorkData.EF.Domain.Entity;
 
 namespace WorkData.Dto.Profiles
 {

@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using WorkData.Util.Entity;
 
 namespace WorkData.Infrastructure.IRepositories
 {
@@ -28,11 +29,17 @@ namespace WorkData.Infrastructure.IRepositories
 
         T Get(Expression<Func<T, bool>> where);
 
+        T Get(Expression<Func<T, bool>> where, string includeName);
+
         IQueryable<T> Query();
+
+        IQueryable<T> Page(PageEntity pageEntity,Expression<Func<T, bool>> where);
 
         IQueryable<T> Query(Expression<Func<T, bool>> where);
 
-        IQueryable<T> Query(Expression<Func<T, bool>> where, Expression<Func<T, bool>> orderBy);
+        IQueryable<T> Query(Expression<Func<T, bool>> where, string includeName);
+
+        IQueryable<T> Query(Expression<Func<T, bool>> where, Expression<Func<T, object>> orderBy);
 
         void BatchDelete(IEnumerable<T> entitys);
 
@@ -43,5 +50,6 @@ namespace WorkData.Infrastructure.IRepositories
         void Attach(T entity);
 
         void Unchanged(T entity);
+
     }
 }

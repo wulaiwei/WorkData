@@ -37,6 +37,7 @@ namespace WorkData.Web
 
             var builder = new ContainerBuilder();
 
+
             builder.RegisterModule(new ConfigurationSettingsReader("autofac"));
 
             builder.RegisterControllers(Assembly.GetExecutingAssembly());

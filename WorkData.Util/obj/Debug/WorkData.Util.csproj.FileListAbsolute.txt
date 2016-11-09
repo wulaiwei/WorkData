@@ -1,0 +1,11 @@
+G:\PersonGit\WorkData\WorkData.Util\bin\Debug\WorkData.Util.dll
+G:\PersonGit\WorkData\WorkData.Util\bin\Debug\WorkData.Util.pdb
+G:\PersonGit\WorkData\WorkData.Util\bin\Debug\Newtonsoft.Json.dll
+G:\PersonGit\WorkData\WorkData.Util\bin\Debug\Webdiyer.MvcPager.dll
+G:\PersonGit\WorkData\WorkData.Util\bin\Debug\Newtonsoft.Json.xml
+G:\PersonGit\WorkData\WorkData.Util\bin\Debug\Webdiyer.MvcPager.xml
+G:\PersonGit\WorkData\WorkData.Util\bin\Debug\zh-CHS\Webdiyer.MvcPager.resources.dll
+G:\PersonGit\WorkData\WorkData.Util\bin\Debug\zh-CHT\Webdiyer.MvcPager.resources.dll
+G:\PersonGit\WorkData\WorkData.Util\obj\Debug\WorkData.Util.dll
+G:\PersonGit\WorkData\WorkData.Util\obj\Debug\WorkData.Util.pdb
+G:\PersonGit\WorkData\WorkData.Util\obj\Debug\WorkData.Util.csprojResolveAssemblyReference.cache

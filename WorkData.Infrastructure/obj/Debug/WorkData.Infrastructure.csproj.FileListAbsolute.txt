@@ -6,6 +6,14 @@ G:\PersonGit\WorkData\WorkData\WorkData.Infrastructure\obj\Debug\WorkData.Infras
 G:\PersonGit\WorkData\WorkData\WorkData.Infrastructure\obj\Debug\WorkData.Infrastructure.pdb
 G:\PersonGit\WorkData\WorkData.Infrastructure\bin\Debug\WorkData.Infrastructure.dll
 G:\PersonGit\WorkData\WorkData.Infrastructure\bin\Debug\WorkData.Infrastructure.pdb
+G:\PersonGit\WorkData\WorkData.Infrastructure\bin\Debug\WorkData.Util.dll
+G:\PersonGit\WorkData\WorkData.Infrastructure\bin\Debug\Newtonsoft.Json.dll
+G:\PersonGit\WorkData\WorkData.Infrastructure\bin\Debug\Webdiyer.MvcPager.dll
+G:\PersonGit\WorkData\WorkData.Infrastructure\bin\Debug\WorkData.Util.pdb
+G:\PersonGit\WorkData\WorkData.Infrastructure\bin\Debug\Newtonsoft.Json.xml
+G:\PersonGit\WorkData\WorkData.Infrastructure\bin\Debug\Webdiyer.MvcPager.xml
+G:\PersonGit\WorkData\WorkData.Infrastructure\bin\Debug\zh-CHS\Webdiyer.MvcPager.resources.dll
+G:\PersonGit\WorkData\WorkData.Infrastructure\bin\Debug\zh-CHT\Webdiyer.MvcPager.resources.dll
+G:\PersonGit\WorkData\WorkData.Infrastructure\obj\Debug\WorkData.Infrastructure.csprojResolveAssemblyReference.cache
 G:\PersonGit\WorkData\WorkData.Infrastructure\obj\Debug\WorkData.Infrastructure.dll
 G:\PersonGit\WorkData\WorkData.Infrastructure\obj\Debug\WorkData.Infrastructure.pdb
-G:\PersonGit\WorkData\WorkData.Infrastructure\obj\Debug\WorkData.Infrastructure.csprojResolveAssemblyReference.cache

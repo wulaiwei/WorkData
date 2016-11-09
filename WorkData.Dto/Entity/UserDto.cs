@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using WorkData.Dto.Entity;
 
-namespace EFDTO.Entity
+namespace WorkData.Dto.Entity
 {
     public sealed partial class UserDto
     {
         public UserDto()
         {
-            this.Privileges = new List<PrivilegeDto>();
+            //this.Privileges = new List<PrivilegeDto>();
             this.Roles = new List<RoleDto>();
         }
 
@@ -23,6 +22,16 @@ namespace EFDTO.Entity
         /// </summary>
 
         public string LoginName { get; set; }
+
+        /// <summary>
+        /// 是否锁定
+        /// </summary>
+        public bool IsLock { get; set; }
+
+        /// <summary>
+        /// 盐值
+        /// </summary>
+        public string Salt { get; set; }
 
         /// <summary>
         ///密码
@@ -73,7 +82,7 @@ namespace EFDTO.Entity
         public DateTime? AddTime { get; set; }
 
         #region 外键
-        public ICollection<PrivilegeDto> Privileges { get; set; }
+        //public ICollection<PrivilegeDto> Privileges { get; set; }
         public ICollection<RoleDto> Roles { get; set; }
 
         #endregion 外键

@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using WorkData.Dto.Entity;
+using WorkData.Util.Entity;
 
 namespace WorkData.Service.Interface
 {
@@ -22,14 +23,21 @@ namespace WorkData.Service.Interface
         /// 查询列表
         /// </summary>
         /// <returns></returns>
-        IQueryable<OperationDto> GetList();
+        IList<OperationDto> GetList();
 
         /// <summary>
         /// 查询列表
         /// </summary>
-        /// <param name="array"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
-        IQueryable<OperationDto> GetList(int[] array);
+        IList<OperationDto> GetList(bool status);
+
+        /// <summary>
+        /// 分页
+        /// </summary>
+        /// <param name="pageEntity"></param>
+        /// <returns></returns>
+        IEnumerable<OperationDto> Page(PageEntity pageEntity);
 
         /// <summary>
         /// 新增
@@ -40,13 +48,27 @@ namespace WorkData.Service.Interface
         /// <summary>
         /// 删除
         /// </summary>
-        /// <param name="entity"></param>
-        void Remove(OperationDto entity);
+        /// <param name="key"></param>
+        void Remove(object key);
 
         /// <summary>
         /// 更新
         /// </summary>
         /// <param name="entity"></param>
         void Update(OperationDto entity);
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        OperationDto Query(object key);
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        OperationDto Query(string param);
     }
 }

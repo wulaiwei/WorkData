@@ -1,4 +1,4 @@
-/*******************************************************************************
+﻿/*******************************************************************************
 * KindEditor - WYSIWYG HTML Editor for Internet
 * Copyright (C) 2006-2011 kindsoft.net
 *
@@ -959,7 +959,7 @@ KindEditor.plugin('multiimage', function (K) {
         this.callFlash("SetButtonTextPadding", [left, top]);
     };
 
-    // Public: setButtonTextStyle changes the CSS used to style the HTML/Text overlaid on the button
+    // Public: setButtonTextStyle changes the CSS used to style the HTML/text overlaid on the button
     SWFUpload.prototype.setButtonTextStyle = function (css) {
         this.settings.button_text_style = css;
         this.callFlash("SetButtonTextStyle", [css]);

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using EFDTO.Entity;
 using System.Linq;
+using WorkData.Dto.Entity;
 using WorkData.EF.Domain.Entity;
 
 namespace WorkData.Dto.Profiles
@@ -10,12 +10,12 @@ namespace WorkData.Dto.Profiles
         protected override void Configure()
         {
             CreateMap<UserDto, User>()
-                .ForMember(d => d.Roles, map => map.MapFrom(m => m.Roles.ToList()))
-                .ForMember(d => d.Privileges, map => map.MapFrom(m => m.Privileges.ToList()));
+                .ForMember(d => d.Roles, map => map.MapFrom(m => m.Roles.ToList()));
+            //.ForMember(d => d.Privileges, map => map.MapFrom(m => m.Privileges.ToList()));
 
             CreateMap<User, UserDto>()
-                .ForMember(d => d.Roles, map => map.MapFrom(m => m.Roles.ToList()))
-                .ForMember(d => d.Privileges, map => map.MapFrom(m => m.Privileges.ToList()));
+                .ForMember(d => d.Roles, map => map.MapFrom(m => m.Roles.ToList()));
+                //.ForMember(d => d.Privileges, map => map.MapFrom(m => m.Privileges.ToList()));
         }
     }
 }

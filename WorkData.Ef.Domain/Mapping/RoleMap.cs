@@ -36,7 +36,8 @@ namespace WorkData.EF.Domain.Mapping
                     m.ToTable("EF_ROLE_PRIVILEGE");
                     m.MapLeftKey("ROLE_ID");
                     m.MapRightKey("PRIVILEGE_ID");
-                });
+                })
+                ;
         }
     }
 }

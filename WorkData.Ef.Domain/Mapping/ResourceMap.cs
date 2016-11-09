@@ -1,6 +1,6 @@
-using EFModel.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
+using WorkData.EF.Domain.Entity;
 
 namespace WorkData.EF.Domain.Mapping
 {
@@ -38,9 +38,6 @@ namespace WorkData.EF.Domain.Mapping
 
             this.Property(t => t.ResourceImg)
                 .HasMaxLength(200);
-
-            // Ignore
-            this.Ignore(t => t.OperationList);
         }
     }
 }

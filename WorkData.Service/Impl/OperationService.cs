@@ -11,6 +11,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using WorkData.Code.AutoMapper;
@@ -19,42 +20,69 @@ using WorkData.EF.Domain.Entity;
 using WorkData.Infrastructure.IRepositories;
 using WorkData.Infrastructure.IUnitOfWorks;
 using WorkData.Service.Interface;
+using WorkData.Util.Entity;
 
 namespace WorkData.Service.Impl
 {
     public class OperationService: IOperationService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IRepository<Operation> _operationRepository;
 
         public OperationService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _operationRepository = unitOfWork.Repository<Operation>();
+
         }
 
         /// <summary>
         /// 查询列表
         /// </summary>
         /// <returns></returns>
-        public IQueryable<OperationDto> GetList()
+        public IList<OperationDto> GetList()
         {
-            var infoList = _operationRepository.Query();
+            using (_unitOfWork)
+            {
+                var repository = _unitOfWork.Repository<Operation>();
+                var infoList = repository.Query(); ;
 
-            return AutoMapperHelper.Queryable<Operation,OperationDto>(infoList);
+                return AutoMapperHelper.List<Operation, OperationDto>(infoList.ToList());
+            }
         }
 
         /// <summary>
         /// 查询列表
         /// </summary>
-        /// <param name="array"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
-        public IQueryable<OperationDto> GetList(int[] array)
+        public IList<OperationDto> GetList(bool status)
         {
-            Expression<Func<Operation, bool>> where = w => array.Contains(w.OperationId);
-            var infoList = _operationRepository.Query(where);
+            using (_unitOfWork)
+            {
+                var repository = _unitOfWork.Repository<Operation>();
+                Expression<Func<Operation, bool>> where = w => w.Status == status;
 
-            return AutoMapperHelper.Queryable<Operation, OperationDto>(infoList);
+                var infoList = repository.Query(where);
+
+                return AutoMapperHelper.List<Operation, OperationDto>(infoList.ToList());
+            }
+        }
+
+        /// <summary>
+        /// 分页
+        /// </summary>
+        /// <param name="pageEntity"></param>
+        /// <returns></returns>
+        public IEnumerable<OperationDto> Page(PageEntity pageEntity)
+        {
+            using (_unitOfWork)
+            {
+                var repository = _unitOfWork.Repository<Operation>();
+                Expression<Func<Operation, bool>> where = w => w.Status;
+
+                var infoList = repository.Page(pageEntity, where);
+
+                return AutoMapperHelper.Enumerable<Operation, OperationDto>(infoList);
+            }
         }
 
         /// <summary>
@@ -66,7 +94,8 @@ namespace WorkData.Service.Impl
             using (_unitOfWork)
             {
                 var info = AutoMapperHelper.Signle<OperationDto,Operation>(entity);
-                _operationRepository.Add(info);
+                var repository = _unitOfWork.Repository<Operation>();
+                repository.Add(info);
 
                 _unitOfWork.Commit();
 
@@ -74,18 +103,20 @@ namespace WorkData.Service.Impl
         }
 
         /// <summary>
-        /// 删除
+        /// 删除（逻辑删除）
         /// </summary>
-        /// <param name="entity"></param>
-        public void Remove(OperationDto entity)
+        /// <param name="key"></param>
+        public void Remove(object key)
         {
             using (_unitOfWork)
             {
-                var info = AutoMapperHelper.Signle<OperationDto, Operation>(entity);
-                _operationRepository.Delete(info);
+                var repository = _unitOfWork.Repository<Operation>();
+                var info = repository.Get(Convert.ToInt32(key));
+
+                info.Status = false;
+                repository.Update(info);
 
                 _unitOfWork.Commit();
-
             }
         }
 
@@ -98,9 +129,45 @@ namespace WorkData.Service.Impl
             using (_unitOfWork)
             {
                 var info = AutoMapperHelper.Signle<OperationDto, Operation>(entity);
-                _operationRepository.Update(info);
+
+                var repository = _unitOfWork.Repository<Operation>();
+                repository.Update(info);
 
                 _unitOfWork.Commit();
+            }
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public OperationDto Query(object key)
+        {
+            using (_unitOfWork)
+            {
+                var repository = _unitOfWork.Repository<Operation>();
+                var operation = repository.Get(Convert.ToInt32(key));
+
+                return AutoMapperHelper.Signle<Operation, OperationDto>(operation);
+            }
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public OperationDto Query(string param)
+        {
+            using (_unitOfWork)
+            {
+                var repository = _unitOfWork.Repository<Operation>();
+
+                Expression<Func<Operation, bool>> where = w => w.Code == param;
+                var operation = repository.Get(where);
+
+                return AutoMapperHelper.Signle<Operation, OperationDto>(operation);
             }
         }
     }

@@ -40,7 +40,7 @@ function CheckOrDelete(url) {
         if (result == "True") {
             document.location.reload();//当前页面
         }
-    })
+    });
 }
 
 //删除频道信息
@@ -48,7 +48,7 @@ function DeleteChannel(url) {
     var list = GetAllCheckedID();
     $.post(url, { data: list }, function (result) {
         jsdialog(result);
-    })
+    });
 }
 
 //获取所有选中项的ID

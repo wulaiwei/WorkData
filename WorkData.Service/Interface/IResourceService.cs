@@ -21,37 +21,48 @@ namespace WorkData.Service.Interface
         /// 查询列表
         /// </summary>
         /// <returns></returns>
-        IList<ResourceDto> GetSourceTree(int parentId=0);
+        IList<ResourceDto> GetSourceTree(bool isAll,string includeName, int parentId = 0, bool isLock = false);
 
         /// <summary>
         /// 查询列表
         /// </summary>
         /// <returns></returns>
-        IQueryable<ResourceDto> GetList();
+        IEnumerable<ResourceDto> GetList();
+
 
         /// <summary>
-        /// 查询列表
+        /// 查询
         /// </summary>
-        /// <param name="array"></param>
+        /// <param name="key"></param>
+        /// <param name="includeName"></param>
         /// <returns></returns>
-        IQueryable<ResourceDto> GetList(int[] array);
+        ResourceDto Query(object key, string includeName);
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        ResourceDto Query(object key);
 
         /// <summary>
         /// 新增
         /// </summary>
         /// <param name="entity"></param>
-        void Add(ResourceDto entity);
+        /// <param name="array"></param>
+        void Add(ResourceDto entity,int[] array);
 
         /// <summary>
         /// 删除
         /// </summary>
-        /// <param name="entity"></param>
-        void Remove(ResourceDto entity);
+        /// <param name="key"></param>
+        void Remove(object key);
 
         /// <summary>
         /// 更新
         /// </summary>
         /// <param name="entity"></param>
-        void Update(ResourceDto entity);
+        /// <param name="array"></param>
+        void Update(ResourceDto entity, int[] array);
     }
 }

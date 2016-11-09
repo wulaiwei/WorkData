@@ -46,7 +46,12 @@
     <Compile Include="IUnitOfWorks\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\WorkData.Util\WorkData.Util.csproj">
+      <Project>{0e23559e-4a82-4f1e-b124-e5ec85d75689}</Project>
+      <Name>WorkData.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

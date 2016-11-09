@@ -31,7 +31,7 @@ KindEditor.lang({
     formatblock: 'Paragraph format',
     fontname: 'Font family',
     fontsize: 'Font size',
-    forecolor: 'Text color',
+    forecolor: 'text color',
     hilitecolor: 'Highlight color',
     bold: 'Bold(Ctrl+B)',
     italic: 'Italic(Ctrl+I)',
@@ -227,7 +227,7 @@ KindEditor.lang({
     'template.selectTemplate': 'Template',
     'template.replaceContent': 'Replace current content',
     'template.fileList': {
-        '1.html': 'Image and Text',
+        '1.html': 'Image and text',
         '2.html': 'Table',
         '3.html': 'List'
     }

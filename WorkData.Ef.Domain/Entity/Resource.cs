@@ -1,8 +1,7 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
-using WorkData.EF.Domain.Entity;
+using Newtonsoft.Json;
 
-namespace EFModel.Entity
+namespace WorkData.EF.Domain.Entity
 {
     public sealed class Resource
     {
@@ -63,11 +62,6 @@ namespace EFModel.Entity
         /// </summary>
 
         public bool HasLevel { get; set; }
-
-        /// <summary>
-        /// 操作列表
-        /// </summary>
-        public List<Operation> OperationList { get; set; }
 
         #region 外键
 

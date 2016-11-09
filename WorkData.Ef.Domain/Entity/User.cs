@@ -7,7 +7,7 @@ namespace WorkData.EF.Domain.Entity
     {
         public User()
         {
-            this.Privileges = new List<Privilege>();
+            //this.Privileges = new List<Privilege>();
             this.Roles = new List<Role>();
         }
 
@@ -28,6 +28,16 @@ namespace WorkData.EF.Domain.Entity
         /// </summary>
 
         public string Password { get; set; }
+
+        /// <summary>
+        /// 是否锁定
+        /// </summary>
+        public bool IsLock { get; set; }
+
+        /// <summary>
+        /// 盐值
+        /// </summary>
+        public string Salt { get; set; }
 
         /// <summary>
         ///真实姓名
@@ -72,7 +82,7 @@ namespace WorkData.EF.Domain.Entity
         public DateTime? AddTime { get; set; }
 
         #region 外键
-        public ICollection<Privilege> Privileges { get; set; }
+        //public ICollection<Privilege> Privileges { get; set; }
         public ICollection<Role> Roles { get; set; }
 
         #endregion 外键

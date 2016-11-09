@@ -62,11 +62,6 @@ namespace WorkData.Dto.Entity
 
         public bool HasLevel { get; set; }
 
-        /// <summary>
-        /// 操作列表
-        /// </summary>
-        public List<OperationDto> OperationList { get; set; }
-
         #region 外键
 
         public ICollection<PrivilegeDto> Privileges { get; set; }

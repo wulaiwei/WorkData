@@ -4,7 +4,9 @@ using System.Data.Entity;
 using System.Data.Entity.Extensions;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using WorkData.Infrastructure.IRepositories;
+using WorkData.Util.Entity;
 
 namespace WorkData.Respository.Repositories
 {
@@ -135,6 +137,7 @@ namespace WorkData.Respository.Repositories
 
         #endregion 批量 增删改操作
 
+        #region 查询
         /// <summary>
         /// 是否存在
         /// </summary>
@@ -179,7 +182,7 @@ namespace WorkData.Respository.Repositories
         }
 
         /// <summary>
-        /// 查询列表
+        /// 查询
         /// </summary>
         /// <returns></returns>
         public IQueryable<T> Query()
@@ -188,7 +191,7 @@ namespace WorkData.Respository.Repositories
         }
 
         /// <summary>
-        /// 查询列表
+        /// 查询（条件）
         /// </summary>
         /// <param name="where"></param>
         /// <returns></returns>
@@ -197,10 +200,88 @@ namespace WorkData.Respository.Repositories
             return _dbSet.Where(where).AsNoTracking();
         }
 
+        /// <summary>
+        /// 查询  +  延迟加载
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="includeName"></param>
+        /// <returns></returns>
+        public IQueryable<T> Query(Expression<Func<T, bool>> @where, string includeName)
+        {
+            return _dbSet.Where(where).Include(includeName).AsNoTracking();
+        }
 
-        public IQueryable<T> Query(Expression<Func<T, bool>> where, Expression<Func<T, bool>> orderBy)
+
+        /// <summary>
+        /// 查询  （条件+排序）
+        /// </summary>
+        /// <param name="where"></param>
+        /// <param name="orderBy"></param>
+        /// <returns></returns>
+        public IQueryable<T> Query(Expression<Func<T, bool>> where, Expression<Func<T, object>> orderBy)
         {
             return _dbSet.Where(where).OrderBy(orderBy).AsNoTracking();
         }
+
+        /// <summary>
+        /// 分页
+        /// </summary>
+        /// <param name="pageEntity"></param>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        public IQueryable<T> Page(PageEntity pageEntity, Expression<Func<T, bool>> where)
+        {
+            var queryable = _dbSet.Where(where).AsQueryable().AsNoTracking();
+            pageEntity.Records = queryable.Count();
+
+            var infoList = OrderByIQueryable(queryable, pageEntity.Sidx, pageEntity.Sord)
+                .Skip((pageEntity.PageIndex - 1) * pageEntity.PageSize)
+                .Take(pageEntity.PageSize);
+
+            return infoList;
+        }
+
+        /// <summary>
+        /// 分页
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="queryable"></param>
+        /// <param name="orderByStr"></param>
+        /// <param name="orderByMode"></param>
+        /// <returns></returns>
+        private static IQueryable<T> OrderByIQueryable<T>(IQueryable<T> queryable, string orderByStr, string orderByMode)
+        {
+            MethodCallExpression resultExp = null;
+            var sidxSplit = orderByStr.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var field in sidxSplit)
+            {
+                var orderByPart = Regex.Replace(field, @"\s+", " ");
+                var orderArray = orderByPart.Split(' ');
+                var orderField = orderArray[0];
+                var isAsc = orderByMode.ToUpper() == "ASC";
+                if (orderArray.Length == 2)
+                {
+                    isAsc = orderArray[1].ToUpper() == "ASC";
+                }
+                var orderByMethodName = isAsc ? "OrderBy" : "OrderByDescending";
+                var entityType = typeof(T);
+                var queryableType = typeof(Queryable);
+                var parameter = Expression.Parameter(entityType, "t");
+                var property = entityType.GetProperty(orderField);
+                var propertyAccess = Expression.MakeMemberAccess(parameter, property);
+                var orderByExpression = Expression.Lambda(propertyAccess, parameter);
+                var typeArguments = new[] { entityType, property.PropertyType };
+                var arguments = new[] {
+                    queryable.Expression,
+                    Expression.Quote(orderByExpression)
+                };
+                resultExp = Expression.Call(queryableType, orderByMethodName, typeArguments, arguments);
+            }
+
+
+            return queryable.Provider.CreateQuery<T>(resultExp);
+        }
+
+        #endregion
     }
 }

@@ -61,7 +61,7 @@ function loadMenuTree(_islink) {
     }
     //发送AJAX请求
     $.ajax({
-        type: "post",
+        type: "get",
         url: "/Admin/Resource/Resource",
         dataType: "html",
         success: function (data, textStatus) {

@@ -62,7 +62,6 @@
     <Compile Include="Helpers\CommonHelper.cs" />
     <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
-    <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\MailHelper.cs" />
     <Compile Include="Helpers\PageCacheHelper.cs" />
     <Compile Include="Helpers\RandomGenerator.cs" />

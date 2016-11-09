@@ -16,6 +16,8 @@ using System.Web;
 using WorkData.BLL.Interface;
 using WorkData.Dto.Entity;
 using WorkData.Service.Interface;
+using WorkData.Util.Entity;
+using WorkData.Util.Enum;
 
 namespace WorkData.BLL.Impl
 {
@@ -27,11 +29,16 @@ namespace WorkData.BLL.Impl
             _resourceService = resourceService;
         }
 
+        /// <summary>
+        /// 生成Html结构的Resource树
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
         HtmlString IResourceBll.CreateTopResourceHtml(int parentId)
         {
             var sb = new StringBuilder();
 
-            var infoList = _resourceService.GetSourceTree(parentId);
+            var infoList = _resourceService.GetSourceTree(false, null,parentId);
             var topList = infoList.Where(x => x.Layer == 0);
             foreach (var item in topList)
             {
@@ -53,38 +60,103 @@ namespace WorkData.BLL.Impl
             return new HtmlString(sb.ToString());
         }
 
-        public IList<ResourceDto> GetSourceTree(int parentId = 0)
+
+        /// <summary>
+        /// 获取资源树
+        /// </summary>
+        /// <param name="isAll"></param>
+        /// <param name="includeName"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        public IList<ResourceDto> GetSourceTree(bool isAll,string includeName, int parentId = 0)
         {
-            throw new System.NotImplementedException();
+            return _resourceService.GetSourceTree(isAll, includeName, parentId);
         }
 
-
-
-        public IQueryable<ResourceDto> GetList()
+        /// <summary>
+        ///  获取列表
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ResourceDto> GetList()
         {
-            throw new System.NotImplementedException();
+            return _resourceService.GetList();
         }
 
-        public IQueryable<ResourceDto> GetList(int[] array)
+        /// <summary>
+        /// 查询实体
+        /// </summary>
+        /// <param name="saveState"></param>
+        /// <returns></returns>
+        public ResourceDto Query(SaveState saveState)
         {
-            throw new System.NotImplementedException();
+            var resourceDto = new ResourceDto();
+            return saveState.OperationState == OperationState.Add ?
+                resourceDto :
+                _resourceService.Query(saveState.Key, "Privileges");
         }
 
-        public void Add(ResourceDto entity)
+        /// <summary>
+        /// Get请求处理
+        /// </summary>
+        /// <param name="saveState"></param>
+        /// <returns></returns>
+        public ResourceDto HttpGetSave(SaveState saveState)
         {
-            throw new System.NotImplementedException();
+            var resourceDto = new ResourceDto();
+            switch (saveState.OperationState)
+            {
+                case OperationState.Add:
+                    break;
+                case OperationState.Update:
+                    resourceDto = _resourceService.Query(saveState.Key);
+                    break;
+                case OperationState.Remove:
+                    _resourceService.Remove(saveState.Key);
+                    break;
+                default:
+                    break;
+            }
+            return resourceDto;
         }
 
-        public void Remove(ResourceDto entity)
+        /// <summary>
+        /// Post请求处理
+        /// </summary>
+        /// <param name="resourceDto"></param>
+        /// <param name="saveState"></param>
+        /// <param name="array"></param>
+        public void HttpPostSave(ResourceDto resourceDto, SaveState saveState, int[] array)
         {
-            throw new System.NotImplementedException();
+            var parentResource = _resourceService.Query((object)resourceDto.ParentId);
+
+            switch (saveState.OperationState)
+            {
+                case OperationState.Add:
+                    if (parentResource != null) resourceDto.Layer = parentResource.Layer + 1;
+                    _resourceService.Add(resourceDto, array);
+                    break;
+                case OperationState.Update:
+                    _resourceService.Update(resourceDto, array);
+                    break;
+                default:
+                    break;
+            }
+
+            if (parentResource != null)
+            {
+                parentResource.HasLevel = true;
+                _resourceService.Update(parentResource,null);
+            }
         }
 
-        public void Update(ResourceDto entity)
+        /// <summary>
+        /// Ajax保存
+        /// </summary>
+        /// <param name="resourceDto"></param>
+        public void AjaxUpdate(ResourceDto resourceDto)
         {
-            throw new System.NotImplementedException();
+            _resourceService.Update(resourceDto,null);
         }
-
 
         #region 私有方法
         /// <summary>

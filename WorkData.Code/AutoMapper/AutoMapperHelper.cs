@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,27 +46,15 @@ namespace WorkData.Code.AutoMapper
         }
 
         /// <summary>
-        /// IQueryable实体映射
+        /// IEnumerable实体映射
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TS"></typeparam>
         /// <param name="sources"></param>
         /// <returns></returns>
-        public static IQueryable<T> Queryable<TS, T>(IQueryable<TS> sources) where T : class, new() where TS : class, new()
+        public static IEnumerable<T> Enumerable<TS, T>(IEnumerable<TS> sources) where T : class, new() where TS : class, new()
         {
-            return sources == null ? null : Mapper.Map<IQueryable<TS>, IQueryable<T>>(sources);
-        }
-
-        /// <summary>
-        /// Collection实体映射
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TS"></typeparam>
-        /// <param name="sources"></param>
-        /// <returns></returns>
-        public static ICollection<T> Collection<TS, T>(ICollection<TS> sources) where T : class, new() where TS : class, new()
-        {
-            return sources == null ? null : Mapper.Map<ICollection<TS>, ICollection<T>>(sources);
+            return sources == null ? null : Mapper.Map<IEnumerable<TS>, IEnumerable<T>>(sources);
         }
     }
 }

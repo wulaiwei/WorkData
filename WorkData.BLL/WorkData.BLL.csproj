@@ -45,8 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoModules\BllModule.cs" />
-    <Compile Include="Impl\ResourceBLL.cs" />
-    <Compile Include="Interface\IResourceBLL.cs" />
+    <Compile Include="Impl\OperationBll.cs" />
+    <Compile Include="Impl\ResourceBll.cs" />
+    <Compile Include="Impl\RoleBll.cs" />
+    <Compile Include="Impl\UserBll.cs" />
+    <Compile Include="Interface\IOperationBll.cs" />
+    <Compile Include="Interface\IResourceBll.cs" />
+    <Compile Include="Interface\IRoleBll.cs" />
+    <Compile Include="Interface\IUserBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +63,10 @@
     <ProjectReference Include="..\WorkData.Service\WorkData.Service.csproj">
       <Project>{E63DB642-BA87-4B3B-9472-7CEA70DB689C}</Project>
       <Name>WorkData.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WorkData.Util\WorkData.Util.csproj">
+      <Project>{0e23559e-4a82-4f1e-b124-e5ec85d75689}</Project>
+      <Name>WorkData.Util</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,10 +6,10 @@
         water: false, //是否加水印
         thumbnail: false, //是否生成缩略图
         sendurl: null, //发送地址
-        filetypes: "jpg,jpge,png,gif", //文件类型
+        filetypes: "gif,jpg,jpge,png,gif,jpeg,bmp", //文件类型，默认为图片类型
         filesize: "2048", //文件大小
         btntext: "浏览...", //上传按钮的文字
-        swf: null //SWF上传控件相对地址
+        swf: "/JavaScript/webuploader/uploader.swf" //SWF上传控件相对地址
     };
     //初始化上传控件
     $.fn.InitUploader = function (b) {
@@ -17,16 +17,23 @@
             var p = $.extend({}, $.upLoadDefaults.property, b || {});
             var btnObj = $('<div class="upload-btn">' + p.btntext + '</div>').appendTo(parentObj);
             //初始化属性
-            //p.sendurl += "?action=UpLoadFile";
-            //if (p.water) {
-            //    p.sendurl += "&IsWater=1";
-            //}
-            //if (p.thumbnail) {
-            //    p.sendurl += "&IsThumbnail=1";
-            //}
-            //if (!p.multiple) {
-            //    p.sendurl += "&DelFilePath=" + parentObj.siblings(".upload-path").val();
-            //}
+            p.sendurl += "?action=UpLoadFile";
+            if (p.water) {
+                p.sendurl += "&IsWater=1";
+            }
+            if (p.thumbnail) {
+                p.sendurl += "&IsThumbnail=1";
+            }
+            if (!p.multiple) {
+                p.sendurl += "&DelFilePath=" + parentObj.siblings(".upload-path").val();
+            }
+            /*压缩属性参数*/
+            if (p.thumWidth) {
+                p.sendurl += "&ImgWidth=" + p.thumWidth + "";
+            }
+            if (p.thumHeight) {
+                p.sendurl += "&ImgHeight=" + p.thumHeight + "";
+            }
 
             //初始化WebUploader
             var uploader = WebUploader.create({
@@ -42,9 +49,9 @@
                     extensions: p.filetypes
                     /*mimeTypes: 'image/*'*/
                 },
-                //formData: {
-                //    'DelFilePath': '' //定义参数
-                //},
+                formData: {
+                    'DelFilePath': '' //定义参数
+                },
                 fileVal: 'Filedata', //上传域的名称
                 fileSingleSizeLimit: p.filesize * 1024 //文件大小
             });
@@ -76,9 +83,9 @@
             //当有文件添加进来的时候
             uploader.on('fileQueued', function (file) {
                 //如果是单文件上传，把旧的文件地址传过去
-                //if (!p.multiple) {
-                //    uploader.options.formData.DelFilePath = parentObj.siblings(".upload-path").val();
-                //}
+                if (!p.multiple) {
+                    uploader.options.formData.DelFilePath = parentObj.siblings(".upload-path").val();
+                }
                 //防止重复创建
                 if (parentObj.children(".upload-progress").length == 0) {
                     //创建进度条
@@ -109,10 +116,10 @@
 
             //当文件上传成功时触发
             uploader.on('uploadSuccess', function (file, data) {
-                $("#Img").attr("src", data.path);
                 if (data.status == '0') {
                     var progressObj = parentObj.children(".upload-progress");
                     progressObj.children(".txt").html(data.msg);
+                    alert(data.msg); //提示错误信息
                 }
                 if (data.status == '1') {
                     //如果是单文件上传，则赋值相应的表单
@@ -120,6 +127,7 @@
                         parentObj.siblings(".upload-name").val(data.name);
                         parentObj.siblings(".upload-path").val(data.path);
                         parentObj.siblings(".upload-size").val(data.size);
+                        parentObj.siblings(".upload-imgElement").find("img.uploadImgPath").attr("src", data.path);
                     } else {
                         addImage(parentObj, data.path, data.thumb);
                     }
@@ -180,50 +188,42 @@ function setFocusImg(obj) {
 function setRemark(obj) {
     var parentObj = $(obj); //父对象
     var hidRemarkObj = parentObj.prevAll("input[name='hid_photo_remark']").eq(0); //取得隐藏值
-    var d = parent.dialog({
+    var m = $.dialog({
+        lock: true,
+        max: false,
+        min: false,
+        padding: 0,
         title: "图片描述",
         content: '<textarea id="ImageRemark" style="margin:10px 0;font-size:12px;padding:3px;color:#000;border:1px #d2d2d2 solid;vertical-align:middle;width:300px;height:50px;">' + hidRemarkObj.val() + '</textarea>',
         button: [{
-            value: '批量描述',
+            name: '批量描述',
             callback: function () {
                 var remarkObj = $('#ImageRemark', parent.document);
                 if (remarkObj.val() == "") {
-                    parent.dialog({
-                        title: '提示',
-                        content: '亲，总该写点什么吧？',
-                        okValue: '确定',
-                        ok: function () { },
-                        onclose: function () {
-                            remarkObj.focus();
-                        }
-                    }).showModal();
+                    $.dialog.alert('总该写点什么吧？', function () {
+                        remarkObj.focus();
+                    }, m);
                     return false;
                 }
                 parentObj.parent().parent().find("li input[name='hid_photo_remark']").val(remarkObj.val());
                 parentObj.parent().parent().find("li .img-box .remark i").html(remarkObj.val());
             }
         }, {
-            value: '单张描述',
+            name: '单张描述',
             callback: function () {
                 var remarkObj = $('#ImageRemark', parent.document);
                 if (remarkObj.val() == "") {
-                    parent.dialog({
-                        title: '提示',
-                        content: '亲，总该写点什么吧？',
-                        okValue: '确定',
-                        ok: function () { },
-                        onclose: function () {
-                            remarkObj.focus();
-                        }
-                    }).showModal();
+                    $.dialog.alert('总该写点什么吧？', function () {
+                        remarkObj.focus();
+                    }, m);
                     return false;
                 }
                 hidRemarkObj.val(remarkObj.val());
                 parentObj.siblings(".img-box").children(".remark").children("i").html(remarkObj.val());
             },
-            autofocus: true
+            focus: true
         }]
-    }).showModal();
+    });
 }
 //删除图片LI节点
 function delImg(obj) {

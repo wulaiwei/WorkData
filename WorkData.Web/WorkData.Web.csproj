@@ -66,6 +66,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -82,6 +86,10 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Webdiyer.MvcPager, Version=3.0.2015.802, Culture=neutral, PublicKeyToken=f6872c5a09aed72c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Webdiyer.MvcPager.3.0.1.1\lib\Webdiyer.MvcPager.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -112,8 +120,11 @@
     <Content Include="Areas\Admin\js\knockout-3.3.0.js" />
     <Content Include="Areas\Admin\js\layindex.js" />
     <Content Include="Areas\Admin\js\laymain.js" />
+    <Content Include="Areas\Admin\js\Page.js" />
+    <Content Include="Areas\Admin\js\tm.pagination.js" />
     <Content Include="Areas\Admin\js\uploader.js" />
     <Content Include="Areas\Admin\skin\base.css" />
+    <Content Include="Areas\Admin\skin\common.css" />
     <Content Include="Areas\Admin\skin\default\ie_update.jpg" />
     <Content Include="Areas\Admin\skin\default\loadimg.gif" />
     <Content Include="Areas\Admin\skin\default\logo.png" />
@@ -128,6 +139,7 @@
     <Content Include="Areas\Admin\skin\default\valid_icons.png" />
     <Content Include="Areas\Admin\skin\layout.css" />
     <Content Include="Areas\Admin\skin\public.css" />
+    <Content Include="Css\bootstrap.min.css" />
     <Content Include="Css\pagination.css" />
     <Content Include="editor\kindeditor-min.js" />
     <Content Include="editor\kindeditor.js" />
@@ -329,11 +341,13 @@
     <Content Include="editor\themes\qq\editor.gif" />
     <Content Include="editor\themes\qq\qq.css" />
     <Content Include="editor\themes\simple\simple.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="scripts\angular.min.js" />
     <Content Include="scripts\artdialog\dialog-min.js" />
     <Content Include="scripts\artdialog\dialog-plus-min.js" />
     <Content Include="scripts\artdialog\ui-dialog.css" />
+    <Content Include="scripts\bootstrap-paginator.js" />
     <Content Include="scripts\ckplayer\ckplayer.js" />
     <Content Include="scripts\ckplayer\ckplayer.swf" />
     <Content Include="scripts\ckplayer\ckplayer.xml" />
@@ -392,9 +406,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SystemConfigurationSectionHandler.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\FileController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManagerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OperationController.cs" />
     <Compile Include="Areas\Admin\Controllers\ResourceController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Admin\Models\SiteConfig.cs" />
     <Compile Include="Bootstrap.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Global.asax.cs">
@@ -410,6 +430,14 @@
     <Content Include="Areas\Admin\Views\Manager\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Resource\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Manager\Center.cshtml" />
+    <Content Include="Areas\Admin\Views\Resource\Save.cshtml" />
+    <Content Include="Areas\Admin\Views\Operation\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Operation\Save.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\StaticResource.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Save.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Save.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -419,8 +447,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Admin\Views\File\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -435,6 +462,10 @@
     <ProjectReference Include="..\WorkData.Dto\WorkData.Dto.csproj">
       <Project>{C1B4B009-95C8-4A20-A0FB-D639FA3F9994}</Project>
       <Name>WorkData.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WorkData.Util\WorkData.Util.csproj">
+      <Project>{0e23559e-4a82-4f1e-b124-e5ec85d75689}</Project>
+      <Name>WorkData.Util</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

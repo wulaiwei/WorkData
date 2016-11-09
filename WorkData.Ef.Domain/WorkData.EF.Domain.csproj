@@ -34,11 +34,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Autofac.3.5.0\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -55,7 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoModules\EntityFrameworkModule.cs" />
     <Compile Include="DbEntity.cs" />
     <Compile Include="Entity\Operation.cs" />
     <Compile Include="Entity\Privilege.cs" />
@@ -71,18 +72,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WorkData.Code\WorkData.Code.csproj">
-      <Project>{24a5e32a-9feb-42d9-921e-8e9b7cf9ccb7}</Project>
-      <Name>WorkData.Code</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WorkData.Infrastructure\WorkData.Infrastructure.csproj">
-      <Project>{d85f978c-0532-4bfb-9b23-1e4c7f802bdb}</Project>
+      <Project>{D85F978C-0532-4BFB-9B23-1E4C7F802BDB}</Project>
       <Name>WorkData.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WorkData.Respository\WorkData.Respository.csproj">
-      <Project>{8081eb6f-54ca-444c-9370-27bdcf73c33b}</Project>
-      <Name>WorkData.Respository</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

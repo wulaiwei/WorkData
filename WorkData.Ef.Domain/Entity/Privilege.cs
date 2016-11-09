@@ -1,4 +1,3 @@
-using EFModel.Entity;
 using System.Collections.Generic;
 
 namespace WorkData.EF.Domain.Entity
@@ -8,7 +7,7 @@ namespace WorkData.EF.Domain.Entity
         public Privilege()
         {
             Roles = new List<Role>();
-            Users = new List<User>();
+            //Users = new List<User>();
         }
 
         /// <summary>
@@ -34,7 +33,7 @@ namespace WorkData.EF.Domain.Entity
         public Operation Operation { get; set; }
         public Resource Resource { get; set; }
         public ICollection<Role> Roles { get; set; }
-        public ICollection<User> Users { get; set; }
+        //public ICollection<User> Users { get; set; }
 
         #endregion Íâ¼ü
     }

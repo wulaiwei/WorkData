@@ -24,7 +24,7 @@ namespace WorkData.Respository.UnitOfWorks
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DbContext _db;
+        private DbContext _db;
 
         public UnitOfWork(DbContext context)
         {
@@ -35,10 +35,20 @@ namespace WorkData.Respository.UnitOfWorks
 
         public IRepository<T> Repository<T>() where T : class
         {
-            if (Repositories.Keys.Contains(typeof(T)) == true)
+           
+
+            if (Repositories.Keys.Contains(typeof(T)))
             {
-                return Repositories[typeof(T)] as IRepository<T>;
+                if (!_disposed) return Repositories[typeof (T)] as IRepository<T>;
+      
+                Repositories.Remove(typeof(T));
+                
+                _db = EfContextFactory.GetCurrentDbContext();
+                IRepository<T> newRepo = new BaseRepository<T>(_db);
+                Repositories.Add(typeof(T), newRepo);
+                return newRepo;
             }
+
             IRepository<T> repo = new BaseRepository<T>(_db);
             Repositories.Add(typeof(T), repo);
             return repo;
@@ -61,6 +71,7 @@ namespace WorkData.Respository.UnitOfWorks
                     throw;
                 }
             }
+
         }
 
         public ITransaction BeginTransaction(IsolationLevel level)

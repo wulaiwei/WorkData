@@ -21,13 +21,13 @@ namespace WorkData.EF.Domain.Mapping
             this.HasRequired(t => t.Operation)
                 .WithMany(t => t.Privileges)
                 .HasForeignKey(d => d.OperationId)
-                .WillCascadeOnDelete(true)//级联
+                //.WillCascadeOnDelete(true)//级联
                 ;
 
             this.HasRequired(t => t.Resource)
                 .WithMany(t => t.Privileges)
                 .HasForeignKey(d => d.ResourceId)
-                .WillCascadeOnDelete(true)
+                //.WillCascadeOnDelete(true)
                 ;
         }
     }

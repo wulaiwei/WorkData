@@ -6,7 +6,7 @@ namespace WorkData.Dto.Entity
     {
         public OperationDto()
         {
-            this.Privileges = new List<PrivilegeDto>();
+            Privileges = new List<PrivilegeDto>();
         }
 
         /// <summary>
