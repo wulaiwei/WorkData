@@ -4,6 +4,7 @@ G:\PersonGit\WorkData\WorkData\WorkData.Infrastructure\bin\Debug\EntityFramework
 G:\PersonGit\WorkData\WorkData\WorkData.Infrastructure\obj\Debug\WorkData.Infrastructure.csprojResolveAssemblyReference.cache
 G:\PersonGit\WorkData\WorkData\WorkData.Infrastructure\obj\Debug\WorkData.Infrastructure.dll
 G:\PersonGit\WorkData\WorkData\WorkData.Infrastructure\obj\Debug\WorkData.Infrastructure.pdb
+G:\PersonGit\WorkData\WorkData.Infrastructure\bin\Debug\WorkData.Infrastructure.dll.config
 G:\PersonGit\WorkData\WorkData.Infrastructure\bin\Debug\WorkData.Infrastructure.dll
 G:\PersonGit\WorkData\WorkData.Infrastructure\bin\Debug\WorkData.Infrastructure.pdb
 G:\PersonGit\WorkData\WorkData.Infrastructure\bin\Debug\WorkData.Util.dll

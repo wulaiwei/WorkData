@@ -28,11 +28,12 @@ namespace WorkData.EF.Domain
         {
             this.Configuration.AutoDetectChangesEnabled = true;//对多对多，一对多进行curd操作时需要为true
             this.Configuration.LazyLoadingEnabled = false;
+            
             //this.Configuration.AutoDetectChangesEnabled = false;//禁止状态追踪
             //this.Configuration.ProxyCreationEnabled = false;//禁止动态拦截System.Data.Entity.DynamicProxies.
             //自动创建表，如果Entity有改到就更新到表结构
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DbEntity, Configuration>());
-            //Database.SetInitializer<DbEntity>(null);
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<DbEntity, Configuration>());
+            Database.SetInitializer<DbEntity>(null);
         }
 
         #region 关联数据上下文
@@ -46,6 +47,7 @@ namespace WorkData.EF.Domain
         ///     角色
         /// </summary>
         public DbSet<Role> Role { get; set; }
+
 
         #endregion 关联数据上下文
 
@@ -64,11 +66,27 @@ namespace WorkData.EF.Domain
             //防止黑幕交易 要不然每次都要访问 EdmMetadata这个表
 
             //注册配置文件
+            //RBAC
             modelBuilder.Configurations.Add(new UserMap());
             modelBuilder.Configurations.Add(new RoleMap());
             modelBuilder.Configurations.Add(new OperationMap());
             modelBuilder.Configurations.Add(new PrivilegeMap());
             modelBuilder.Configurations.Add(new ResourceMap());
+
+            //内容栏目
+            modelBuilder.Configurations.Add(new CategoryMap());
+
+            //DynamicForm
+            modelBuilder.Configurations.Add(new ModelMap());
+            modelBuilder.Configurations.Add(new ModelFieldMap());
+            modelBuilder.Configurations.Add(new ContentMap());
+            modelBuilder.Configurations.Add(new ContentDoubleFieldMap());
+            modelBuilder.Configurations.Add(new ContentDescriptionFieldMap());
+            modelBuilder.Configurations.Add(new ContentIntFieldMap());
+            modelBuilder.Configurations.Add(new ContentStringFieldMap());
+            modelBuilder.Configurations.Add(new ContentTextFieldMap());
+            modelBuilder.Configurations.Add(new ContentTimeFieldMap());
+
         }
     }
 }

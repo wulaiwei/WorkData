@@ -1,12 +1,16 @@
+G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\WorkData.Respository.dll.config
 G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\WorkData.Respository.dll
 G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\WorkData.Respository.pdb
+G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\Autofac.Configuration.dll
 G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\Autofac.dll
 G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\EntityFramework.dll
 G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\EntityFramework.SqlServer.dll
+G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\WorkData.EF.Domain.dll
 G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\WorkData.Infrastructure.dll
 G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\WorkData.Util.dll
 G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\Newtonsoft.Json.dll
 G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\Webdiyer.MvcPager.dll
+G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\WorkData.EF.Domain.pdb
 G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\WorkData.Infrastructure.pdb
 G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\WorkData.Util.pdb
 G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\EntityFramework.xml
@@ -18,6 +22,3 @@ G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\zh-CHT\Webdiyer.MvcPager.re
 G:\PersonGit\WorkData\WorkData.Respository\obj\Debug\WorkData.Respository.csprojResolveAssemblyReference.cache
 G:\PersonGit\WorkData\WorkData.Respository\obj\Debug\WorkData.Respository.dll
 G:\PersonGit\WorkData\WorkData.Respository\obj\Debug\WorkData.Respository.pdb
-G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\Autofac.Configuration.dll
-G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\WorkData.EF.Domain.dll
-G:\PersonGit\WorkData\WorkData.Respository\bin\Debug\WorkData.EF.Domain.pdb

@@ -35,6 +35,16 @@ namespace WorkData.BLL.Interface
         /// <returns></returns>
         IList<ResourceDto> GetSourceTree(bool isAll, string includeName, int parentId = 0);
 
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sourcePropertyName"></param>
+        /// <param name="method"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ResourceDto Query(string sourcePropertyName,string method, object param);
+
         /// <summary>
         /// 查询实体
         /// </summary>
@@ -69,5 +79,14 @@ namespace WorkData.BLL.Interface
         /// </summary>
         /// <param name="resourceDto"></param>
         void AjaxUpdate(ResourceDto resourceDto);
+
+
+        /// <summary>
+        /// 验证 代码是否唯一
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ValidateEntity Validate(string param);
+
     }
 }

@@ -49,17 +49,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoModules\ServiceModule.cs" />
+    <Compile Include="Impl\CategoryService.cs" />
+    <Compile Include="Impl\ContentService.cs" />
+    <Compile Include="Impl\ModelFieldService.cs" />
+    <Compile Include="Impl\ModelService.cs" />
     <Compile Include="Impl\OperationService.cs" />
     <Compile Include="Impl\ResourceService.cs" />
     <Compile Include="Impl\RoleService.cs" />
     <Compile Include="Impl\UserService.cs" />
+    <Compile Include="Interface\ICategoryService.cs" />
+    <Compile Include="Interface\IContentService.cs" />
+    <Compile Include="Interface\IModelFieldService.cs" />
+    <Compile Include="Interface\IModelService.cs" />
     <Compile Include="Interface\IOperationService.cs" />
     <Compile Include="Interface\IResourceService.cs" />
     <Compile Include="Interface\IRoleService.cs" />
     <Compile Include="Interface\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WorkData.Code\WorkData.Code.csproj">
       <Project>{24a5e32a-9feb-42d9-921e-8e9b7cf9ccb7}</Project>

@@ -3,6 +3,7 @@ using Autofac;
 using System.Web.Mvc;
 using WorkData.Dto.Entity;
 using WorkData.BLL.Interface;
+using WorkData.Web.HtmlFactory;
 
 namespace WorkData.Web.Controllers
 {
@@ -18,6 +19,11 @@ namespace WorkData.Web.Controllers
         // GET: Default
         public ActionResult Index()
         {
+            var model = new ModelFieldDto()
+            {
+                Name="ces"
+            };
+            var s= CreateHtmlHelper.CreateTip(model);
             _operationBll.GetList();
             return View();
         }

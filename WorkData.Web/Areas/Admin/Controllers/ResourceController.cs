@@ -127,7 +127,10 @@ namespace WorkData.Web.Areas.Admin.Controllers
         [HttpPost]
         public string Validate()
         {
-            return "" ;
+            var param = Request["param"];
+            var validateEntity = _resourceBll.Validate(param);
+
+            return validateEntity.ToJson();
         }
 
         /// <summary>

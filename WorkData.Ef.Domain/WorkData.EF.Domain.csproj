@@ -58,16 +58,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbEntity.cs" />
+    <Compile Include="DbEntity.Views.cs" />
+    <Compile Include="Entity\Category.cs" />
+    <Compile Include="Entity\Content.cs" />
+    <Compile Include="Entity\ContentDescriptionField.cs" />
+    <Compile Include="Entity\ContentDoubleField.cs" />
+    <Compile Include="Entity\ContentIntField.cs" />
+    <Compile Include="Entity\ContentStringField.cs" />
+    <Compile Include="Entity\ContentTextField.cs" />
+    <Compile Include="Entity\ContentTimeField.cs" />
+    <Compile Include="Entity\Model.cs" />
+    <Compile Include="Entity\ModelField.cs" />
     <Compile Include="Entity\Operation.cs" />
     <Compile Include="Entity\Privilege.cs" />
     <Compile Include="Entity\Resource.cs" />
     <Compile Include="Entity\Role.cs" />
     <Compile Include="Entity\User.cs" />
+    <Compile Include="Mapping\CategoryMap.cs" />
+    <Compile Include="Mapping\ContentMap.cs" />
+    <Compile Include="Mapping\ContentDescriptionFieldMap.cs" />
+    <Compile Include="Mapping\ContentDoubleFieldMap.cs" />
+    <Compile Include="Mapping\ContentIntFieldMap.cs" />
+    <Compile Include="Mapping\ContentStringFieldMap.cs" />
+    <Compile Include="Mapping\ContentTextFieldMap.cs" />
+    <Compile Include="Mapping\ContentTimeFieldMap.cs" />
+    <Compile Include="Mapping\ModelMap.cs" />
+    <Compile Include="Mapping\ModelFieldMap.cs" />
     <Compile Include="Mapping\OperationMap.cs" />
     <Compile Include="Mapping\PrivilegeMap.cs" />
     <Compile Include="Mapping\ResourceMap.cs" />
     <Compile Include="Mapping\RoleMap.cs" />
     <Compile Include="Mapping\UserMap.cs" />
+    <Compile Include="Migrations\201611220838152_InitialCreate.cs" />
+    <Compile Include="Migrations\201611220838152_InitialCreate.Designer.cs">
+      <DependentUpon>201611220838152_InitialCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -80,6 +105,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201611220838152_InitialCreate.resx">
+      <DependentUpon>201611220838152_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

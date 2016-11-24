@@ -39,6 +39,15 @@ namespace WorkData.Service.Interface
         ResourceDto Query(object key, string includeName);
 
         /// <summary>
+        /// 查询  +  指定列 + 查询方式
+        /// </summary>
+        /// <param name="sourcePropertyName"></param>
+        /// <param name="method"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ResourceDto Query(string sourcePropertyName, string method, object param);
+
+        /// <summary>
         /// 查询
         /// </summary>
         /// <param name="key"></param>
@@ -62,7 +71,20 @@ namespace WorkData.Service.Interface
         /// 更新
         /// </summary>
         /// <param name="entity"></param>
+        void Update(ResourceDto entity);
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="entity"></param>
         /// <param name="array"></param>
         void Update(ResourceDto entity, int[] array);
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        ResourceDto Query(string param);
     }
 }

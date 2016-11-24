@@ -35,8 +35,6 @@ namespace WorkData.Respository.UnitOfWorks
 
         public IRepository<T> Repository<T>() where T : class
         {
-           
-
             if (Repositories.Keys.Contains(typeof(T)))
             {
                 if (!_disposed) return Repositories[typeof (T)] as IRepository<T>;

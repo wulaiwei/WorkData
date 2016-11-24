@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using WorkData.Web.Areas.Admin.Models;
 using WorkData.Util;
 using static System.String;
@@ -36,11 +38,56 @@ namespace WorkData.Web.Areas.Admin.Controllers
                 case "UpLoadFile": //普通上传
                     msg = UpLoadFile(request);
                     break;
-                //msg = EditorFile(request);
+                default: //编辑器文件
+                    msg = EditorFile(request);
+                    break;
             }
             return msg;
         }
 
+        #region 编辑器上传
+        private string EditorFile(HttpRequest request)
+        {
+            var iswater = false || request.QueryString["IsWater"] == "1"; //默认不打水印
+            /*图片属性（高和宽）*/
+            var imgWidth = string.IsNullOrWhiteSpace(request.QueryString["ImgWidth"]) ? 0 :
+                Convert.ToInt32(request.QueryString["ImgWidth"]);
+            var imgHeight = string.IsNullOrWhiteSpace(request.QueryString["ImgHeight"]) ? 0 :
+                Convert.ToInt32(request.QueryString["ImgHeight"]);
+            var imgFile = request.Files["imgFile"];
+            string msg;
+            if (imgFile == null)
+            {
+                msg = "{\"status\": 0, \"msg\": \"请选择要上传文件！\"}";
+                return msg;
+            }
+
+            var remsg = FileSaveAs(imgFile, false, false);
+            var jd = JsonConvert.DeserializeObject<Dictionary<string, string>>(remsg);
+            var status = jd["status"];
+            var uploadMsg = jd["msg"];
+            if (status == "0")
+            {
+                msg = "{\"status\": 0, \"msg\": \""+uploadMsg+"\"}";
+                return msg;
+            }
+            /*
+             文件路径处理：
+             * 如果图片的压缩图片地址不为空的话，则获取压缩地址
+             * 否则就获取图片的原地址
+             */
+            var filePath = jd["path"];
+            var hash = new Hashtable
+            {
+                ["error"] = 0,
+                ["url"] = filePath
+            };
+            return JsonConvert.SerializeObject(hash);
+        }
+
+        #endregion
+
+        #region 普通上传
         /// <summary>
         ///  普通上传
         /// </summary>
@@ -86,7 +133,8 @@ namespace WorkData.Web.Areas.Admin.Controllers
                 Utils.DeleteUpFile(delfile);
             }
             return msg;
-        }
+        } 
+        #endregion
 
 
         /// <summary>

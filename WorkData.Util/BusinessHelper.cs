@@ -54,5 +54,18 @@ namespace WorkData.Util
             var strArray= str.Split(new[] { key }, StringSplitOptions.RemoveEmptyEntries);
             return Array.ConvertAll(strArray, int.Parse);
         }
+
+
+        /// <summary>
+        /// 拆分数组
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string[] BreakUpOptions(string str, char key)
+        {
+            var strArray = str.Split(new[] { key }, StringSplitOptions.RemoveEmptyEntries);
+            return strArray;
+        }
     }
 }

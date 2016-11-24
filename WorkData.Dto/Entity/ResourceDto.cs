@@ -28,6 +28,11 @@ namespace WorkData.Dto.Entity
         public string ResourceName { get; set; }
 
         /// <summary>
+        /// 代码
+        /// </summary>
+        public string Code { get; set; }
+
+        /// <summary>
         ///资源链接
         /// </summary>
         public string ResourceUrl { get; set; }

@@ -45,10 +45,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoModules\BllModule.cs" />
+    <Compile Include="Impl\CategoryBll.cs" />
+    <Compile Include="Impl\ContentBll.cs" />
+    <Compile Include="Impl\ModelBll.cs" />
+    <Compile Include="Impl\ModelFieldBll.cs" />
     <Compile Include="Impl\OperationBll.cs" />
     <Compile Include="Impl\ResourceBll.cs" />
     <Compile Include="Impl\RoleBll.cs" />
     <Compile Include="Impl\UserBll.cs" />
+    <Compile Include="Interface\ICategoryBll.cs" />
+    <Compile Include="Interface\IContentBll.cs" />
+    <Compile Include="Interface\IModelBll.cs" />
+    <Compile Include="Interface\IModelFieldBll.cs" />
     <Compile Include="Interface\IOperationBll.cs" />
     <Compile Include="Interface\IResourceBll.cs" />
     <Compile Include="Interface\IRoleBll.cs" />
@@ -68,6 +76,9 @@
       <Project>{0e23559e-4a82-4f1e-b124-e5ec85d75689}</Project>
       <Name>WorkData.Util</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

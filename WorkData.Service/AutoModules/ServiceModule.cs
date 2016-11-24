@@ -15,6 +15,11 @@ namespace WorkData.Service.AutoModules
             builder.RegisterType<RoleService>().As<IRoleService>();
             builder.RegisterType<OperationService>().As<IOperationService>();
             builder.RegisterType<ResourceService>().As<IResourceService>();
+
+            builder.RegisterType<ModelService>().As<IModelService>();
+            builder.RegisterType<ModelFieldService>().As<IModelFieldService>();
+            builder.RegisterType<CategoryService>().As<ICategoryService>();
+            builder.RegisterType<ContentService>().As<IContentService>();
         }
     }
 }

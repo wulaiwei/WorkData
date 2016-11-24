@@ -1,3 +1,4 @@
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.Code.dll.config
 G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.Code.dll
 G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.Code.pdb
 G:\PersonGit\WorkData\WorkData.Code\bin\Debug\Autofac.dll
@@ -8,6 +9,7 @@ G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.Infrastructure.dll
 G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.Respository.dll
 G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.Util.dll
 G:\PersonGit\WorkData\WorkData.Code\bin\Debug\EntityFramework.dll
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.EF.Domain.dll
 G:\PersonGit\WorkData\WorkData.Code\bin\Debug\Webdiyer.MvcPager.dll
 G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.Infrastructure.pdb
 G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.Respository.pdb
@@ -15,11 +17,10 @@ G:\PersonGit\WorkData\WorkData.Code\bin\Debug\AutoMapper.xml
 G:\PersonGit\WorkData\WorkData.Code\bin\Debug\Newtonsoft.Json.xml
 G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.Util.pdb
 G:\PersonGit\WorkData\WorkData.Code\bin\Debug\EntityFramework.xml
+G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.EF.Domain.pdb
 G:\PersonGit\WorkData\WorkData.Code\bin\Debug\Webdiyer.MvcPager.xml
 G:\PersonGit\WorkData\WorkData.Code\bin\Debug\zh-CHS\Webdiyer.MvcPager.resources.dll
 G:\PersonGit\WorkData\WorkData.Code\bin\Debug\zh-CHT\Webdiyer.MvcPager.resources.dll
 G:\PersonGit\WorkData\WorkData.Code\obj\Debug\WorkData.Code.csprojResolveAssemblyReference.cache
 G:\PersonGit\WorkData\WorkData.Code\obj\Debug\WorkData.Code.dll
 G:\PersonGit\WorkData\WorkData.Code\obj\Debug\WorkData.Code.pdb
-G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.EF.Domain.dll
-G:\PersonGit\WorkData\WorkData.Code\bin\Debug\WorkData.EF.Domain.pdb

@@ -33,6 +33,10 @@
     <Reference Include="AutoMapper">
       <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,11 +48,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMapperConfiguration.cs" />
+    <Compile Include="Entity\CategoryDto.cs" />
+    <Compile Include="Entity\ContentDto.cs" />
+    <Compile Include="Entity\ContentDescriptionFieldDto.cs" />
+    <Compile Include="Entity\ContentDoubleFieldDto.cs" />
+    <Compile Include="Entity\ContentIntFieldDto.cs" />
+    <Compile Include="Entity\ContentStringFieldDto.cs" />
+    <Compile Include="Entity\ContentTextFieldDto.cs" />
+    <Compile Include="Entity\ContentTimeFieldDto.cs" />
+    <Compile Include="Entity\ContentValue.cs" />
+    <Compile Include="Entity\ModelDto.cs" />
+    <Compile Include="Entity\ModelFieldDto.cs" />
     <Compile Include="Entity\OperationDto.cs" />
     <Compile Include="Entity\PrivilegeDto.cs" />
     <Compile Include="Entity\ResourceDto.cs" />
     <Compile Include="Entity\RoleDto.cs" />
     <Compile Include="Entity\UserDto.cs" />
+    <Compile Include="Profiles\ModelFieldDtoProfile.cs" />
+    <Compile Include="Profiles\ModelDtoProfile.cs" />
+    <Compile Include="Profiles\ContentDtoProfile.cs" />
+    <Compile Include="Profiles\ContentDoubleFieldDtoProfile.cs" />
+    <Compile Include="Profiles\ContentTimeFieldDtoProfile.cs" />
+    <Compile Include="Profiles\ContentIntFieldDtoProfile.cs" />
+    <Compile Include="Profiles\ContentStringFieldDtoProfile.cs" />
+    <Compile Include="Profiles\ContentTextFieldDtoProfile.cs" />
+    <Compile Include="Profiles\ContentDescriptionFieldDtoProfile.cs" />
+    <Compile Include="Profiles\CategoryDtoProfile.cs" />
     <Compile Include="Profiles\OperationDtoProfile.cs" />
     <Compile Include="Profiles\PrivilegeDtoProfile.cs" />
     <Compile Include="Profiles\ResourceDtoProfile.cs" />
@@ -61,6 +86,9 @@
       <Project>{70d4ae41-b6e0-4ad0-a429-b9d1804d66fd}</Project>
       <Name>WorkData.EF.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

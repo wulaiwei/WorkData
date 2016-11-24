@@ -51,13 +51,13 @@
 
         <div class="tab-content">
             <dl>
-                <dt>模型名称</dt>
+                <dt>操作名称</dt>
                 <dd><input id="txtCode" name="Name" type="text" value="@Model.Name" class="input normal" datatype="*1-100" sucmsg="" 
                               ajaxurl ="/Admin/Operation/Validate" /> 
                 <span class="Validform_checktip">*标识，50字符内</span></dd>
             </dl>
             <dl>
-                <dt>模型标识</dt>
+                <dt>操作代码</dt>
                 <dd><input name="Code" type="text" value="@Model.Code" class="input normal" datatype="*1-100" sucmsg=""/> 
                 <span class="Validform_checktip">*导航中文标题，50字符内</span></dd>
             </dl>
@@ -65,14 +65,14 @@
                 <dt>是否启用</dt>
                 <dd>
                     <div class="rule-single-checkbox">
-                        <input type="hidden" class="CheckUpdateValue" name="Status" value="@Model.Status" />
+                        @Html.Hidden("Status", Model.Status, new { @class = "CheckUpdateValue" })
                         @if (Model.Status)
                         {
-                            <input type="checkbox" checked="checked" />
+                            <input type="checkbox" checked="checked"/>
                         }
                         else
                         {
-                            <input type="checkbox" />
+                            <input type="checkbox"/>
                         }
                     </div>
                     <span class="Validform_checktip">*禁用后，模型将无法使用。</span>

@@ -91,6 +91,8 @@ function getCookie(objName) {//获取指定名称的cookie的值
     return "";
 }
 
+
+
 //========================基于artdialog插件========================
 var dialogs = top.dialog.get(window);
 
@@ -134,9 +136,33 @@ function jsdialog(msgtitle, msgcontent, url, callback) {
 function ShowMaxDialog(tit, url) {
     dialog({
         title: tit,
-        url: url
+        url: url,
+        okValue: '确定',
+        ok: function () {
+            this.title('提交中…');
+            return false;
+        }
     }).showModal();
 }
+
+//打开一个最大化的Dialog
+function ShowDesignDialog(tit, url,postUrl) {
+    dialog({
+        title: tit,
+        url: url,
+        okValue: '确定',
+        ok: function () {
+            var json = this.iframeNode.contentWindow.$("#template").val();
+            var key = this.iframeNode.contentWindow.$("#key").val();
+
+            $.post(postUrl, { json: json, key: key }, function () {
+                
+            });
+        }
+    }).showModal();
+}
+
+
 //打开一个最大化的Dialog包含确定，取消
 function ShowOkCancelDialog(category) {
     top.dialog({
@@ -332,7 +358,6 @@ $.fn.ruleSingleCheckbox = function () {
         //绑定反监听事件
         checkObj.on('click', function () {
             if ($(this).prop("checked") == true && !newObj.hasClass("selected")) {
-                alert();
                 newObj.addClass("selected");
             } else if ($(this).prop("checked") == false && newObj.hasClass("selected")) {
                 newObj.removeClass("selected");
@@ -459,6 +484,7 @@ $.fn.ruleSingleSelect = function () {
         var itemObj = $('<div class="select-items"><ul></ul></div>').appendTo(divObj);
         var arrowObj = $('<i class="arrow"></i>').appendTo(divObj);
         var selectObj = parentObj.find("select").eq(0); //取得select对象
+  
         //遍历option选项
         selectObj.find("option").each(function (i) {
             var indexNum = selectObj.find("option").index(this); //当前索引
@@ -474,7 +500,6 @@ $.fn.ruleSingleSelect = function () {
             }
             //绑定事件
             liObj.click(function () {
-                //alert(1);
                 $(this).siblings().removeClass("selected");
                 $(this).addClass("selected"); //添加选中样式
                 selectObj.find("option").prop("selected", false);

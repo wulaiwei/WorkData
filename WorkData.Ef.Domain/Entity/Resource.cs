@@ -28,6 +28,12 @@ namespace WorkData.EF.Domain.Entity
 
         public string ResourceName { get; set; }
 
+
+        /// <summary>
+        /// 资源代码
+        /// </summary>
+        public string Code { get; set; }
+
         /// <summary>
         ///资源链接
         /// </summary>
@@ -36,7 +42,6 @@ namespace WorkData.EF.Domain.Entity
         /// <summary>
         ///级别
         /// </summary>
-
         public int Layer { get; set; }
 
         /// <summary>
@@ -62,6 +67,7 @@ namespace WorkData.EF.Domain.Entity
         /// </summary>
 
         public bool HasLevel { get; set; }
+
 
         #region 外键
 

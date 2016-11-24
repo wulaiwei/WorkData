@@ -21,6 +21,7 @@ namespace WorkData.EF.Domain.Mapping
             this.Property(t => t.ResourceImg).HasColumnName("RESOURCE_IMG").IsOptional();
             this.Property(t => t.Sort).HasColumnName("SORT");
             this.Property(t => t.HasLevel).HasColumnName("HAS_LEVEL");
+            this.Property(t => t.Code).HasColumnName("CODE");
 
             // Primary Key
             this.HasKey(t => t.ResourceId);
@@ -38,6 +39,10 @@ namespace WorkData.EF.Domain.Mapping
 
             this.Property(t => t.ResourceImg)
                 .HasMaxLength(200);
+
+            this.Property(t => t.Code)
+                .IsRequired()
+                .HasMaxLength(50);
         }
     }
 }

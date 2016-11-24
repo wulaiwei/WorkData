@@ -61,6 +61,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="HibernatingRhinos.Profiler.Appender">
+      <HintPath>..\packages\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -70,6 +73,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RazorEngine, Version=3.9.3.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.9.3\lib\net45\RazorEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -79,6 +87,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\System.Web.Optimization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -389,6 +400,7 @@
     <Content Include="scripts\datepicker\开发包\skin\whyGreen\bg.jpg" />
     <Content Include="scripts\datepicker\开发包\skin\whyGreen\datepicker.css" />
     <Content Include="scripts\datepicker\开发包\skin\whyGreen\img.gif" />
+    <Content Include="scripts\jquery-ui.min.js" />
     <Content Include="scripts\jquery\jquery-1.11.2.min.js" />
     <Content Include="scripts\jquery\jquery.form.min.js" />
     <Content Include="scripts\jquery\jquery.jcrop.min.js" />
@@ -405,11 +417,17 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SystemConfigurationSectionHandler.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ContentController.cs" />
     <Compile Include="Areas\Admin\Controllers\FileController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManagerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ModelController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ModelFieldController.cs" />
     <Compile Include="Areas\Admin\Controllers\OperationController.cs" />
     <Compile Include="Areas\Admin\Controllers\ResourceController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
@@ -417,9 +435,13 @@
     <Compile Include="Areas\Admin\Models\SiteConfig.cs" />
     <Compile Include="Bootstrap.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Filter\LoggerFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlFactory\CreateHtmlHelper.cs" />
+    <Compile Include="HtmlFactory\FieldType.cs" />
+    <Compile Include="HtmlFactory\HtmlMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -438,6 +460,16 @@
     <Content Include="Areas\Admin\Views\Role\Save.cshtml" />
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\Save.cshtml" />
+    <Content Include="Areas\Admin\Views\Model\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Model\Save.cshtml" />
+    <Content Include="Areas\Admin\Views\ModelField\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ModelField\Save.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\DesignForm.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Save.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\DesignIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\Content\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Content\Save.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -447,6 +479,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Base\" />
     <Folder Include="Areas\Admin\Views\File\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -454,10 +487,6 @@
     <ProjectReference Include="..\WorkData.BLL\WorkData.BLL.csproj">
       <Project>{6586b509-836f-4b1d-bc33-e0abf2d826a1}</Project>
       <Name>WorkData.BLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WorkData.Code\WorkData.Code.csproj">
-      <Project>{24a5e32a-9feb-42d9-921e-8e9b7cf9ccb7}</Project>
-      <Name>WorkData.Code</Name>
     </ProjectReference>
     <ProjectReference Include="..\WorkData.Dto\WorkData.Dto.csproj">
       <Project>{C1B4B009-95C8-4A20-A0FB-D639FA3F9994}</Project>

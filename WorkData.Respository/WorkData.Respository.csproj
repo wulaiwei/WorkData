@@ -155,6 +155,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Extend\Audit\Audit.xsd">
       <SubType>Designer</SubType>
     </None>

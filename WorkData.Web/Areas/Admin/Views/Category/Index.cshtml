@@ -1,0 +1,89 @@
+﻿@model IEnumerable<WorkData.Dto.Entity.CategoryDto>
+@using Webdiyer.WebControls.Mvc
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>栏目列表</title>
+    @Html.Partial("StaticResource")
+</head>
+<body class="mainbody">
+    <!--导航栏-->
+    <div class="location">
+        <a href="javascript:history.back(-1);" class="back"><i></i><span>返回上一页</span></a>
+        <i class="arrow"></i>
+        <span>栏目列表</span>
+    </div>
+    <!--/导航栏-->
+    <!--工具栏-->
+    <div id="floatHead" class="toolbar-wrap">
+        <div class="toolbar">
+            <div class="box-wrap">
+                <a class="Resource-btn"></a>
+                <div class="l-list">
+                    <ul class="icon-list">
+                        <li><a class="add" href="~/Admin/Category/Save?Action=Add"><i></i><span>新增</span></a></li>
+                        <li><a onclick="ExePostBack()" id="btnAudit" class="lock" href="javascript:;"><i></i><span>审核</span></a></li>
+                        <li><a class="all" href="javascript:;" onclick="checkAll(this);"><i></i><span>全选</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/工具栏-->
+    <!--列表-->
+    <div class="table-container" ng-app="App" ng-controller="Cro">
+        <table class="ltable">
+            <tr>
+                <th width="6%">选择</th>
+                <th class="thleft">名称</th>
+                <th width="10%">状态</th>
+                <th width="30%">模型管理</th>
+                <th width="30%">操作</th>
+            </tr>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="tdcenter">
+                            <input type="checkbox" class="checkall" value="@item.CategoryId" />
+                        </td>
+                        <td>
+                            <span style="display: inline-block;width:@(24*item.Layer)px"></span>
+                            <span class="folder-line"></span>
+                            <span class="folder-open"></span>
+                            <span>@item.Name</span>
+                        </td>
+                        <td class="tdcenter">@(item.Status ? "启用" : "禁用")</td>
+
+                        <td class="tdcenter">
+                            @if (item.ModelId > 0)
+                            {
+                                <a href="javascript:;" class="btn btn-default" style="color: #fff"
+                                   onclick="ShowDesignDialog('表单设计', '/Admin/Category/DesignForm?Key=@item.CategoryId&ModelKey=@item.ModelId'
+                                   ,'/Admin/Category/DesignForm')">设计表单</a>
+                                <a href="javascript:;" class="btn btn-default" style="color: #fff"
+                                   onclick="ShowDesignDialog('列表设计', '/Admin/Category/DesignIndex?Key=@item.CategoryId&ModelKey=@item.ModelId'
+                                   ,'/Admin/Category/DesignIndex')">列表设计</a>
+                            }                     
+                        </td>
+                        <td class="tdcenter">
+                            <a href="~/Admin/Category/Save?Action=Remove&Key=@item.CategoryId"
+                               class="btn btn-default" style="color: #fff">删除</a>
+                            <a href="~/Admin/Category/Save?Action=Edit&Key=@item.CategoryId"
+                               class="btn btn-default" style="color: #fff">编辑</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

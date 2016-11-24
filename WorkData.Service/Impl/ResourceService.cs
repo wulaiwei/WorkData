@@ -11,6 +11,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using WorkData.Code.AutoMapper;
@@ -19,6 +20,8 @@ using WorkData.EF.Domain.Entity;
 using WorkData.Infrastructure.IRepositories;
 using WorkData.Infrastructure.IUnitOfWorks;
 using WorkData.Service.Interface;
+using WorkData.Util;
+using System.Linq;
 
 namespace WorkData.Service.Impl
 {
@@ -90,6 +93,26 @@ namespace WorkData.Service.Impl
         /// <summary>
         /// 查询
         /// </summary>
+        /// <param name="sourcePropertyName"></param>
+        /// <param name="method"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ResourceDto Query(string sourcePropertyName, string method, object param)
+        {
+            using (_unitOfWork)
+            {
+                var where = ExpressionHelper.GenerateCondition<Resource>(sourcePropertyName, method, param);
+
+                var repository = _unitOfWork.Repository<Resource>();
+                var resource = repository.Query(where).Include("Privileges.Operation").FirstOrDefault();
+
+                return AutoMapperHelper.Signle<Resource, ResourceDto>(resource);
+            }
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         public ResourceDto Query(object key)
@@ -120,16 +143,18 @@ namespace WorkData.Service.Impl
 
                 var repository = _unitOfWork.Repository<Resource>();
 
-                foreach (var item in array)
+                if (array != null)
                 {
-                    var privilege = new Privilege
+                    foreach (var item in array)
                     {
-                        ResourceId = info.ResourceId,
-                        OperationId = item
-                    };
-                    info.Privileges.Add(privilege);
+                        var privilege = new Privilege
+                        {
+                            ResourceId = info.ResourceId,
+                            OperationId = item
+                        };
+                        info.Privileges.Add(privilege);
+                    }
                 }
-
                 repository.Add(info);
 
                 _unitOfWork.Commit();
@@ -157,6 +182,21 @@ namespace WorkData.Service.Impl
         /// 更新
         /// </summary>
         /// <param name="entity"></param>
+        public void Update(ResourceDto entity)
+        {
+            var info = AutoMapperHelper.Signle<ResourceDto, Resource>(entity);
+            using (_unitOfWork)
+            {
+                var repository = _unitOfWork.Repository<Resource>();
+                repository.Update(info);
+                _unitOfWork.Commit();
+            }
+        }
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="entity"></param>
         /// <param name="array"></param>
         public void Update(ResourceDto entity, int[] array)
         {
@@ -167,12 +207,17 @@ namespace WorkData.Service.Impl
                 var repository = _unitOfWork.Repository<Resource>();
                 var privilegeRepository = _unitOfWork.Repository<Privilege>();
 
-                Expression<Func<Resource, bool>> where = w => w.ResourceId == resourceId;
+                Expression<Func<Resource, bool>> where = w => w.ResourceId == resourceId || w.Code == entity.Code;
                 var resource = repository.Get(where, "Privileges");
+                if (info.ResourceId <= 0)
+                {
+                    info.ResourceId = resource.ResourceId;
+                }
                 repository.CurrentValue(resource, info);
 
-                var list = resource.Privileges.Where(r => !(array.Contains(r.OperationId)
-                     && r.ResourceId == info.ResourceId)).ToList();
+                var list = resource.Privileges.Where(r => array != null
+                    && !(array.Contains(r.OperationId) && r.ResourceId == info.ResourceId)).ToList();
+
                 if (array != null)
                 {
                     //2.0  求差集
@@ -188,14 +233,30 @@ namespace WorkData.Service.Impl
                     {
                         privilegeRepository.Add(privilege);
                     }
-                    list.ForEach(t => privilegeRepository.Delete(t));
                 }
 
-
-
+                list.ForEach(t => privilegeRepository.Delete(t));
                 repository.Update(resource);
 
                 _unitOfWork.Commit();
+            }
+        }
+
+        /// <summary>
+        /// 代码查询
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ResourceDto Query(string param)
+        {
+            using (_unitOfWork)
+            {
+                var repository = _unitOfWork.Repository<Resource>();
+
+                Expression<Func<Resource, bool>> where = w => w.Code == param;
+                var resource = repository.Get(where);
+
+                return AutoMapperHelper.Signle<Resource, ResourceDto>(resource);
             }
         }
 
@@ -205,6 +266,7 @@ namespace WorkData.Service.Impl
         /// 获取Resource列表
         /// </summary>
         /// <param name="repository"></param>
+        /// <param name="includeName"></param>
         /// <param name="parentId"></param>
         /// <param name="isLock"></param>
         /// <param name="isAll"></param>

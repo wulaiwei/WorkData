@@ -24,6 +24,11 @@ namespace WorkData.BLL.AutoModules
             builder.RegisterType<RoleBll>().As<IRoleBll>();
             builder.RegisterType<UserBll>().As<IUserBll>();
 
+            builder.RegisterType<ModelBll>().As<IModelBll>();
+            builder.RegisterType<ModelFieldBll>().As<IModelFieldBll>();
+            builder.RegisterType<CategoryBll>().As<ICategoryBll>();
+            builder.RegisterType<ContentBll>().As<IContentBll>();
+
         }
     }
 }

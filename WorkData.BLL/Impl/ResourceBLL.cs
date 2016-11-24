@@ -24,7 +24,7 @@ namespace WorkData.BLL.Impl
     public class ResourceBll : IResourceBll
     {
         private readonly IResourceService _resourceService;
-        public ResourceBll(IResourceService resourceService)
+        public ResourceBll(IResourceService resourceService, ICategoryService categoryService)
         {
             _resourceService = resourceService;
         }
@@ -71,6 +71,18 @@ namespace WorkData.BLL.Impl
         public IList<ResourceDto> GetSourceTree(bool isAll,string includeName, int parentId = 0)
         {
             return _resourceService.GetSourceTree(isAll, includeName, parentId);
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sourcePropertyName"></param>
+        /// <param name="method"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ResourceDto Query(string sourcePropertyName, string method, object param)
+        {
+            return _resourceService.Query(sourcePropertyName,method, param);
         }
 
         /// <summary>
@@ -142,11 +154,9 @@ namespace WorkData.BLL.Impl
                     break;
             }
 
-            if (parentResource != null)
-            {
-                parentResource.HasLevel = true;
-                _resourceService.Update(parentResource,null);
-            }
+            if (parentResource == null) return;
+            parentResource.HasLevel = true;
+            _resourceService.Update(parentResource);
         }
 
         /// <summary>
@@ -156,6 +166,35 @@ namespace WorkData.BLL.Impl
         public void AjaxUpdate(ResourceDto resourceDto)
         {
             _resourceService.Update(resourceDto,null);
+        }
+
+        /// <summary>
+        /// 验证代码唯一性
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public ValidateEntity Validate(string param)
+        {
+            var validateEntity = new ValidateEntity();
+            if (string.IsNullOrEmpty(param))
+            {
+                validateEntity.Info = "资源代码不可为空";
+                validateEntity.Status = "n";
+                return validateEntity;
+            }
+
+            var mresourceDto = _resourceService.Query(param);
+            if (mresourceDto == null)
+            {
+                validateEntity.Info = "该资源代码可使用！";
+                validateEntity.Status = "y";
+            }
+            else
+            {
+                validateEntity.Info = "该资源代码已被占用，请更换！";
+                validateEntity.Status = "n";
+            }
+            return validateEntity;
         }
 
         #region 私有方法
