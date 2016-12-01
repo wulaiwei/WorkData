@@ -17,7 +17,5 @@ G:\PersonGit\WorkData\WorkData.Ef.Domain\bin\Debug\Webdiyer.MvcPager.xml
 G:\PersonGit\WorkData\WorkData.Ef.Domain\bin\Debug\zh-CHS\Webdiyer.MvcPager.resources.dll
 G:\PersonGit\WorkData\WorkData.Ef.Domain\bin\Debug\zh-CHT\Webdiyer.MvcPager.resources.dll
 G:\PersonGit\WorkData\WorkData.Ef.Domain\obj\Debug\WorkData.EF.Domain.csprojResolveAssemblyReference.cache
-G:\PersonGit\WorkData\WorkData.Ef.Domain\obj\Debug\WorkData.EF.Domain.Migrations.InitialCreate.resources
-G:\PersonGit\WorkData\WorkData.Ef.Domain\obj\Debug\WorkData.EF.Domain.csproj.GenerateResource.Cache
 G:\PersonGit\WorkData\WorkData.Ef.Domain\obj\Debug\WorkData.EF.Domain.dll
 G:\PersonGit\WorkData\WorkData.Ef.Domain\obj\Debug\WorkData.EF.Domain.pdb

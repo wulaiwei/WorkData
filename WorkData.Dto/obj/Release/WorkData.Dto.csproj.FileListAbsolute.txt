@@ -1,0 +1,14 @@
+G:\PersonGit\WorkData\WorkData.Dto\bin\Release\WorkData.Dto.dll.config
+G:\PersonGit\WorkData\WorkData.Dto\bin\Release\WorkData.Dto.dll
+G:\PersonGit\WorkData\WorkData.Dto\bin\Release\WorkData.Dto.pdb
+G:\PersonGit\WorkData\WorkData.Dto\bin\Release\AutoMapper.dll
+G:\PersonGit\WorkData\WorkData.Dto\bin\Release\Newtonsoft.Json.dll
+G:\PersonGit\WorkData\WorkData.Dto\bin\Release\WorkData.EF.Domain.dll
+G:\PersonGit\WorkData\WorkData.Dto\bin\Release\EntityFramework.dll
+G:\PersonGit\WorkData\WorkData.Dto\bin\Release\WorkData.EF.Domain.pdb
+G:\PersonGit\WorkData\WorkData.Dto\bin\Release\AutoMapper.xml
+G:\PersonGit\WorkData\WorkData.Dto\bin\Release\Newtonsoft.Json.xml
+G:\PersonGit\WorkData\WorkData.Dto\bin\Release\EntityFramework.xml
+G:\PersonGit\WorkData\WorkData.Dto\obj\Release\WorkData.Dto.csprojResolveAssemblyReference.cache
+G:\PersonGit\WorkData\WorkData.Dto\obj\Release\WorkData.Dto.dll
+G:\PersonGit\WorkData\WorkData.Dto\obj\Release\WorkData.Dto.pdb

@@ -31,6 +31,13 @@ namespace WorkData.BLL.Interface
         UserDto Query(SaveState saveState);
 
         /// <summary>
+        /// 查询实体
+        /// </summary>
+        /// <param name="loginName"></param>
+        /// <returns></returns>
+        UserDto Query(string loginName);
+
+        /// <summary>
         /// 保存
         /// </summary>
         /// <param name="saveState"></param>

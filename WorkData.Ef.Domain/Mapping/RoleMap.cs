@@ -28,16 +28,30 @@ namespace WorkData.EF.Domain.Mapping
             this.Property(t => t.Code).HasColumnName("CODE");
             this.Property(t => t.Status).HasColumnName("STATUS");
 
+            #region MyRegion
             // Relationships
-            this.HasMany(t => t.Privileges)
+            //this.HasMany(t => t.Resources)
+            //    .WithMany(t => t.Roles)
+            //    .Map(m =>
+            //    {
+            //        m.ToTable("EF_ROLE_PRIVILEGE");
+            //        m.MapLeftKey("ROLE_ID");
+            //        m.MapRightKey("PRIVILEGE_ID");
+            //    })
+            //    ; 
+            #endregion
+
+            // Relationships
+            this.HasMany(t => t.Resources)
                 .WithMany(t => t.Roles)
                 .Map(m =>
                 {
-                    m.ToTable("EF_ROLE_PRIVILEGE");
+                    m.ToTable("EF_ROLE_RESOURCE");
                     m.MapLeftKey("ROLE_ID");
-                    m.MapRightKey("PRIVILEGE_ID");
+                    m.MapRightKey("RESOURCE_ID");
                 })
                 ;
+
         }
     }
 }

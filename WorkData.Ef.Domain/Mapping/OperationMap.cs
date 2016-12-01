@@ -15,6 +15,11 @@ namespace WorkData.EF.Domain.Mapping
             this.Property(t => t.Name).HasColumnName("NAME");
             this.Property(t => t.Code).HasColumnName("CODE");
             this.Property(t => t.Status).HasColumnName("STATUS");
+            this.Property(t => t.Style).HasColumnName("STYLE");
+            this.Property(t => t.Class).HasColumnName("CLASS");
+            this.Property(t => t.Id).HasColumnName("ID");
+            this.Property(t => t.OnClick).HasColumnName("ON_CLICK");
+            this.Property(t => t.OperationCategory).HasColumnName("OPERATION_CATEGORY");
 
             // Primary Key
             this.HasKey(t => t.OperationId);
@@ -28,6 +33,18 @@ namespace WorkData.EF.Domain.Mapping
             this.Property(t => t.Code)
                 .IsRequired()
                 .HasMaxLength(50);
+
+            this.Property(t => t.Style)
+                .HasMaxLength(150);
+
+            this.Property(t => t.Id)
+                .HasMaxLength(50);
+
+            this.Property(t => t.Class)
+                .HasMaxLength(100);
+
+            this.Property(t => t.OnClick)
+                .HasMaxLength(150);
         }
     }
 }

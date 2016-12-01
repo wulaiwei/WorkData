@@ -17,11 +17,21 @@ namespace WorkData.Service.Interface
 {
     public interface IResourceService
     {
+        #region 过于相似 未避免混淆进行拆分  
         /// <summary>
         /// 查询列表
         /// </summary>
         /// <returns></returns>
-        IList<ResourceDto> GetSourceTree(bool isAll,string includeName, int parentId = 0, bool isLock = false);
+        IList<ResourceDto> GetSourceTree(bool isAll, string includeName, int parentId = 0, bool isLock = false);
+
+        /// <summary>
+        /// 递归拉取树结构 (只针对后台导航生成模块)
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        IList<ResourceDto> GetSourceTree(IEnumerable<int> array, int parentId = 0); 
+        #endregion
 
         /// <summary>
         /// 查询列表
@@ -39,13 +49,21 @@ namespace WorkData.Service.Interface
         ResourceDto Query(object key, string includeName);
 
         /// <summary>
-        /// 查询  +  指定列 + 查询方式
+        /// 查询  +  指定列 
         /// </summary>
         /// <param name="sourcePropertyName"></param>
-        /// <param name="method"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        ResourceDto Query(string sourcePropertyName, string method, object param);
+        ResourceDto Query(string sourcePropertyName, object param);
+
+
+        /// <summary>
+        /// 查询  +  指定列 (特例)
+        /// </summary>
+        /// <param name="controllerName"></param>
+        /// <param name="resourceUrl"></param>
+        /// <returns></returns>
+        ResourceDto Query(string controllerName, string resourceUrl);
 
         /// <summary>
         /// 查询

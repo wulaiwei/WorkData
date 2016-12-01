@@ -170,7 +170,10 @@ namespace WorkData.BLL.Impl
         private void DataSynchronization(CategoryDto categoryDto, CategoryDto parentCategoryDto, SaveState saveState)
         {
             var code = parentCategoryDto == null ? "zhandianguanli" : parentCategoryDto.Code;
+
             var parentResourceDto = _resourceService.Query(code);
+            var category = _categoryService.Query(categoryDto.Code);
+
             var resourceDto = new ResourceDto
             {
                 ParentId = parentResourceDto.ResourceId,
@@ -182,7 +185,7 @@ namespace WorkData.BLL.Impl
 
             if (!categoryDto.HasLevel)
             {
-                resourceDto.ResourceUrl = $"/Admin/Content/Index?Key={categoryDto.CategoryId}";
+                resourceDto.ResourceUrl = $"/Admin/Content/Index?Key={category.CategoryId}";
             }
 
             switch (saveState.OperationState)

@@ -7,7 +7,7 @@ namespace WorkData.Dto.Entity
     {
         public UserDto()
         {
-            //this.Privileges = new List<PrivilegeDto>();
+            //this.Resources = new List<PrivilegeDto>();
             this.Roles = new List<RoleDto>();
         }
 
@@ -82,7 +82,7 @@ namespace WorkData.Dto.Entity
         public DateTime? AddTime { get; set; }
 
         #region Íâ¼ü
-        //public ICollection<PrivilegeDto> Privileges { get; set; }
+        //public ICollection<PrivilegeDto> Resources { get; set; }
         public ICollection<RoleDto> Roles { get; set; }
 
         #endregion Íâ¼ü

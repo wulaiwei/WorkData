@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(WorkData.EF.Domain.DbEntity),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsb7c162fee57b46e5338f39a2c8ee4c888b916c814ebf5d5b1fac1baa094eca77))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets5430c098bf31157c7524d2e2322c1d100d606cf4988b17401c49d2f2771b14c1))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySetsb7c162fee57b46e5338f39a2c8ee4c888b916c814ebf5d5b1fac1baa094eca77 : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySets5430c098bf31157c7524d2e2322c1d100d606cf4988b17401c49d2f2771b14c1 : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "b7c162fee57b46e5338f39a2c8ee4c888b916c814ebf5d5b1fac1baa094eca77"; }
+            get { return "5430c098bf31157c7524d2e2322c1d100d606cf4988b17401c49d2f2771b14c1"; }
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView0();
             }
 
-            if (extentName == "CodeFirstDatabase.Privilege")
+            if (extentName == "CodeFirstDatabase.Resource")
             {
                 return GetView1();
             }
@@ -62,17 +62,17 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView2();
             }
 
-            if (extentName == "CodeFirstDatabase.Resource")
+            if (extentName == "CodeFirstDatabase.User")
             {
                 return GetView3();
             }
 
-            if (extentName == "CodeFirstDatabase.User")
+            if (extentName == "CodeFirstDatabase.ResourceOperation")
             {
                 return GetView4();
             }
 
-            if (extentName == "CodeFirstDatabase.RolePrivilege")
+            if (extentName == "CodeFirstDatabase.RoleResource")
             {
                 return GetView5();
             }
@@ -87,7 +87,7 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView7();
             }
 
-            if (extentName == "DbEntity.Privileges")
+            if (extentName == "DbEntity.Resources")
             {
                 return GetView8();
             }
@@ -97,17 +97,17 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView9();
             }
 
-            if (extentName == "DbEntity.Resources")
+            if (extentName == "DbEntity.User")
             {
                 return GetView10();
             }
 
-            if (extentName == "DbEntity.User")
+            if (extentName == "DbEntity.Resource_Operations")
             {
                 return GetView11();
             }
 
-            if (extentName == "DbEntity.Role_Privileges")
+            if (extentName == "DbEntity.Role_Resources")
             {
                 return GetView12();
             }
@@ -251,53 +251,14 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
-        /// Gets the view for CodeFirstDatabase.Privilege.
+        /// Gets the view for CodeFirstDatabase.Resource.
         /// </summary>
         /// <returns>The mapping view.</returns>
         private static DbMappingView GetView1()
         {
             return new DbMappingView(@"
-    SELECT VALUE -- Constructing Privilege
-        [CodeFirstDatabaseSchema.Privilege](T1.[Privilege.PRIVILEGE_ID], T1.[Privilege.RESOURCE_ID], T1.[Privilege.OPERATION_ID])
-    FROM (
-        SELECT 
-            T.PrivilegeId AS [Privilege.PRIVILEGE_ID], 
-            T.ResourceId AS [Privilege.RESOURCE_ID], 
-            T.OperationId AS [Privilege.OPERATION_ID], 
-            True AS _from0
-        FROM DbEntity.Privileges AS T
-    ) AS T1");
-        }
-
-        /// <summary>
-        /// Gets the view for CodeFirstDatabase.Operation.
-        /// </summary>
-        /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView2()
-        {
-            return new DbMappingView(@"
-    SELECT VALUE -- Constructing Operation
-        [CodeFirstDatabaseSchema.Operation](T1.[Operation.OPERATION_ID], T1.Operation_NAME, T1.Operation_CODE, T1.Operation_STATUS)
-    FROM (
-        SELECT 
-            T.OperationId AS [Operation.OPERATION_ID], 
-            T.Name AS Operation_NAME, 
-            T.Code AS Operation_CODE, 
-            T.Status AS Operation_STATUS, 
-            True AS _from0
-        FROM DbEntity.Operations AS T
-    ) AS T1");
-        }
-
-        /// <summary>
-        /// Gets the view for CodeFirstDatabase.Resource.
-        /// </summary>
-        /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView3()
-        {
-            return new DbMappingView(@"
     SELECT VALUE -- Constructing Resource
-        [CodeFirstDatabaseSchema.Resource](T1.[Resource.RESOURCE_ID], T1.[Resource.PARENT_ID], T1.[Resource.RESOURCE_NAME], T1.Resource_CODE, T1.[Resource.RESOURCE_URL], T1.Resource_LAYER, T1.[Resource.IS_LOCK], T1.[Resource.RESOURCE_IMG], T1.Resource_SORT, T1.[Resource.HAS_LEVEL])
+        [CodeFirstDatabaseSchema.Resource](T1.[Resource.RESOURCE_ID], T1.[Resource.PARENT_ID], T1.[Resource.RESOURCE_NAME], T1.Resource_CODE, T1.[Resource.RESOURCE_URL], T1.Resource_LAYER, T1.[Resource.IS_LOCK], T1.[Resource.RESOURCE_IMG], T1.Resource_SORT, T1.[Resource.HAS_LEVEL], T1.[Resource.CONTROLLER_NAME])
     FROM (
         SELECT 
             T.ResourceId AS [Resource.RESOURCE_ID], 
@@ -310,8 +271,34 @@ namespace Edm_EntityMappingGeneratedViews
             T.ResourceImg AS [Resource.RESOURCE_IMG], 
             T.Sort AS Resource_SORT, 
             T.HasLevel AS [Resource.HAS_LEVEL], 
+            T.ControllerName AS [Resource.CONTROLLER_NAME], 
             True AS _from0
         FROM DbEntity.Resources AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for CodeFirstDatabase.Operation.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView2()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing Operation
+        [CodeFirstDatabaseSchema.Operation](T1.[Operation.OPERATION_ID], T1.Operation_NAME, T1.Operation_CODE, T1.Operation_STATUS, T1.Operation_CLASS, T1.Operation_ID, T1.[Operation.ON_CLICK], T1.Operation_STYLE, T1.[Operation.OPERATION_CATEGORY])
+    FROM (
+        SELECT 
+            T.OperationId AS [Operation.OPERATION_ID], 
+            T.Name AS Operation_NAME, 
+            T.Code AS Operation_CODE, 
+            T.Status AS Operation_STATUS, 
+            T.Class AS Operation_CLASS, 
+            T.Id AS Operation_ID, 
+            T.OnClick AS [Operation.ON_CLICK], 
+            T.Style AS Operation_STYLE, 
+            T.OperationCategory AS [Operation.OPERATION_CATEGORY], 
+            True AS _from0
+        FROM DbEntity.Operations AS T
     ) AS T1");
         }
 
@@ -319,7 +306,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for CodeFirstDatabase.User.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView4()
+        private static DbMappingView GetView3()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing User
@@ -344,20 +331,38 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
-        /// Gets the view for CodeFirstDatabase.RolePrivilege.
+        /// Gets the view for CodeFirstDatabase.ResourceOperation.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView4()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing ResourceOperation
+        [CodeFirstDatabaseSchema.ResourceOperation](T1.[ResourceOperation.RESOURCE_ID], T1.[ResourceOperation.OPERATION_ID])
+    FROM (
+        SELECT 
+            Key(T.Resource_Operations_Source).ResourceId AS [ResourceOperation.RESOURCE_ID], 
+            Key(T.Resource_Operations_Target).OperationId AS [ResourceOperation.OPERATION_ID], 
+            True AS _from0
+        FROM DbEntity.Resource_Operations AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for CodeFirstDatabase.RoleResource.
         /// </summary>
         /// <returns>The mapping view.</returns>
         private static DbMappingView GetView5()
         {
             return new DbMappingView(@"
-    SELECT VALUE -- Constructing RolePrivilege
-        [CodeFirstDatabaseSchema.RolePrivilege](T1.[RolePrivilege.ROLE_ID], T1.[RolePrivilege.PRIVILEGE_ID])
+    SELECT VALUE -- Constructing RoleResource
+        [CodeFirstDatabaseSchema.RoleResource](T1.[RoleResource.ROLE_ID], T1.[RoleResource.RESOURCE_ID])
     FROM (
         SELECT 
-            Key(T.Role_Privileges_Source).RoleId AS [RolePrivilege.ROLE_ID], 
-            Key(T.Role_Privileges_Target).PrivilegeId AS [RolePrivilege.PRIVILEGE_ID], 
+            Key(T.Role_Resources_Source).RoleId AS [RoleResource.ROLE_ID], 
+            Key(T.Role_Resources_Target).ResourceId AS [RoleResource.RESOURCE_ID], 
             True AS _from0
-        FROM DbEntity.Role_Privileges AS T
+        FROM DbEntity.Role_Resources AS T
     ) AS T1");
         }
 
@@ -400,53 +405,14 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
-        /// Gets the view for DbEntity.Privileges.
+        /// Gets the view for DbEntity.Resources.
         /// </summary>
         /// <returns>The mapping view.</returns>
         private static DbMappingView GetView8()
         {
             return new DbMappingView(@"
-    SELECT VALUE -- Constructing Privileges
-        [WorkData.EF.Domain.Privilege](T1.Privilege_PrivilegeId, T1.Privilege_ResourceId, T1.Privilege_OperationId)
-    FROM (
-        SELECT 
-            T.PRIVILEGE_ID AS Privilege_PrivilegeId, 
-            T.RESOURCE_ID AS Privilege_ResourceId, 
-            T.OPERATION_ID AS Privilege_OperationId, 
-            True AS _from0
-        FROM CodeFirstDatabase.Privilege AS T
-    ) AS T1");
-        }
-
-        /// <summary>
-        /// Gets the view for DbEntity.Operations.
-        /// </summary>
-        /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView9()
-        {
-            return new DbMappingView(@"
-    SELECT VALUE -- Constructing Operations
-        [WorkData.EF.Domain.Operation](T1.Operation_OperationId, T1.Operation_Name, T1.Operation_Code, T1.Operation_Status)
-    FROM (
-        SELECT 
-            T.OPERATION_ID AS Operation_OperationId, 
-            T.NAME AS Operation_Name, 
-            T.CODE AS Operation_Code, 
-            T.STATUS AS Operation_Status, 
-            True AS _from0
-        FROM CodeFirstDatabase.Operation AS T
-    ) AS T1");
-        }
-
-        /// <summary>
-        /// Gets the view for DbEntity.Resources.
-        /// </summary>
-        /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView10()
-        {
-            return new DbMappingView(@"
     SELECT VALUE -- Constructing Resources
-        [WorkData.EF.Domain.Resource](T1.Resource_ResourceId, T1.Resource_ParentId, T1.Resource_ResourceName, T1.Resource_Code, T1.Resource_ResourceUrl, T1.Resource_Layer, T1.Resource_IsLock, T1.Resource_ResourceImg, T1.Resource_Sort, T1.Resource_HasLevel)
+        [WorkData.EF.Domain.Resource](T1.Resource_ResourceId, T1.Resource_ParentId, T1.Resource_ResourceName, T1.Resource_Code, T1.Resource_ResourceUrl, T1.Resource_Layer, T1.Resource_IsLock, T1.Resource_ResourceImg, T1.Resource_Sort, T1.Resource_HasLevel, T1.Resource_ControllerName)
     FROM (
         SELECT 
             T.RESOURCE_ID AS Resource_ResourceId, 
@@ -459,8 +425,34 @@ namespace Edm_EntityMappingGeneratedViews
             T.RESOURCE_IMG AS Resource_ResourceImg, 
             T.SORT AS Resource_Sort, 
             T.HAS_LEVEL AS Resource_HasLevel, 
+            T.CONTROLLER_NAME AS Resource_ControllerName, 
             True AS _from0
         FROM CodeFirstDatabase.Resource AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for DbEntity.Operations.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView9()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing Operations
+        [WorkData.EF.Domain.Operation](T1.Operation_OperationId, T1.Operation_Name, T1.Operation_Code, T1.Operation_Status, T1.Operation_Class, T1.Operation_Id, T1.Operation_OnClick, T1.Operation_Style, T1.Operation_OperationCategory)
+    FROM (
+        SELECT 
+            T.OPERATION_ID AS Operation_OperationId, 
+            T.NAME AS Operation_Name, 
+            T.CODE AS Operation_Code, 
+            T.STATUS AS Operation_Status, 
+            T.CLASS AS Operation_Class, 
+            T.ID AS Operation_Id, 
+            T.ON_CLICK AS Operation_OnClick, 
+            T.STYLE AS Operation_Style, 
+            T.OPERATION_CATEGORY AS Operation_OperationCategory, 
+            True AS _from0
+        FROM CodeFirstDatabase.Operation AS T
     ) AS T1");
         }
 
@@ -468,7 +460,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for DbEntity.User.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView11()
+        private static DbMappingView GetView10()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing User
@@ -493,28 +485,56 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
-        /// Gets the view for DbEntity.Role_Privileges.
+        /// Gets the view for DbEntity.Resource_Operations.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView11()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing Resource_Operations
+        [WorkData.EF.Domain.Resource_Operations](T3.[Resource_Operations.Resource_Operations_Source], T3.[Resource_Operations.Resource_Operations_Target])
+    FROM (
+        SELECT -- Constructing Resource_Operations_Source
+            CreateRef(DbEntity.Resources, row(T2.[Resource_Operations.Resource_Operations_Source.ResourceId]), [WorkData.EF.Domain.Resource]) AS [Resource_Operations.Resource_Operations_Source], 
+            T2.[Resource_Operations.Resource_Operations_Target]
+        FROM (
+            SELECT -- Constructing Resource_Operations_Target
+                T1.[Resource_Operations.Resource_Operations_Source.ResourceId], 
+                CreateRef(DbEntity.Operations, row(T1.[Resource_Operations.Resource_Operations_Target.OperationId]), [WorkData.EF.Domain.Operation]) AS [Resource_Operations.Resource_Operations_Target]
+            FROM (
+                SELECT 
+                    T.RESOURCE_ID AS [Resource_Operations.Resource_Operations_Source.ResourceId], 
+                    T.OPERATION_ID AS [Resource_Operations.Resource_Operations_Target.OperationId], 
+                    True AS _from0
+                FROM CodeFirstDatabase.ResourceOperation AS T
+            ) AS T1
+        ) AS T2
+    ) AS T3");
+        }
+
+        /// <summary>
+        /// Gets the view for DbEntity.Role_Resources.
         /// </summary>
         /// <returns>The mapping view.</returns>
         private static DbMappingView GetView12()
         {
             return new DbMappingView(@"
-    SELECT VALUE -- Constructing Role_Privileges
-        [WorkData.EF.Domain.Role_Privileges](T3.[Role_Privileges.Role_Privileges_Source], T3.[Role_Privileges.Role_Privileges_Target])
+    SELECT VALUE -- Constructing Role_Resources
+        [WorkData.EF.Domain.Role_Resources](T3.[Role_Resources.Role_Resources_Source], T3.[Role_Resources.Role_Resources_Target])
     FROM (
-        SELECT -- Constructing Role_Privileges_Source
-            CreateRef(DbEntity.Role, row(T2.[Role_Privileges.Role_Privileges_Source.RoleId]), [WorkData.EF.Domain.Role]) AS [Role_Privileges.Role_Privileges_Source], 
-            T2.[Role_Privileges.Role_Privileges_Target]
+        SELECT -- Constructing Role_Resources_Source
+            CreateRef(DbEntity.Role, row(T2.[Role_Resources.Role_Resources_Source.RoleId]), [WorkData.EF.Domain.Role]) AS [Role_Resources.Role_Resources_Source], 
+            T2.[Role_Resources.Role_Resources_Target]
         FROM (
-            SELECT -- Constructing Role_Privileges_Target
-                T1.[Role_Privileges.Role_Privileges_Source.RoleId], 
-                CreateRef(DbEntity.Privileges, row(T1.[Role_Privileges.Role_Privileges_Target.PrivilegeId]), [WorkData.EF.Domain.Privilege]) AS [Role_Privileges.Role_Privileges_Target]
+            SELECT -- Constructing Role_Resources_Target
+                T1.[Role_Resources.Role_Resources_Source.RoleId], 
+                CreateRef(DbEntity.Resources, row(T1.[Role_Resources.Role_Resources_Target.ResourceId]), [WorkData.EF.Domain.Resource]) AS [Role_Resources.Role_Resources_Target]
             FROM (
                 SELECT 
-                    T.ROLE_ID AS [Role_Privileges.Role_Privileges_Source.RoleId], 
-                    T.PRIVILEGE_ID AS [Role_Privileges.Role_Privileges_Target.PrivilegeId], 
+                    T.ROLE_ID AS [Role_Resources.Role_Resources_Source.RoleId], 
+                    T.RESOURCE_ID AS [Role_Resources.Role_Resources_Target.ResourceId], 
                     True AS _from0
-                FROM CodeFirstDatabase.RolePrivilege AS T
+                FROM CodeFirstDatabase.RoleResource AS T
             ) AS T1
         ) AS T2
     ) AS T3");

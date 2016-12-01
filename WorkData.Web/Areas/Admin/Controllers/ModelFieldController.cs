@@ -5,8 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using WorkData.BLL.Interface;
 using WorkData.Dto.Entity;
+using WorkData.Mvc.Token;
 using WorkData.Util;
 using WorkData.Util.Enum;
+using WorkData.Web.Filter;
 using WorkData.Web.HtmlFactory;
 
 namespace WorkData.Web.Areas.Admin.Controllers
@@ -25,6 +27,9 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <param name="pageIndex"></param>
         /// <returns></returns>
+        [HttpGet]
+        [MvcTokenAutorize]
+        [OperationFilter]
         public ActionResult Index(int pageIndex = 1)
         {
             var pageEntity = PageListHepler.BuildPageEntity(pageIndex, 8, "ModelFieldId", "ASC");
@@ -55,7 +60,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
 
                 case OperationState.Remove:
                     _modelFieldBll.HttpGetSave(saveState);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "ModelField");
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -68,6 +73,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// <returns></returns>
         [ValidateInput(false)]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(ModelFieldDto model)
         {
             var saveState = BusinessHelper.BuildSaveState(Request);
@@ -78,7 +84,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
 
             _modelFieldBll.HttpPostSave(model, saveState);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "ModelField");
         }
         #region Ajax操作
 

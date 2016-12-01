@@ -70,7 +70,6 @@
     <Compile Include="Entity\Model.cs" />
     <Compile Include="Entity\ModelField.cs" />
     <Compile Include="Entity\Operation.cs" />
-    <Compile Include="Entity\Privilege.cs" />
     <Compile Include="Entity\Resource.cs" />
     <Compile Include="Entity\Role.cs" />
     <Compile Include="Entity\User.cs" />
@@ -85,14 +84,9 @@
     <Compile Include="Mapping\ModelMap.cs" />
     <Compile Include="Mapping\ModelFieldMap.cs" />
     <Compile Include="Mapping\OperationMap.cs" />
-    <Compile Include="Mapping\PrivilegeMap.cs" />
     <Compile Include="Mapping\ResourceMap.cs" />
     <Compile Include="Mapping\RoleMap.cs" />
     <Compile Include="Mapping\UserMap.cs" />
-    <Compile Include="Migrations\201611220838152_InitialCreate.cs" />
-    <Compile Include="Migrations\201611220838152_InitialCreate.Designer.cs">
-      <DependentUpon>201611220838152_InitialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -107,9 +101,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611220838152_InitialCreate.resx">
-      <DependentUpon>201611220838152_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

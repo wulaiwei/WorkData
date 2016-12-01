@@ -13,7 +13,7 @@ namespace WorkData.Dto
                 cfg.AddProfile<RoleDtoProfile>();
                 cfg.AddProfile<UserDtoProfile>();
                 cfg.AddProfile<OperationDtoProfile>();
-                cfg.AddProfile<PrivilegeDtoProfile>();
+                //cfg.AddProfile<PrivilegeDtoProfile>();
                 cfg.AddProfile<ResourceDtoProfile>();
 
                 //栏目  连接RBAC和  DynamicForm

@@ -55,7 +55,7 @@ namespace WorkData.EF.Domain.Mapping
             this.Property(t => t.WeiChatNumber).HasColumnName("WEICHAT_NUMBER");
             this.Property(t => t.AddTime).HasColumnName("ADD_TIME");
 
-            //this.HasMany(t => t.Privileges)
+            //this.HasMany(t => t.Resources)
             //    .WithMany(t => t.Users)
             //    .Map(m =>
             //    {

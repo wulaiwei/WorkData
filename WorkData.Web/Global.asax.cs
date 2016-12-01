@@ -18,6 +18,7 @@ namespace WorkData.Web
             AutoMapperConfiguration.Configure();
 
             AreaRegistration.RegisterAllAreas();
+
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             BundleConfig.RegisterBundles(BundleTable.Bundles);

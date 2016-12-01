@@ -60,7 +60,6 @@
     <Compile Include="Entity\ModelDto.cs" />
     <Compile Include="Entity\ModelFieldDto.cs" />
     <Compile Include="Entity\OperationDto.cs" />
-    <Compile Include="Entity\PrivilegeDto.cs" />
     <Compile Include="Entity\ResourceDto.cs" />
     <Compile Include="Entity\RoleDto.cs" />
     <Compile Include="Entity\UserDto.cs" />
@@ -75,7 +74,6 @@
     <Compile Include="Profiles\ContentDescriptionFieldDtoProfile.cs" />
     <Compile Include="Profiles\CategoryDtoProfile.cs" />
     <Compile Include="Profiles\OperationDtoProfile.cs" />
-    <Compile Include="Profiles\PrivilegeDtoProfile.cs" />
     <Compile Include="Profiles\ResourceDtoProfile.cs" />
     <Compile Include="Profiles\RoleDtoProfile.cs" />
     <Compile Include="Profiles\UserDtoProfile.cs" />

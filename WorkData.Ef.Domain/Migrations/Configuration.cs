@@ -9,7 +9,7 @@ namespace WorkData.EF.Domain.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(WorkData.EF.Domain.DbEntity context)

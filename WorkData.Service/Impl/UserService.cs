@@ -193,15 +193,18 @@ namespace WorkData.Service.Impl
         /// 查询
         /// </summary>
         /// <param name="param"></param>
+        /// <param name="includeName"></param>
         /// <returns></returns>
-        public UserDto Query(string param)
+        public UserDto Query(string param,string includeName)
         {
             using (_unitOfWork)
             {
                 var repository = _unitOfWork.Repository<User>();
 
                 Expression<Func<User, bool>> where = w => w.LoginName == param;
-                var user = repository.Get(where);
+                var user = string.IsNullOrEmpty(includeName)? 
+                    repository.Get(where):
+                    repository.Get(where, includeName);
 
                 return AutoMapperHelper.Signle<User, UserDto>(user);
             }

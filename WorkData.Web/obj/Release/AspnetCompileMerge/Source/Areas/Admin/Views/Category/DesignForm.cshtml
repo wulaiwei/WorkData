@@ -1,0 +1,71 @@
+﻿@model WorkData.Dto.Entity.ModelDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>表单排版设计</title>
+    <link href="~/scripts/artdialog/ui-dialog.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/skin/default/style.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/skin/common.css" rel="stylesheet" />
+    <script src="~/scripts/jquery/jquery-1.11.2.min.js"></script>
+    <script src="~/scripts/jquery-ui.min.js"></script>
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif }
+        table { font-size: 1em }
+        .ui-draggable, .ui-droppable { background-position: top }
+        #sortable {margin: 0;padding: 0;list-style-type: none}
+        #sortable li {margin: 0 3px 3px 3px;padding: .4em;padding-left: 1.5em;height: 18px;color: #ffffff;font-size: 1em; /*border: 1px solid #000*/;background-color: #428bca}
+        #sortable li span {position: absolute;margin-left: -1.3em}
+        .desginContent{text-decoration :none !important;color: #ffffff !important;font-size: 1em !important;}
+    </style>
+
+    <script>
+        var api = top.dialog.get(window); //获取父窗体对象
+    </script>
+</head>
+<body>
+
+<div style="width: 350px;">
+    <ul id="sortable">
+        @foreach (var modelField in Model.ModelFields)
+        {
+            <li class="ui-state-default" modelFieldId="@modelField.ModelFieldId"
+                modelFieldTempalte="@modelField.HtmlTemplate" modelFieldName="@modelField.Name" modelFieldCode="@modelField.Code">
+                <a href="javascript:;" class="desginContent">@modelField.Name (@modelField.Code)</a><i></i>
+            </li>
+        }
+    </ul>
+    <input type="hidden" id="key" value="@ViewBag.Key"/>
+    <input type="hidden" id="template"/>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#sortable").sortable({
+            connectWith: "#sortable",
+            stop: function (event, ui) {
+                var arrList = new Array();
+                $("#sortable>li").each(function (index) {
+                    var arr = new Object();
+
+                    arr.ModelFieldId = $(this).attr("modelFieldId");
+                    arr.Name = $(this).attr("modelFieldName");
+                    arr.HtmlTemplate = $(this).attr("modelFieldTempalte");
+                    arr.Code = $(this).attr("modelFieldCode");
+                    //arr.Priority = index;
+                    arrList.push(arr);
+                });
+
+                var json = JSON.stringify(arrList);
+                $("#template").val(json);
+            }
+        });
+    });
+</script>
+</body>
+</html>

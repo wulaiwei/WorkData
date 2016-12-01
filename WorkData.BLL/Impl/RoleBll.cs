@@ -53,7 +53,7 @@ namespace WorkData.BLL.Impl
         {
             var roleDto = new RoleDto();
             return saveState.OperationState == OperationState.Add ? roleDto : 
-                _roleService.Query(saveState.Key, "Privileges");
+                _roleService.Query(saveState.Key, "Resources");
         }
 
         /// <summary>

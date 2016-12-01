@@ -115,22 +115,24 @@ namespace WorkData.Service.Impl
                 var info = AutoMapperHelper.Signle<RoleDto, Role>(entity);
 
                 var repository = _unitOfWork.Repository<Role>();
-                var privilegeRepository = _unitOfWork.Repository<Privilege>();
+                var resourceRepository = _unitOfWork.Repository<Resource>();
 
                 foreach (var item in array)
                 {
-                    var privilege = new Privilege
+                    var resource = new Resource
                     {
-                       PrivilegeId=item
+                        ResourceId = item
                     };
-                    privilegeRepository.Attach(privilege);
+                    resourceRepository.Attach(resource);
 
-                    info.Privileges.Add(privilege);
+                    info.Resources.Add(resource);
                 }
 
                 repository.Add(info);
 
                 _unitOfWork.Commit();
+
+                entity.RoleId = info.RoleId;
             }
         }
 
@@ -163,24 +165,24 @@ namespace WorkData.Service.Impl
             using (_unitOfWork)
             {
                 var repository = _unitOfWork.Repository<Role>();
-                var privilegeRepository = _unitOfWork.Repository<Privilege>();
+                var resourceRepository = _unitOfWork.Repository<Resource>();
 
                 Expression<Func<Role, bool>> where = w => w.RoleId == roleInfoEntity.RoleId;
 
-                var role = repository.Get(where, "Privileges");
+                var role = repository.Get(where, "Resources");
                 repository.CurrentValue(role, roleInfoEntity);
 
-                var list = role.Privileges.Where(p => !array.Contains(p.PrivilegeId)).ToList();
-                list.ForEach(c => role.Privileges.Remove(c));
+                var list = role.Resources.Where(p => !array.Contains(p.ResourceId)).ToList();
+                list.ForEach(c => role.Resources.Remove(c));
 
                 ////2.0  求差集
-                var privilegeArray = role.Privileges.Select(x => x.PrivilegeId).ToArray();
+                var privilegeArray = role.Resources.Select(x => x.ResourceId).ToArray();
                 var expectedList = array.Except(privilegeArray);
 
-                foreach (var privilege in expectedList.Select(expected => new Privilege { PrivilegeId = expected }))
+                foreach (var resource in expectedList.Select(expected => new Resource { ResourceId = expected }))
                 {
-                    privilegeRepository.Attach(privilege);
-                    role.Privileges.Add(privilege);
+                    resourceRepository.Attach(resource);
+                    role.Resources.Add(resource);
                 }
 
                 repository.Update(role);

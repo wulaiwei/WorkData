@@ -7,7 +7,8 @@ namespace WorkData.EF.Domain.Entity
     {
         public Resource()
         {
-            this.Privileges = new List<Privilege>();
+            this.Operations = new List<Operation>();
+            this.Roles = new List<Role>();
         }
 
         /// <summary>
@@ -68,11 +69,19 @@ namespace WorkData.EF.Domain.Entity
 
         public bool HasLevel { get; set; }
 
+        /// <summary>
+        /// 控制器名称
+        /// </summary>
+        public string ControllerName { get; set; }
+
 
         #region 外键
 
         [JsonIgnore]
-        public ICollection<Privilege> Privileges { get; set; }
+        public ICollection<Operation> Operations { get; set; }
+
+        [JsonIgnore]
+        public ICollection<Role> Roles { get; set; }
 
         #endregion 外键
     }

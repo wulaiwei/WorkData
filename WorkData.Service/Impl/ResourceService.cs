@@ -50,6 +50,27 @@ namespace WorkData.Service.Impl
                 var resourceList = new List<Resource>();
 
                 resourceList.AddRange(GetResourceList(repository, includeName, parentId, isLock, isAll));
+
+                return AutoMapperHelper.List<Resource, ResourceDto>(resourceList);
+            }
+        }
+
+
+        /// <summary>
+        /// 递归拉取树结构
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        public IList<ResourceDto> GetSourceTree(IEnumerable<int> array,int parentId = 0)
+        {
+            using (_unitOfWork)
+            {
+                var repository = _unitOfWork.Repository<Resource>();
+                var resourceList = new List<Resource>();
+
+                resourceList.AddRange(GetResourceList(repository, parentId, array));
+
                 return AutoMapperHelper.List<Resource, ResourceDto>(resourceList);
             }
         }
@@ -94,17 +115,35 @@ namespace WorkData.Service.Impl
         /// 查询
         /// </summary>
         /// <param name="sourcePropertyName"></param>
-        /// <param name="method"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public ResourceDto Query(string sourcePropertyName, string method, object param)
+        public ResourceDto Query(string sourcePropertyName, object param)
         {
             using (_unitOfWork)
             {
-                var where = ExpressionHelper.GenerateCondition<Resource>(sourcePropertyName, method, param);
+                var where = ExpressionHelper.GenerateCondition<Resource>(sourcePropertyName, param);
 
                 var repository = _unitOfWork.Repository<Resource>();
-                var resource = repository.Query(where).Include("Privileges.Operation").FirstOrDefault();
+                var resource = repository.Query(where).Include("Resources.Operation").FirstOrDefault();
+
+                return AutoMapperHelper.Signle<Resource, ResourceDto>(resource);
+            }
+        }
+
+        /// <summary>
+        /// 查询(特例)
+        /// </summary>
+        /// <param name="controllerName"></param>
+        /// <param name="resourceUrl"></param>
+        /// <returns></returns>
+        public ResourceDto Query(string controllerName, string resourceUrl)
+        {
+            using (_unitOfWork)
+            {
+                Expression<Func<Resource, bool>> where = w => w.ControllerName == controllerName && resourceUrl.Contains(w.ResourceUrl);
+
+                var repository = _unitOfWork.Repository<Resource>();
+                var resource = repository.Query(where).Include("Operations").FirstOrDefault();
 
                 return AutoMapperHelper.Signle<Resource, ResourceDto>(resource);
             }
@@ -147,17 +186,18 @@ namespace WorkData.Service.Impl
                 {
                     foreach (var item in array)
                     {
-                        var privilege = new Privilege
+                        var operation = new Operation
                         {
-                            ResourceId = info.ResourceId,
                             OperationId = item
                         };
-                        info.Privileges.Add(privilege);
+                        info.Operations.Add(operation);
                     }
                 }
                 repository.Add(info);
 
                 _unitOfWork.Commit();
+
+                entity.ResourceId = info.ResourceId;
             }
         }
 
@@ -205,37 +245,37 @@ namespace WorkData.Service.Impl
             using (_unitOfWork)
             {
                 var repository = _unitOfWork.Repository<Resource>();
-                var privilegeRepository = _unitOfWork.Repository<Privilege>();
+                var operationRepository = _unitOfWork.Repository<Operation>();
 
                 Expression<Func<Resource, bool>> where = w => w.ResourceId == resourceId || w.Code == entity.Code;
-                var resource = repository.Get(where, "Privileges");
+                var resource = repository.Get(where, "Operations");
                 if (info.ResourceId <= 0)
                 {
                     info.ResourceId = resource.ResourceId;
                 }
                 repository.CurrentValue(resource, info);
 
-                var list = resource.Privileges.Where(r => array != null
-                    && !(array.Contains(r.OperationId) && r.ResourceId == info.ResourceId)).ToList();
-
+                var list = resource.Operations.Where(r => array != null
+                    && !array.Contains(r.OperationId)).ToList();
+                list.ForEach(c => resource.Operations.Remove(c));
                 if (array != null)
                 {
                     //2.0  求差集
-                    var operationIdArray = resource.Privileges.Select(x => x.OperationId).ToArray();
+                    var operationIdArray = resource.Operations.Select(x => x.OperationId).ToArray();
                     var expectedList = array.Except(operationIdArray);
 
-                    foreach (var privilege in expectedList.Select(expected =>
-                        new Privilege
-                        {
-                            ResourceId = resourceId,
-                            OperationId = expected
-                        }))
+                    foreach (var operation in expectedList.Select(expected =>
+                    new Operation
                     {
-                        privilegeRepository.Add(privilege);
+                        OperationId = expected
+                    }))
+                    {
+                        operationRepository.Attach(operation);
+                        resource.Operations.Add(operation);
                     }
+
                 }
 
-                list.ForEach(t => privilegeRepository.Delete(t));
                 repository.Update(resource);
 
                 _unitOfWork.Commit();
@@ -274,15 +314,16 @@ namespace WorkData.Service.Impl
         private IEnumerable<Resource> GetResourceList(
             IRepository<Resource> repository, string includeName, int parentId, bool isLock, bool isAll)
         {
-
             var resourceList = new List<Resource>();
-            var @where = !isAll
-                ? (Expression<Func<Resource, bool>>)(w => w.ParentId == parentId && w.IsLock == isLock)
+        
+            var where = !isAll
+                ? (Expression<Func<Resource, bool>>)(w => w.ParentId == parentId && w.IsLock == isLock
+                )
                 : (w => w.ParentId == parentId);
 
             var infoList = string.IsNullOrEmpty(includeName) ?
-                repository.Query(@where).OrderBy(x => x.Sort).ToList() :
-                repository.Query(@where, includeName).OrderBy(x => x.Sort).ToList();
+                repository.Query(where).OrderBy(x => x.Sort).ToList() :
+                repository.Query(where, includeName).OrderBy(x => x.Sort).ToList();
 
 
             foreach (var info in infoList)
@@ -291,6 +332,36 @@ namespace WorkData.Service.Impl
                 if (info.HasLevel)
                 {
                     resourceList.AddRange(GetResourceList(repository, includeName, info.ResourceId, isLock, isAll));
+                }
+            }
+
+            return resourceList;
+
+        }
+
+        /// <summary>
+        /// 获取Resource列表
+        /// </summary>
+        /// <param name="repository"></param>
+        /// <param name="array"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        private IEnumerable<Resource> GetResourceList(
+            IRepository<Resource> repository,int parentId,IEnumerable<int> array)
+        {
+            var resourceList = new List<Resource>();
+            Expression<Func<Resource, bool>> where = w => w.ParentId == parentId && w.IsLock == false
+                  && w.Roles.Any(i => array.Any(r => i.RoleId == r));
+
+            var infoList = repository.Query(where).OrderBy(x => x.Sort).ToList();
+
+            foreach (var info in infoList)
+            {
+                resourceList.Add(info);
+                if (info.HasLevel)
+                {
+
+                    resourceList.AddRange(GetResourceList(repository,info.ResourceId, array));
                 }
             }
 

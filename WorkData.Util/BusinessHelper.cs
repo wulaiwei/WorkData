@@ -67,5 +67,6 @@ namespace WorkData.Util
             var strArray = str.Split(new[] { key }, StringSplitOptions.RemoveEmptyEntries);
             return strArray;
         }
+
     }
 }

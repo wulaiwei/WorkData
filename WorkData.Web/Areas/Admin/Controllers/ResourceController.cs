@@ -4,7 +4,9 @@ using System.Web;
 using System.Web.Mvc;
 using WorkData.BLL.Interface;
 using WorkData.Dto.Entity;
+using WorkData.Mvc.Token;
 using WorkData.Util;
+using WorkData.Util.Entity;
 using WorkData.Util.Enum;
 
 namespace WorkData.Web.Areas.Admin.Controllers
@@ -25,6 +27,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [MvcTokenAutorize]
         public ActionResult Index()
         {
             return View();
@@ -56,7 +59,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
                 case OperationState.Remove:
                     //逻辑删除
                     _resourceBll.HttpGetSave(saveState);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Resource");
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -78,7 +81,26 @@ namespace WorkData.Web.Areas.Admin.Controllers
 
             _resourceBll.HttpPostSave(model, saveState, array);
 
-            return RedirectToAction("Index");
+            var info = new AuthConfig
+            {
+                ControllerName = model.ControllerName,
+                ResourceId = model.ResourceId,
+                ResourceUrl = model.ResourceUrl,
+                Roles = ""
+            };
+
+            if (saveState.OperationState ==OperationState.Add)
+            {
+                AuthConfigXmlHelper.AttachAuthConfigByXml(Api.PhysicsUrl + "/Config/AuthConfig.xml"
+                    , info);
+            }
+            else
+            {
+                AuthConfigXmlHelper.UpateResourceAuthConfigByXml(Api.PhysicsUrl + "/Config/AuthConfig.xml"
+                   , info);
+            }
+
+            return RedirectToAction("Index", "Resource");
         }
         #region Ajax操作
 
@@ -151,7 +173,19 @@ namespace WorkData.Web.Areas.Admin.Controllers
         [HttpGet]
         public HtmlString Resource()
         {
-            return _resourceBll.CreateTopResourceHtml();
+            var user = Session["User"] as UserDto;
+            if (user != null)
+            {
+                var cacheResource = CacheHelper.GetCache(user.LoginName+ "Resource");
+                if (cacheResource != null) return cacheResource as HtmlString;
+            }
+
+            var array = Session["RoleIdList"] as IEnumerable<int>;
+            var html = _resourceBll.CreateTopResourceHtml(array);
+
+            if (user != null) CacheHelper.Insert(user.LoginName + "Resource", html, 10);
+
+            return html;
         }
         #endregion
 

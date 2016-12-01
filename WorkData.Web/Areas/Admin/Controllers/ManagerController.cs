@@ -8,6 +8,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// 主页
         /// </summary>
         /// <returns></returns>
+        [LoginAuthorize]
         public ActionResult Index()
         {
             return View();
@@ -17,6 +18,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// 默认页
         /// </summary>
         /// <returns></returns>
+        [LoginAuthorize]
         public ActionResult Center()
         {
             return View();

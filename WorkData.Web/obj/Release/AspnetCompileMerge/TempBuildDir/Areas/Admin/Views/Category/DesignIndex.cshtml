@@ -1,0 +1,84 @@
+﻿@using System.Diagnostics
+@using WorkData.Dto.Entity
+@model WorkData.Dto.Entity.ModelDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>列表排版设计</title>
+    <link href="~/scripts/artdialog/ui-dialog.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/skin/default/style.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/skin/common.css" rel="stylesheet" />
+    <script src="~/scripts/jquery/jquery-1.11.2.min.js"></script>
+    <script src="~/scripts/jquery-ui.min.js"></script>
+    <script src="~/Areas/Admin/js/common.js"></script>
+    <style>
+        body{font-family:Arial,Helvetica,sans-serif}
+        table{font-size:1em}
+        .ui-draggable,.ui-droppable{background-position:top}
+        #sortable{margin:0;padding:0;list-style-type:none}
+        #sortable li{margin:0 3px 3px 3px;padding:.4em;padding-left:1.5em;height:18px;color:#fff;font-size:1em;background-color:#428bca}
+        #sortable li span{position:absolute;margin-left:-1.3em}
+    </style>
+
+    <script>
+        var api = top.dialog.get(window); //获取父窗体对象
+    </script>
+</head>
+<body>
+
+<div style="width: 400px;">
+    <div class="rule-multi-porp">
+        <span id="cblActionType">
+            @foreach (var item in Model.ModelFields)
+            {
+                <input class="ui-state-default checkList" type="checkbox" modelFieldId="@item.ModelFieldId"
+                       modelFieldName="@item.Name" modelFieldCode="@item.Code" />
+
+                <label for="cblActionType">@item.Name (@item.Code)</label>
+            }
+        </span>
+    </div>
+
+    <input type="hidden" id="key" value="@ViewBag.Key"/>
+    <input type="hidden" id="template"/>
+</div>
+    <script type="text/javascript">
+        $(function () {
+            var arrList = new Array();
+            $(".checkList").click(function () {
+                if ($(this).attr('checked') == 'checked') {
+                    $(this).removeAttr('checked');
+                    arrList = removeArr(arrList, "ModelFieldId", $(this).attr("modelFieldId"));
+                } else {
+                    $(this).attr('checked', 'checked');
+                    var arr = new Object();
+                    arr.ModelFieldId = $(this).attr("modelFieldId");
+                    arr.Name = $(this).attr("modelFieldName");
+                    arr.Code = $(this).attr("modelFieldCode");
+                    arrList.push(arr);
+
+                }
+                var json = JSON.stringify(arrList);
+                $("#template").val(json);
+              
+            });
+        });
+
+        /**
+       * 从对象数组中删除属性为objPropery，值为objValue元素的对象
+       */
+        function removeArr(arr, objPropery, objValue) {
+            return $.grep(arr, function (cur, i) {
+                return cur[objPropery] != objValue;
+            });
+        }
+    </script>
+</body>
+</html>

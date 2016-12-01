@@ -1,0 +1,15 @@
+I:\easyman\cms_ziyang\Code\EasyWebApi.Token\bin\Release\EasyWebApi.Token.dll
+I:\easyman\cms_ziyang\Code\EasyWebApi.Token\bin\Release\EasyWebApi.Token.pdb
+I:\easyman\cms_ziyang\Code\EasyWebApi.Token\bin\Release\EasyWebApi.Data.dll
+I:\easyman\cms_ziyang\Code\EasyWebApi.Token\bin\Release\Newtonsoft.Json.dll
+I:\easyman\cms_ziyang\Code\EasyWebApi.Token\bin\Release\System.Net.Http.dll
+I:\easyman\cms_ziyang\Code\EasyWebApi.Token\bin\Release\System.Net.Http.Formatting.dll
+I:\easyman\cms_ziyang\Code\EasyWebApi.Token\bin\Release\System.Web.Http.dll
+I:\easyman\cms_ziyang\Code\EasyWebApi.Token\bin\Release\EasyWebApi.Data.pdb
+I:\easyman\cms_ziyang\Code\EasyWebApi.Token\bin\Release\Newtonsoft.Json.xml
+I:\easyman\cms_ziyang\Code\EasyWebApi.Token\bin\Release\System.Net.Http.xml
+I:\easyman\cms_ziyang\Code\EasyWebApi.Token\bin\Release\System.Net.Http.Formatting.xml
+I:\easyman\cms_ziyang\Code\EasyWebApi.Token\bin\Release\System.Web.Http.xml
+I:\easyman\cms_ziyang\Code\EasyWebApi.Token\obj\Release\EasyWebApi.Token.csprojResolveAssemblyReference.cache
+I:\easyman\cms_ziyang\Code\EasyWebApi.Token\obj\Release\EasyWebApi.Token.dll
+I:\easyman\cms_ziyang\Code\EasyWebApi.Token\obj\Release\EasyWebApi.Token.pdb

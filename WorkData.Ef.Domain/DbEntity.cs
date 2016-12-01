@@ -70,7 +70,7 @@ namespace WorkData.EF.Domain
             modelBuilder.Configurations.Add(new UserMap());
             modelBuilder.Configurations.Add(new RoleMap());
             modelBuilder.Configurations.Add(new OperationMap());
-            modelBuilder.Configurations.Add(new PrivilegeMap());
+            //modelBuilder.Configurations.Add(new PrivilegeMap());
             modelBuilder.Configurations.Add(new ResourceMap());
 
             //内容栏目

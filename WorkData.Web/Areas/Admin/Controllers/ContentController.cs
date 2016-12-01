@@ -13,8 +13,10 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using WorkData.BLL.Interface;
 using WorkData.Dto.Entity;
+using WorkData.Mvc.Token;
 using WorkData.Util;
 using WorkData.Util.Enum;
+using WorkData.Web.Filter;
 
 namespace WorkData.Web.Areas.Admin.Controllers
 {
@@ -36,10 +38,12 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// 列表
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
+        [MvcTokenAutorize]
         public ActionResult Index(int pageIndex = 1)
         {
             var key = Request.QueryString["Key"];
-            var pageEntity = PageListHepler.BuildPageEntity(pageIndex, 1, "ContentId", "DESC");
+            var pageEntity = PageListHepler.BuildPageEntity(pageIndex, 8, "ContentId", "DESC");
             var category = _categoryBll.Query(key, false);
             if (category == null) throw new ArgumentNullException(nameof(category));
 
@@ -88,7 +92,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
    
                     _contentBll.HttpGetSave(saveState);
 
-                    return RedirectToAction("Index", new { Key = category.CategoryId });
+                    return RedirectToAction("Index", "Content", new { Key = category.CategoryId });
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -101,6 +105,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateInput(false)]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(ContentDto entity)
         {
             var model = _modelBll.Query(entity.ModelId);
@@ -112,7 +117,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
 
             _contentBll.HttpPostSave(entity, saveState, dictionary);
 
-            return RedirectToAction("Index", new { Key = entity.CategoryId});
+            return RedirectToAction("Index", "Content", new { Key = entity.CategoryId});
         }
 
     

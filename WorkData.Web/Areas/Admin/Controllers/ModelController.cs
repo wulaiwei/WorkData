@@ -5,36 +5,35 @@ using System.Web;
 using System.Web.Mvc;
 using WorkData.BLL.Interface;
 using WorkData.Dto.Entity;
+using WorkData.Mvc.Token;
 using WorkData.Util;
 using WorkData.Util.Enum;
+using WorkData.Web.Filter;
 
 namespace WorkData.Web.Areas.Admin.Controllers
 {
-    public class ModelController : BaseController
+    public class ModelController : Controller
     {
         private readonly IModelBll _modelBll;
         private readonly IModelFieldBll _modelFieldBll;
 
-        public ModelController(IResourceBll resourceBll, IModelBll modelBll, IModelFieldBll modelFieldBll) : base(resourceBll)
+        public ModelController(IModelBll modelBll, IModelFieldBll modelFieldBll)
         {
             _modelBll = modelBll;
             _modelFieldBll = modelFieldBll;
         }
-
-        //public ModelController(IModelBll modelBll, IModelFieldBll modelFieldBll)
-        //{
-        //    _modelBll = modelBll;
-        //    _modelFieldBll = modelFieldBll;
-        //}
 
         /// <summary>
         /// 分页
         /// </summary>
         /// <param name="pageIndex"></param>
         /// <returns></returns>
+        [HttpGet]
+        [MvcTokenAutorize]
+        [OperationFilter]
         public ActionResult Index(int pageIndex = 1)
         {
-            var pageEntity = PageListHepler.BuildPageEntity(pageIndex, 1, "ModelId", "ASC");
+            var pageEntity = PageListHepler.BuildPageEntity(pageIndex, 8, "ModelId", "ASC");
             var data = _modelBll.Page(pageEntity);
 
             var page = PageListHepler.BuildPagedList(data, pageEntity);
@@ -65,7 +64,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
 
                 case OperationState.Remove:
                     _modelBll.HttpGetSave(saveState);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Model");
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -77,6 +76,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(ModelDto model)
         {
             var saveState = BusinessHelper.BuildSaveState(Request);
@@ -87,7 +87,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
 
             _modelBll.HttpPostSave(model, saveState, array);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Model");
         }
         #region Ajax操作
 

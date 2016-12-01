@@ -5,11 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using WorkData.BLL.Interface;
 using WorkData.Dto.Entity;
+using WorkData.Mvc.Token;
 using WorkData.Util;
 using WorkData.Util.Enum;
+using WorkData.Web.Filter;
 
 namespace WorkData.Web.Areas.Admin.Controllers
 {
+
     public class RoleController : Controller
     {
         private readonly IRoleBll _roleBll;
@@ -25,6 +28,9 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// 列表
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
+        [MvcTokenAutorize]
+        [OperationFilter]
         public ActionResult Index(int pageIndex = 1)
         {
             var pageEntity = PageListHepler.BuildPageEntity(pageIndex, 8, "RoleId", "ASC");
@@ -50,7 +56,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
                 case OperationState.Update:
                     var roleDto = _roleBll.Query(saveState);
 
-                    var resourceTree = _resourceBll.GetSourceTree(false, "Privileges.Operation");
+                    var resourceTree = _resourceBll.GetSourceTree(false, null);
 
                     ViewBag.ResourceTree = resourceTree;
                     ViewBag.SaveState = saveState.ToJson();
@@ -60,7 +66,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
                     //逻辑删除
                     _roleBll.HttpGetSave(saveState);
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Role");
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -72,17 +78,22 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(RoleDto model)
         {
             var saveState = BusinessHelper.BuildSaveState(Request);
 
-            var operationList = Request["privilegeList"];
+            var resourceList = Request["resourceList"];
 
-            var array = BusinessHelper.BreakUpStr(operationList, ',');
-
+            var array = BusinessHelper.BreakUpStr(resourceList, ',');
+            var arrayStr = BusinessHelper.BreakUpOptions(resourceList, ',');
             _roleBll.HttpPostSave(model, saveState, array);
 
-            return RedirectToAction("Index");
+            //授权
+            AuthConfigXmlHelper.UpateRolesAuthConfigByXml(Api.PhysicsUrl + "/Config/AuthConfig.xml"
+                , arrayStr, model.Code);
+
+            return RedirectToAction("Index", "Role");
         }
 
         #region Ajax操作

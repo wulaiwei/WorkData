@@ -50,6 +50,16 @@ namespace WorkData.BLL.Impl
         }
 
         /// <summary>
+        ///登陆
+        /// </summary>
+        /// <param name="loginName"></param>
+        /// <returns></returns>
+        public UserDto Query(string loginName)
+        {
+            return _userService.Query(loginName, "Roles");
+        }
+
+        /// <summary>
         /// Get请求
         /// </summary>
         /// <param name="saveState"></param>
@@ -63,6 +73,7 @@ namespace WorkData.BLL.Impl
                     break;
                 case OperationState.Update:
                     userDto = _userService.Query(saveState.Key, "Roles");
+                    userDto.Password = DesEncrypt.Decrypt(userDto.Password, userDto.Salt);
                     break;
                 case OperationState.Remove:
                     _userService.Remove(saveState.Key);
@@ -70,7 +81,7 @@ namespace WorkData.BLL.Impl
                 default:
                     break;
             }
-            userDto.Password = DesEncrypt.Decrypt(userDto.Password,userDto.Salt);
+
             return userDto;
         }
 
@@ -114,7 +125,7 @@ namespace WorkData.BLL.Impl
                 return validateEntity;
             }
 
-            var userDto = _userService.Query(param);
+            var userDto = _userService.Query(param,null);
             if (userDto == null)
             {
                 validateEntity.Info = "该登录名可使用！";

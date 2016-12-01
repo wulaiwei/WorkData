@@ -11,6 +11,76 @@ namespace WorkData.Web.HtmlFactory
 {
     public class CreateHtmlHelper
     {
+        #region 按钮组
+        /// <summary>
+        /// 列表按钮组
+        /// </summary>
+        /// <param name="operationDto"></param>
+        /// <returns></returns>
+        public static string CreateOperationIndexList(List<OperationDto> operationDto)
+        {
+            var sw = new StringWriter();
+            var writer = new HtmlTextWriter(sw);
+
+            foreach (var item in operationDto)
+            {
+                writer.AddAttribute("id", item.Id);
+                if (!string.IsNullOrEmpty(item.OnClick))
+                {
+                    writer.AddAttribute("onclick", item.OnClick);
+                    writer.AddAttribute("href", "javascript:;");
+                }
+
+                writer.AddAttribute("class", item.Class);
+                writer.AddAttribute("style", item.Style);
+                writer.RenderBeginTag(HtmlTextWriterTag.A);
+                writer.Write(item.Name);
+                writer.RenderEndTag();
+            }
+
+            return writer.InnerWriter.ToString();
+        }
+
+        /// <summary>
+        /// 顶部按钮组
+        /// </summary>
+        /// <param name="operationDto"></param>
+        /// <returns></returns>
+        public static string CreateOperationTopList(List<OperationDto> operationDto)
+        {
+            var sw = new StringWriter();
+            var writer = new HtmlTextWriter(sw);
+
+            foreach (var item in operationDto)
+            {
+                writer.RenderBeginTag(HtmlTextWriterTag.Li);
+                writer.AddAttribute("id", item.Id);
+                if (!string.IsNullOrEmpty( item.OnClick))
+                {
+                    writer.AddAttribute("onclick", item.OnClick);
+                    writer.AddAttribute("href", "javascript:;");
+                }
+
+                writer.AddAttribute("class", item.Class);
+                writer.AddAttribute("style", item.Style);
+                writer.RenderBeginTag(HtmlTextWriterTag.A);
+
+                writer.RenderBeginTag(HtmlTextWriterTag.I);
+                writer.RenderEndTag();
+
+                writer.RenderBeginTag(HtmlTextWriterTag.Span);
+                writer.Write(item.Name);
+                writer.RenderEndTag();
+
+                writer.RenderEndTag();
+                writer.RenderEndTag();
+            }
+
+            return writer.InnerWriter.ToString();
+        } 
+        #endregion
+
+        #region 列表
         /// <summary>
         /// 列表
         /// </summary>
@@ -29,7 +99,9 @@ namespace WorkData.Web.HtmlFactory
             }
 
             return writer.InnerWriter.ToString();
-        }
+        }  
+        #endregion
+
 
         #region 表头
         public static string CreateListHead(List<ModelFieldDto> modelFieldDto)

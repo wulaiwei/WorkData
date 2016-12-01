@@ -6,7 +6,7 @@ namespace WorkData.Dto.Entity
     {
         public RoleDto()
         {
-            this.Privileges = new List<PrivilegeDto>();
+            this.Resources = new List<ResourceDto>();
             this.Users = new List<UserDto>();
         }
 
@@ -35,7 +35,7 @@ namespace WorkData.Dto.Entity
 
         #region Íâ¼ü
 
-        public ICollection<PrivilegeDto> Privileges { get; set; }
+        public ICollection<ResourceDto> Resources { get; set; }
         public ICollection<UserDto> Users { get; set; }
 
         #endregion Íâ¼ü

@@ -66,7 +66,8 @@ namespace WorkData.Service.Interface
         /// 查询
         /// </summary>
         /// <param name="param"></param>
+        /// <param name="includeName"></param>
         /// <returns></returns>
-        UserDto Query(string param);
+        UserDto Query(string param, string includeName);
     }
 }

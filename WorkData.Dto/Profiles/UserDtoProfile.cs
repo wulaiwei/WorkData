@@ -11,11 +11,11 @@ namespace WorkData.Dto.Profiles
         {
             CreateMap<UserDto, User>()
                 .ForMember(d => d.Roles, map => map.MapFrom(m => m.Roles.ToList()));
-            //.ForMember(d => d.Privileges, map => map.MapFrom(m => m.Privileges.ToList()));
+            //.ForMember(d => d.Resources, map => map.MapFrom(m => m.Resources.ToList()));
 
             CreateMap<User, UserDto>()
                 .ForMember(d => d.Roles, map => map.MapFrom(m => m.Roles.ToList()));
-                //.ForMember(d => d.Privileges, map => map.MapFrom(m => m.Privileges.ToList()));
+                //.ForMember(d => d.Resources, map => map.MapFrom(m => m.Resources.ToList()));
         }
     }
 }

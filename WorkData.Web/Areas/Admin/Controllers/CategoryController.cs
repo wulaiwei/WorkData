@@ -5,13 +5,16 @@ using System.Web;
 using System.Web.Mvc;
 using WorkData.BLL.Interface;
 using WorkData.Dto.Entity;
+using WorkData.Mvc.Token;
 using WorkData.Util;
 using WorkData.Util.Entity;
 using WorkData.Util.Enum;
+using WorkData.Web.Filter;
 using WorkData.Web.HtmlFactory;
 
 namespace WorkData.Web.Areas.Admin.Controllers
 {
+
     public class CategoryController : Controller
     {
         private readonly IModelBll _modelBll;
@@ -28,6 +31,8 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// 列表
         /// </summary>
         /// <returns></returns>
+        [MvcTokenAutorize]
+        [OperationFilter]
         public ActionResult Index()
         {
             var infoList = _categoryBll.GetList();
@@ -64,7 +69,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
                     //逻辑删除
                     _categoryBll.HttpGetSave(saveState);
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Category");
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -76,6 +81,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(CategoryDto model)
         {
             var saveState = BusinessHelper.BuildSaveState(Request);
@@ -84,7 +90,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
 
             _categoryBll.HttpPostSave(model, saveState, Convert.ToInt32(modelId));
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Category");
         }
 
         #region 表单排版设计

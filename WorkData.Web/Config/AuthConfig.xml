@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AuthConfigs>
+  <AuthConfig ResourceId="1" ControllerName="" ResourceUrl="" Roles="Administrator" />
+  <AuthConfig ResourceId="2" ControllerName="" ResourceUrl="" Roles="Administrator" />
+  <AuthConfig ResourceId="3" ControllerName="" ResourceUrl="" Roles="Administrator" />
+  <AuthConfig ResourceId="4" ControllerName="Operation" ResourceUrl="/Admin/Operation/Index" Roles="Administrator" />
+  <AuthConfig ResourceId="5" ControllerName="Resource" ResourceUrl="/Admin/Resource/Index" Roles="Administrator" />
+  <AuthConfig ResourceId="7" ControllerName="User" ResourceUrl="/Admin/User/Index" Roles="Administrator" />
+  <AuthConfig ResourceId="8" ControllerName="Role" ResourceUrl="/Admin/Role/Index" Roles="Administrator" />
+  <AuthConfig ResourceId="10" ControllerName="" ResourceUrl="" Roles="Administrator" />
+  <AuthConfig ResourceId="12" ControllerName="Model" ResourceUrl="/Admin/Model/Index" Roles="Administrator" />
+  <AuthConfig ResourceId="14" ControllerName="ModelField" ResourceUrl="/Admin/ModelField/Index" Roles="Administrator" />
+  <AuthConfig ResourceId="15" ControllerName="" ResourceUrl="" Roles="AverageUser,Tourist,Administrator" />
+  <AuthConfig ResourceId="23" ControllerName="Category" ResourceUrl="/Admin/Category/Index" Roles="Administrator" />
+  <AuthConfig ResourceId="32" ControllerName="" ResourceUrl="" Roles="AverageUser,Administrator" />
+  <AuthConfig ResourceId="33" ControllerName="Content" ResourceUrl="/Admin/Content/Index?Key=27" Roles="AverageUser,Administrator" />
+  <AuthConfig ResourceId="34" ControllerName="Content" ResourceUrl="/Admin/Content/Index?Key=28" Roles="AverageUser,Administrator" />
+  <AuthConfig ResourceId="35" ControllerName="" ResourceUrl="" Roles="Tourist,Administrator" />
+  <AuthConfig ResourceId="36" ControllerName="Content" ResourceUrl="/Admin/Content/Index?Key=30" Roles="Tourist,Administrator" />
+  <AuthConfig ResourceId="37" ControllerName="Content" ResourceUrl="/Admin/Content/Index?Key=31" Roles="Tourist,Administrator" />
+  <AuthConfig ResourceId="38" ControllerName="Content" ResourceUrl="/Admin/Content/Index?Key=32" Roles="Tourist,Administrator" />
+</AuthConfigs>

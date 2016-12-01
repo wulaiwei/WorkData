@@ -23,10 +23,9 @@ namespace WorkData.Util
         /// </summary>
         /// <typeparam name="TSource">集合项类型</typeparam>
         /// <param name="sourcePropertyName">待比较的集合项属性</param>
-        /// <param name="methodName">方法名称</param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public static Expression<Func<TSource, bool>> GenerateCondition<TSource>(string sourcePropertyName, string methodName,object param)
+        public static Expression<Func<TSource, bool>> GenerateCondition<TSource>(string sourcePropertyName,object param)
         {
             var p = Expression.Parameter(typeof(TSource), "p");
             var propertyName = Expression.Property(p, sourcePropertyName);

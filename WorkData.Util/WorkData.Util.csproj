@@ -79,14 +79,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api.cs" />
     <Compile Include="BusinessHelper.cs" />
+    <Compile Include="CacheHelper.cs" />
     <Compile Include="DesEncrypt.cs" />
     <Compile Include="DynamicHelper.cs" />
     <Compile Include="Encrypt.cs" />
+    <Compile Include="Entity\AuthConfig.cs" />
     <Compile Include="Entity\FromDesign.cs" />
     <Compile Include="Entity\PageEntity.cs" />
     <Compile Include="Entity\ProcessEntity.cs" />
+    <Compile Include="Entity\ResponseProvider.cs" />
     <Compile Include="Entity\SaveState.cs" />
+    <Compile Include="Entity\ServerResponse.cs" />
     <Compile Include="Entity\ValidateEntity.cs" />
     <Compile Include="Enum\OperationState.cs" />
     <Compile Include="ExpressionHelper.cs" />
@@ -97,6 +102,7 @@
     <Compile Include="Thumbnail.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="WaterMark.cs" />
+    <Compile Include="AuthConfigXmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -6,8 +6,9 @@ namespace WorkData.EF.Domain.Entity
     {
         public Role()
         {
-            this.Privileges = new List<Privilege>();
+            //this.Resources = new List<Privilege>();
             this.Users = new List<User>();
+            this.Resources = new List<Resource>();
         }
 
         /// <summary>
@@ -35,8 +36,10 @@ namespace WorkData.EF.Domain.Entity
 
         #region Íâ¼ü
 
-        public ICollection<Privilege> Privileges { get; set; }
+        //public ICollection<Privilege> Resources { get; set; }
         public ICollection<User> Users { get; set; }
+
+        public ICollection<Resource> Resources { get; set; }
 
         #endregion Íâ¼ü
     }

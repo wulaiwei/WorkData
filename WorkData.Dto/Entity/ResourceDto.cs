@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 
+
 namespace WorkData.Dto.Entity
 {
     public sealed class ResourceDto
     {
         public ResourceDto()
         {
-            this.Privileges = new List<PrivilegeDto>();
+            this.Operations = new List<OperationDto>();
+            this.Roles = new List<RoleDto>();
         }
 
         /// <summary>
@@ -67,10 +69,16 @@ namespace WorkData.Dto.Entity
 
         public bool HasLevel { get; set; }
 
+        /// <summary>
+        /// 控制器名称
+        /// </summary>
+        public string ControllerName { get; set; }
+
         #region 外键
 
-        public ICollection<PrivilegeDto> Privileges { get; set; }
+        public ICollection<OperationDto> Operations { get; set; }
 
+        public ICollection<RoleDto> Roles { get; set; }
         #endregion 外键
     }
 }

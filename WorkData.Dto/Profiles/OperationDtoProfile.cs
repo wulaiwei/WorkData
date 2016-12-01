@@ -10,11 +10,11 @@ namespace WorkData.Dto.Profiles
         protected override void Configure()
         {
             CreateMap<OperationDto, Operation>()
-             .ForMember(d => d.Privileges, map => map.MapFrom(m => m.Privileges.ToList()));
+             .ForMember(d => d.Resources, map => map.MapFrom(m => m.Resources.ToList()));
              //.MaxDepth(1);
 
             CreateMap<Operation, OperationDto>()
-              .ForMember(d => d.Privileges, map => map.MapFrom(m => m.Privileges.ToList()));
+              .ForMember(d => d.Resources, map => map.MapFrom(m => m.Resources.ToList()));
               //.MaxDepth(1);
         }
     }

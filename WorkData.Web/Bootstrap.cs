@@ -4,7 +4,9 @@ using Autofac;
 using Autofac.Configuration;
 using System;
 using System.Reflection;
+using System.Web.Mvc;
 using Autofac.Integration.Mvc;
+using WorkData.Web.Filter;
 
 #endregion 导入名称空间
 
@@ -43,6 +45,13 @@ namespace WorkData.Web
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .AsImplementedInterfaces();
+
+
+            //注册过滤器 
+            builder.RegisterFilterProvider();
+            builder.RegisterType<OperationFilter>().PropertiesAutowired();
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+
 
             ApplicationContainer = builder.Build();
 

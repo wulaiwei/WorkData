@@ -29,38 +29,7 @@ namespace WorkData.BLL.Impl
             _resourceService = resourceService;
         }
 
-        /// <summary>
-        /// 生成Html结构的Resource树
-        /// </summary>
-        /// <param name="parentId"></param>
-        /// <returns></returns>
-        HtmlString IResourceBll.CreateTopResourceHtml(int parentId)
-        {
-            var sb = new StringBuilder();
-
-            var infoList = _resourceService.GetSourceTree(false, null,parentId);
-            var topList = infoList.Where(x => x.Layer == 0);
-            foreach (var item in topList)
-            {
-                sb.AppendLine("<div class=\"list-group\">");
-                sb.AppendLine("<h1 title='" + item.ResourceName + "'>");
-                if (!string.IsNullOrEmpty(item.ResourceImg))
-                {
-                    sb.AppendLine("<img src='" + item.ResourceImg + "'/>");
-                }
-                sb.AppendLine("</h1>");
-                sb.AppendLine("<div class=\"list-wrap\">");
-                sb.AppendLine("<h2>" + item.ResourceName + "<i></i></h2>");
-                if (item.HasLevel)
-                {
-                    sb.AppendLine(CreateChildResourceHtml(infoList, item.ResourceId));
-                }
-                sb.AppendLine("</div></div>");
-            }
-            return new HtmlString(sb.ToString());
-        }
-
-
+      
         /// <summary>
         /// 获取资源树
         /// </summary>
@@ -77,12 +46,22 @@ namespace WorkData.BLL.Impl
         /// 查询
         /// </summary>
         /// <param name="sourcePropertyName"></param>
-        /// <param name="method"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public ResourceDto Query(string sourcePropertyName, string method, object param)
+        public ResourceDto Query(string sourcePropertyName, object param)
         {
-            return _resourceService.Query(sourcePropertyName,method, param);
+            return _resourceService.Query(sourcePropertyName, param);
+        }
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="controllerName"></param>
+        /// <param name="resourceUrl"></param>
+        /// <returns></returns>
+        public ResourceDto Query(string controllerName, string resourceUrl)
+        {
+            return _resourceService.Query(controllerName, resourceUrl);
         }
 
         /// <summary>
@@ -104,7 +83,7 @@ namespace WorkData.BLL.Impl
             var resourceDto = new ResourceDto();
             return saveState.OperationState == OperationState.Add ?
                 resourceDto :
-                _resourceService.Query(saveState.Key, "Privileges");
+                _resourceService.Query(saveState.Key, "Operations");
         }
 
         /// <summary>
@@ -196,6 +175,40 @@ namespace WorkData.BLL.Impl
             }
             return validateEntity;
         }
+
+          /// <summary>
+        /// 生成Html结构的Resource树
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        HtmlString IResourceBll.CreateTopResourceHtml(IEnumerable<int> array, int parentId)
+        {
+            var sb = new StringBuilder();
+
+            var infoList = _resourceService.GetSourceTree(array, parentId);
+            var topList = infoList.Where(x => x.Layer == 0);
+            foreach (var item in topList)
+            {
+                sb.AppendLine("<div class=\"list-group\">");
+                sb.AppendLine("<h1 title='" + item.ResourceName + "'>");
+                if (!string.IsNullOrEmpty(item.ResourceImg))
+                {
+                    sb.AppendLine("<img src='" + item.ResourceImg + "'/>");
+                }
+                sb.AppendLine("</h1>");
+                sb.AppendLine("<div class=\"list-wrap\">");
+                sb.AppendLine("<h2>" + item.ResourceName + "<i></i></h2>");
+                if (item.HasLevel)
+                {
+                    sb.AppendLine(CreateChildResourceHtml(infoList, item.ResourceId));
+                }
+                sb.AppendLine("</div></div>");
+            }
+            return new HtmlString(sb.ToString());
+        }
+
+
 
         #region 私有方法
         /// <summary>

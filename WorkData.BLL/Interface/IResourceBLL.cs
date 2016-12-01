@@ -22,9 +22,10 @@ namespace WorkData.BLL.Interface
         /// <summary>
         /// ResourceHtml
         /// </summary>
+        /// <param name="array"></param>
         /// <param name="parentId"></param>
         /// <returns></returns>
-        HtmlString CreateTopResourceHtml(int parentId = 0);
+        HtmlString CreateTopResourceHtml(IEnumerable<int> array,int parentId = 0);
 
         /// <summary>
         /// 获取资源树+延迟加载
@@ -40,10 +41,17 @@ namespace WorkData.BLL.Interface
         /// 查询
         /// </summary>
         /// <param name="sourcePropertyName"></param>
-        /// <param name="method"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        ResourceDto Query(string sourcePropertyName,string method, object param);
+        ResourceDto Query(string sourcePropertyName,object param);
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="controllerName"></param>
+        /// <param name="resourceUrl"></param>
+        /// <returns></returns>
+        ResourceDto Query(string controllerName,string resourceUrl);
 
         /// <summary>
         /// 查询实体

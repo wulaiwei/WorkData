@@ -6,7 +6,7 @@ namespace WorkData.EF.Domain.Entity
     {
         public Operation()
         {
-            Privileges = new List<Privilege>();
+            this.Resources = new List<Resource>();
         }
 
         /// <summary>
@@ -33,9 +33,33 @@ namespace WorkData.EF.Domain.Entity
 
         public bool Status { get; set; }
 
+        /// <summary>
+        /// Html Class
+        /// </summary>
+        public string  Class { get; set; }
+
+        /// <summary>
+        /// Html Id
+        /// </summary>
+        public string  Id { get; set; }
+
+        /// <summary>
+        /// 事件
+        /// </summary>
+        public string  OnClick { get; set; }
+
+        /// <summary>
+        /// 样式
+        /// </summary>
+        public string Style { get; set; }
+
+        /// <summary>
+        /// 操作类别
+        /// </summary>
+        public int? OperationCategory { get; set; }
         #region 外键
 
-        public ICollection<Privilege> Privileges { get; set; }
+        public ICollection<Resource> Resources { get; set; }
 
         #endregion 外键
     }

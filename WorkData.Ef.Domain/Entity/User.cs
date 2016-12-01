@@ -7,7 +7,7 @@ namespace WorkData.EF.Domain.Entity
     {
         public User()
         {
-            //this.Privileges = new List<Privilege>();
+            //this.Resources = new List<Privilege>();
             this.Roles = new List<Role>();
         }
 
@@ -82,7 +82,7 @@ namespace WorkData.EF.Domain.Entity
         public DateTime? AddTime { get; set; }
 
         #region Íâ¼ü
-        //public ICollection<Privilege> Privileges { get; set; }
+        //public ICollection<Privilege> Resources { get; set; }
         public ICollection<Role> Roles { get; set; }
 
         #endregion Íâ¼ü
