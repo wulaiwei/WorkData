@@ -7,11 +7,13 @@ using WorkData.BLL.Interface;
 using WorkData.Dto.Entity;
 using WorkData.Mvc.Token;
 using WorkData.Util;
+using WorkData.Util.Entity;
 using WorkData.Util.Enum;
 using WorkData.Web.Filter;
 
 namespace WorkData.Web.Areas.Admin.Controllers
 {
+    [MvcTokenAutorize]
     public class OperationController : Controller
     {
         private readonly IOperationBll _operationBll;
@@ -25,8 +27,8 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [MvcTokenAutorize]
         [OperationFilter]
+        [ActionDescription(Name = "列表", Action = "Index")]
         public ActionResult Index(int pageIndex=1)
         {
             var pageEntity = PageListHepler.BuildPageEntity(pageIndex, 8, "OperationId", "ASC");
@@ -41,6 +43,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ActionDescription(Name = "编辑", Action = "Save")]
         public ActionResult Save()
         {
             var saveState = BusinessHelper.BuildSaveState(Request);
@@ -70,6 +73,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ActionDescription(Name = "保存", Action = "Save")]
         public ActionResult Save(OperationDto model)
         {
             var saveState = BusinessHelper.BuildSaveState(Request);
@@ -85,6 +89,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [ActionDescription(Name = "验证", Action = "Validate")]
         public string Validate()
         {
             var param = Request["param"];

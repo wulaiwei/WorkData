@@ -1,0 +1,96 @@
+﻿@model IEnumerable<WorkData.Dto.Entity.CategoryDto>
+@using Webdiyer.WebControls.Mvc
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>栏目列表</title>
+    @Html.Partial("StaticResource")
+</head>
+<body class="mainbody">
+    <!--导航栏-->
+    <div class="location">
+        <a href="javascript:history.back(-1);" class="back"><i></i><span>返回上一页</span></a>
+        <i class="arrow"></i>
+        <span>栏目列表</span>
+    </div>
+    <!--/导航栏-->
+    <!--工具栏-->
+    <div id="floatHead" class="toolbar-wrap">
+        <div class="toolbar">
+            <div class="box-wrap">
+                <a class="Resource-btn"></a>
+                <div class="l-list">
+                    <ul class="icon-list">
+                        @Html.Raw(ViewData["TopHtml"])
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/工具栏-->
+    <!--列表-->
+    <div class="table-container" ng-app="App" ng-controller="Cro">
+        <table class="ltable">
+            <tr>
+                <th width="6%">选择</th>
+                <th class="thleft">名称</th>
+                <th width="10%">状态</th>
+                @*<th width="30%">模型管理</th>*@
+                <th width="50%">操作</th>
+            </tr>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="tdcenter">
+                            <input type="checkbox" class="checkall" value="@item.CategoryId" />
+                        </td>
+                        <td>
+                            <span style="display: inline-block;width:@(24*item.Layer)px"></span>
+                            <span class="folder-line"></span>
+                            <span class="folder-open"></span>
+                            <span>@item.Name</span>
+                        </td>
+                        <td class="tdcenter">@(item.Status ? "启用" : "禁用")</td>
+
+                        @*<td class="tdcenter">
+                                       
+                        </td>*@
+                        <td class="tdcenter">
+                            <input type="hidden" class="hideModel" value="@item.ModelId" />
+                            <input type="hidden" class="hideKey" value="@item.CategoryId"/>
+                        
+                            @Html.Raw(ViewData["ListHtml"])
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <script src="~/Areas/Admin/js/Operation.js"></script>
+<script>
+    $(function () {
+        var addHref = "/Admin/Category/Save?Action=Add";
+        var removeHref = "/Admin/Category/Save?Action=Remove&Key=";
+        var editHref = "/Admin/Category/Save?Action=Edit&Key=";
+        //添加赋值
+        AddAttr(addHref);
+        //删除赋值
+        RemoveAttr(removeHref);
+        //编辑赋值
+        EditAttr(editHref);
+        //列表设计赋值
+        IndexDesignAttr();
+        //表单设计赋值
+        FormDesginAttr();
+    });
+</script>
+</body>
+</html>

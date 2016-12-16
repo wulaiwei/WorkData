@@ -21,7 +21,6 @@ using WorkData.Infrastructure.IRepositories;
 using WorkData.Infrastructure.IUnitOfWorks;
 using WorkData.Service.Interface;
 using WorkData.Util;
-using System.Linq;
 
 namespace WorkData.Service.Impl
 {
@@ -124,7 +123,7 @@ namespace WorkData.Service.Impl
                 var where = ExpressionHelper.GenerateCondition<Resource>(sourcePropertyName, param);
 
                 var repository = _unitOfWork.Repository<Resource>();
-                var resource = repository.Query(where).Include("Resources.Operation").FirstOrDefault();
+                var resource = repository.Query(where).Include("Resources.Operations").FirstOrDefault();
 
                 return AutoMapperHelper.Signle<Resource, ResourceDto>(resource);
             }
@@ -140,7 +139,7 @@ namespace WorkData.Service.Impl
         {
             using (_unitOfWork)
             {
-                Expression<Func<Resource, bool>> where = w => w.ControllerName == controllerName && resourceUrl.Contains(w.ResourceUrl);
+                Expression<Func<Resource, bool>> where = w => w.ControllerName == controllerName && w.ResourceUrl.Contains(resourceUrl);
 
                 var repository = _unitOfWork.Repository<Resource>();
                 var resource = repository.Query(where).Include("Operations").FirstOrDefault();

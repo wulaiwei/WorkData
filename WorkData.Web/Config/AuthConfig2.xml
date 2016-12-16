@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AuthConfigs>
+  <AuthConfig ResourceId="1" ControllerName="" ResourceUrl="" Roles="" />
+  <AuthConfig ResourceId="2" ControllerName="" ResourceUrl="" Roles="" />
+  <AuthConfig ResourceId="3" ControllerName="" ResourceUrl="" Roles="" />
+  <AuthConfig ResourceId="4" ControllerName="Operation" ResourceUrl="/Admin/Operation/Index" Roles="" Method="Post">
+    <Actions ControllerName="Operation">
+      <Action ActionName="Index" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Post" />
+      <Action ActionName="Validate" Roles="" Method="Post" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="5" ControllerName="Resource" ResourceUrl="/Admin/Resource/Index" Roles="" Method="Get">
+    <Actions ControllerName="Resource">
+      <Action ActionName="Index" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Post" />
+      <Action ActionName="AjaxUpdate" Roles="" Method="Post" />
+      <Action ActionName="Validate" Roles="" Method="Post" />
+      <Action ActionName="GetResourceTree" Roles="" Method="Get" />
+      <Action ActionName="Resource" Roles="" Method="Get" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="7" ControllerName="User" ResourceUrl="/Admin/User/Index" Roles="" Method="Post">
+    <Actions ControllerName="User">
+      <Action ActionName="Index" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Post" />
+      <Action ActionName="Validate" Roles="" Method="Post" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="8" ControllerName="Role" ResourceUrl="/Admin/Role/Index" Roles="" Method="Post">
+    <Actions ControllerName="Role">
+      <Action ActionName="Index" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Post" />
+      <Action ActionName="Validate" Roles="" Method="Post" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="10" ControllerName="" ResourceUrl="" Roles="" />
+  <AuthConfig ResourceId="12" ControllerName="Model" ResourceUrl="/Admin/Model/Index" Roles="" Method="Post">
+    <Actions ControllerName="Model">
+      <Action ActionName="Index" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Post" />
+      <Action ActionName="Validate" Roles="" Method="Post" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="14" ControllerName="ModelField" ResourceUrl="/Admin/ModelField/Index" Roles="" Method="Post">
+    <Actions ControllerName="ModelField">
+      <Action ActionName="Index" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Post" />
+      <Action ActionName="Validate" Roles="" Method="Post" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="15" ControllerName="" ResourceUrl="" Roles="" />
+  <AuthConfig ResourceId="23" ControllerName="Category" ResourceUrl="/Admin/Category/Index" Roles="" Method="Post">
+    <Actions ControllerName="Category">
+      <Action ActionName="Index" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Post" />
+      <Action ActionName="DesignForm" Roles="" Method="Get" />
+      <Action ActionName="DesignForm" Roles="" Method="Post" />
+      <Action ActionName="DesignIndex" Roles="" Method="Get" />
+      <Action ActionName="DesignIndex" Roles="" Method="Post" />
+      <Action ActionName="Validate" Roles="" Method="Post" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="32" ControllerName="" ResourceUrl="" Roles="" />
+  <AuthConfig ResourceId="33" ControllerName="Content" ResourceUrl="/Admin/Content/Index?Key=27" Roles="" Method="Post">
+    <Actions ControllerName="Content">
+      <Action ActionName="Index" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Post" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="34" ControllerName="Content" ResourceUrl="/Admin/Content/Index?Key=28" Roles="" Method="Post">
+    <Actions ControllerName="Content">
+      <Action ActionName="Index" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Post" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="35" ControllerName="" ResourceUrl="" Roles="" />
+  <AuthConfig ResourceId="36" ControllerName="Content" ResourceUrl="/Admin/Content/Index?Key=30" Roles="" Method="Post">
+    <Actions ControllerName="Content">
+      <Action ActionName="Index" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Post" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="37" ControllerName="Content" ResourceUrl="/Admin/Content/Index?Key=31" Roles="" Method="Post">
+    <Actions ControllerName="Content">
+      <Action ActionName="Index" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Post" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="38" ControllerName="Content" ResourceUrl="/Admin/Content/Index?Key=32" Roles="" Method="Post">
+    <Actions ControllerName="Content">
+      <Action ActionName="Index" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Get" />
+      <Action ActionName="Save" Roles="" Method="Post" />
+    </Actions>
+  </AuthConfig>
+</AuthConfigs>

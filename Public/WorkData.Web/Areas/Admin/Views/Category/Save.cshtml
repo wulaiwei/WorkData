@@ -1,0 +1,180 @@
+﻿@using WorkData.Dto.Entity
+@using WorkData.Web.Areas.Admin.Controllers
+
+@model CategoryDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>编辑后台导航</title>
+    @Html.Partial("StaticResource")
+
+    <script type="text/javascript">
+        $(function () {
+            //初始化表单验证
+            $("#form1").initValidform();
+
+            var id=@Model.CategoryId;
+            if (id>0) {
+                $("#txtCode").removeAttr("ajaxurl");
+                $("#txtCode").attr("readonly", true);
+            }
+        });
+    </script>
+</head>
+<body class="mainbody">
+<form id="form1" action="~/Admin/Category/Save" method="post">
+    @Html.AntiForgeryToken()
+    <!--导航栏-->
+    <div class="location">
+        <a href="~/Admin/Category/Index" class="back"><i></i><span>返回列表页</span></a>
+        <i class="arrow"></i>
+        <span>编辑栏目</span>
+    </div>
+    <div class="line10"></div>
+    <!--/导航栏-->
+    <!--内容-->
+    <div id="floatHead" class="content-tab-wrap">
+        <div class="content-tab">
+            <div class="content-tab-ul-wrap">
+                <ul>
+                    <li><a class="selected" href="javascript:;">基本信息</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content">
+        <dl>
+            <dt>上级导航</dt>
+            <dd>
+                <div class="rule-single-select">
+                    <select name="ParentId">
+                        <option value="15">无父级导航</option>
+                        @foreach (var item in (IEnumerable<CategoryDto>) ViewBag.CategoryTree)
+                        {
+                            var name = item.ParentId == 15 ? item.Name : "├" + item.Name;
+                            if (item.CategoryId == Model.ParentId)
+                            {
+                                <option value="@item.CategoryId" selected="selected">
+                                    @Html.Raw(CategoryController.StringOfChar(item.Layer, "&nbsp;&nbsp;"))@name
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@item.CategoryId">@Html.Raw(ResourceController.StringOfChar(item.Layer, "&nbsp;&nbsp;"))@name</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </dd>
+        </dl>
+        <dl>
+            <dt>排序数字</dt>
+            <dd>
+
+                <input name="Sort" type="text" value="@(Model.Sort <= 0 ? 1 : Model.Sort )" class="input small" datatype="n" sucmsg=" "/>
+                <span class="Validform_checktip">*数字，越小越向前(最小值为1)</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>导航标题</dt>
+            <dd>
+                <input id="txtName" name="Name" type="text" value="@Model.Name" class="input normal"
+                       datatype="*1-100" sucmsg=" "/>
+                <span class="Validform_checktip">*导航中文标题，100字符内</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>模型代码</dt>
+            <dd>
+                <input id="txtCode" name="Code" type="text" value="@Model.Code" class="input normal"
+                       datatype="*1-100" sucmsg="" ajaxurl="/Admin/Category/Validate"/>
+                <span class="Validform_checktip">*标识，50字符内</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>是否启用</dt>
+            <dd>
+                <div class="rule-single-checkbox">
+                    @Html.Hidden("Status", Model.Status, new {@class = "CheckUpdateValue"})
+                    @if (Model.Status)
+                    {
+                        <input type="checkbox" checked="checked"/>
+                    }
+                    else
+                    {
+                        <input type="checkbox"/>
+                    }
+                </div>
+                <span class="Validform_checktip">*隐藏后不显示在界面导航菜单中。</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>是否存在子级</dt>
+            <dd>
+                <div class="rule-single-checkbox">
+                    @Html.Hidden("HasLevel", Model.HasLevel, new {@class = "CheckUpdateValue"})
+                    @if (Model.HasLevel)
+                    {
+                        <input type="checkbox" checked="checked"/>
+                    }
+                    else
+                    {
+                        <input type="checkbox"/>
+                    }
+                </div>
+                <span class="Validform_checktip">*隐藏后不显示在界面导航菜单中。</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>模型</dt>
+            <dd>
+                <div class="rule-multi-radio multi-radio">
+                    <span id="rblModel">
+                            @{
+                                var index = 0;
+                            }
+
+                            @foreach (var item in (IEnumerable<ModelDto>) ViewBag.ModelList)
+                            {
+                                var key = "ModelId_" + index;
+                                if (Model.ModelId == item.ModelId)
+                                {
+                                    <input id="@key" type="radio" name="ModelId" value="@item.ModelId"
+                                           checked="checked">
+                                }
+                                else
+                                {
+                                    <input id="@key" type="radio" name="ModelId" value="@item.ModelId">
+                                }
+
+                                <label for="@key">@item.Name</label>
+                                index++;
+                            }
+                        </span>
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <!--/内容-->
+    <!--工具栏-->
+    <div class="page-footer">
+        <div class="btn-wrap">
+            <input type="hidden" name="CategoryId" value="@Model.CategoryId"/>
+            <input type="hidden" name="Layer" value="@Model.Layer"/>
+            <input type="hidden" value="@ViewBag.SaveState" name="SaveState"/>
+
+            <input type="submit" name="btnSubmit" value="提交保存" id="btnSubmit" class="btn"/>
+            <input name="btnReturn" type="button" value="返回上一页" class="btn yellow" onclick="javascript:history.back(-1);"/>
+        </div>
+    </div>
+    <!--/工具栏-->
+</form>
+</body>
+</html>

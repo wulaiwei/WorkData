@@ -28,3 +28,4 @@ G:\PersonGit\WorkData\WorkData.Token\bin\Debug\zh-Hans\System.Web.WebPages.Deplo
 G:\PersonGit\WorkData\WorkData.Token\obj\Debug\WorkData.Token.csprojResolveAssemblyReference.cache
 G:\PersonGit\WorkData\WorkData.Token\obj\Debug\WorkData.Token.dll
 G:\PersonGit\WorkData\WorkData.Token\obj\Debug\WorkData.Token.pdb
+G:\PersonGit\WorkData\WorkData.Token\bin\Debug\NLog.dll

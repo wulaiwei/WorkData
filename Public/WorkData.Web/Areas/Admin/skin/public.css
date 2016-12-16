@@ -1,0 +1,77 @@
+﻿body {
+    margin:0px ;
+    padding:0px;
+}
+ul {
+    margin-left:-40px;
+    list-style:none;
+}
+a {
+    text-decoration:none;
+    display:inline-block;
+}
+img {border:0px;
+}
+.static-height {
+    height:34px;
+}
+.menuLeftImg{
+    float:left;text-align:right;margin-right:8px;
+}
+.menuLeftTitle {
+    float:left;
+}
+.noborder{
+    border:0px;
+}
+/*期刊浏览详情结束*/
+/*高级检索开始*/
+.thwidth {
+    width:350px;
+}
+.fselect {
+    width:282px;
+    height:34px;
+    line-height:34px;
+    border:1px solid #bebebe;
+    overflow:hidden;
+    cursor:pointer;
+    font-size:15px;
+    color:#8f8f8f;
+    border-radius:5px;
+}
+.s-r {
+    float:left;
+    height:34px;
+    width:34px;
+    background:url("../images/jsjt.png") 12px 12px no-repeat;
+}
+.ts-l {
+        float:left;
+    padding-left:10px;
+    width:240px;
+}
+.sul li{
+    display:inline-block;
+    height:30px;
+    width:100%;
+    line-height: 30px;
+}
+.zkselect {
+    z-index:10;
+    position:absolute;
+    height:auto;
+    background-color:#fff;
+}
+.folder-line {
+    display: inline-block;
+    margin-right: 2px;
+    width: 20px;
+    height: 20px;
+    background: url(/images/skin_icons.png) -200px -250px no-repeat;
+    vertical-align: middle;
+    text-indent: -999em;
+}
+
+.clearfix:after { height: 0; content: ""; display: block; clear: both; visibility: hidden; font-size: 0; }
+.clearfix { zoom: 1; }

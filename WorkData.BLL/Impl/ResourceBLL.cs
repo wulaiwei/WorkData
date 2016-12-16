@@ -132,9 +132,20 @@ namespace WorkData.BLL.Impl
                 default:
                     break;
             }
+            //更新资源数据
+            if (!resourceDto.ResourceUrl.Contains("ResourceKey"))
+            {
+                resourceDto.ResourceUrl += resourceDto.ResourceUrl.Contains("?")
+             ? "&ResourceKey=" + resourceDto.ResourceId
+             : "?ResourceKey=" + resourceDto.ResourceId;
+
+                _resourceService.Update(resourceDto, null);
+            }
+
 
             if (parentResource == null) return;
             parentResource.HasLevel = true;
+
             _resourceService.Update(parentResource);
         }
 

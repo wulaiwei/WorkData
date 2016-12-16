@@ -41,13 +41,15 @@ namespace WorkData.Mvc.Token
             //no1: 判断是否登录
             var user = filterContext.HttpContext.Session?["User"] as UserDto;
             var controller= filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
-
+            var action = filterContext.ActionDescriptor.ActionName;
+            var method = filterContext.HttpContext.Request.HttpMethod;
             var url = filterContext.HttpContext.Request.RawUrl;
+            var categoryKey = filterContext.HttpContext.Request.QueryString["CategoryKey"];
             if (user != null)
             {
                 var token = CacheHelper.GetCache(user.LoginName);
                 var info = AuthConfigXmlHelper.GetAuthConfigByXml(Api.PhysicsUrl + "/Config/AuthConfig.xml"
-                    , url, controller);
+                    , url, controller, action, method, categoryKey);
                 _roles = BusinessHelper.BreakUpOptions(info.Roles, ',');
 
                 if (!AuthManager.TryAuthorize(filterContext,token.ToString(), _roles))

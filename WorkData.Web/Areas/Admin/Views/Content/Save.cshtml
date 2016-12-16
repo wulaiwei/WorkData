@@ -31,7 +31,7 @@
 
 </head>
 <body class="mainbody" ng-app="App" ng-controller="Cro">
-<form id="form1" action="~/Admin/Content/Save" method="post">
+<form id="form1" action="~/Admin/Content/Save?CategoryKey=@ViewBag.CategoryKey" method="post">
     @Html.AntiForgeryToken()
     <!--导航栏-->
     <div class="location">

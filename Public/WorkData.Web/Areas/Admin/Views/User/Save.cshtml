@@ -1,0 +1,158 @@
+﻿@using WorkData.Dto.Entity
+
+@model UserDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>编辑用户</title>
+    @Html.Partial("StaticResource")
+    <script type="text/javascript">
+        $(function () {
+            //初始化表单验证
+            $("#form1").initValidform();
+            var id=@Model.UserId;
+            if (id>0) {
+                $("#txtCode").removeAttr("ajaxurl");
+            }
+        });
+    </script>
+</head>
+<body class="mainbody">
+<form id="form1" action="~/Admin/User/Save" method="post" onsubmit="return submitForm(this)">
+    @Html.AntiForgeryToken()
+    <!--导航栏-->
+    <div class="location">
+        <a href="~/Admin/Role/Index" class="back"><i></i><span>返回列表页</span></a>
+        <i class="arrow"></i>
+        <span>编辑用户</span>
+    </div>
+    <div class="line10"></div>
+    <!--/导航栏-->
+    <!--内容-->
+    <div id="floatHead" class="content-tab-wrap">
+        <div class="content-tab">
+            <div class="content-tab-ul-wrap">
+                <ul>
+                    <li><a class="selected" href="javascript:;">基本信息</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="tab-content">
+        <dl>
+            <dt>登录名</dt>
+            <dd>
+                <input id="txtCode" name="LoginName" type="text" value="@Model.LoginName" class="input normal"
+                       datatype="*1-50" sucmsg=" " ajaxurl="/Admin/User/Validate"/>
+                <span class="Validform_checktip">*标识，50字符内</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>密码</dt>
+            <dd>
+                <input style="width: 180px;" class="input normal" type="password" name="Password"
+                       id="Password" datatype="/^(?![^a-zA-Z]+$)(?!\D+$).{8,15}$/"
+                       errormsg="密码必须为8至15位的由字母,数字,特殊字符(2种及以上)的组合"
+                       nullmsg="请输入用户密码" value="@Model.Password"/>
+                <span class="Validform_checktip">*此项为必填</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>确认密码</dt>
+            <dd>
+                <input style="width: 180px;" class="input normal" type="password"
+                       id="Password_sure" recheck="Password" datatype="*" errormsg="两次密码输入不一致" value="@Model.Password"/>
+                <span class="Validform_checktip">*此项为必填</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>姓名</dt>
+            <dd><input name="Name" type="text" value="@Model.Name" class="input normal"/> </dd>
+        </dl>
+        <dl>
+            <dt>电话</dt>
+            <dd><input name="CellPhone" type="text" value="@Model.CellPhone" class="input normal"/> </dd>
+        </dl>
+        <dl>
+            <dt>邮箱</dt>
+            <dd><input name="Email" type="text" value="@Model.Email" class="input normal"/> </dd>
+        </dl>
+        <dl>
+            <dt>地址</dt>
+            <dd><input name="Address" type="text" value="@Model.Address" class="input normal"/> </dd>
+        </dl>
+        <dl>
+            <dt>微信</dt>
+            <dd><input name="WeiChatNumber" type="text" value="@Model.WeiChatNumber" class="input normal"/> </dd>
+        </dl>
+        <dl>
+            <dt>是否锁定</dt>
+            <dd>
+                <div class="rule-single-checkbox">
+                    @Html.Hidden("IsLock", Model.IsLock, new {@class = "CheckUpdateValue"})
+                    @if (Model.IsLock)
+                    {
+                        <input type="checkbox" checked="checked"/>
+                    }
+                    else
+                    {
+                        <input type="checkbox"/>
+                    }
+                </div>
+                <span class="Validform_checktip">*禁用后，模型将无法使用。</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>角色</dt>
+            <dd>
+                <div class="rule-multi-porp">
+                    <span id="cblActionType">
+                            <input type="hidden" name="roleList" id="roleList" />
+                            @foreach (var item in (IEnumerable<RoleDto>) ViewBag.RoleList)
+                            {
+                                if (Model.Roles.Any(p => p.RoleId == item.RoleId))
+                                {
+                                    <input name="Operation" type="checkbox" checked="checked" value="@item.RoleId" />
+                                }
+                                else
+                                {
+                                    <input name="Operation" type="checkbox" value="@item.RoleId" />
+                                }
+                                <label for="cblActionType">@item.Name (@item.Code)</label>
+                            }
+                        </span>
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <!--/内容-->
+    <!--工具栏-->
+    <div class="page-footer">
+        <div class="btn-wrap">
+            <input type="hidden" value="@Model.UserId" name="UserId"/>
+            <input type="hidden" value="@ViewBag.SaveState" name="SaveState"/>
+            <input type="hidden" value="@Model.AddTime" name="AddTime"/>
+            <input type="hidden" value="@Model.Salt" name="Salt"/>
+            <input type="submit" name="btnSubmit" onclick="submitForm()" value="提交保存" id="btnSubmit" class="btn"/>
+            <input name="btnReturn" type="button" value="返回上一页" class="btn yellow" onclick="javascript:history.back(-1);"/>
+        </div>
+    </div>
+    <!--/工具栏-->
+</form>
+    <script type="text/javascript">
+        function submitForm() {
+            var roleList = "";
+            $.each($("#cblActionType :checked"), function (index, value) {
+                roleList += $(this).val() + ",";
+            });
+            $("#roleList").val(roleList);
+        }
+    </script>
+</body>
+</html>

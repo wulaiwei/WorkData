@@ -7,12 +7,13 @@ using WorkData.BLL.Interface;
 using WorkData.Dto.Entity;
 using WorkData.Mvc.Token;
 using WorkData.Util;
+using WorkData.Util.Entity;
 using WorkData.Util.Enum;
 using WorkData.Web.Filter;
 
 namespace WorkData.Web.Areas.Admin.Controllers
 {
-
+    [MvcTokenAutorize]
     public class RoleController : Controller
     {
         private readonly IRoleBll _roleBll;
@@ -29,8 +30,8 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [MvcTokenAutorize]
         [OperationFilter]
+        [ActionDescription(Name = "列表", Action = "Index")]
         public ActionResult Index(int pageIndex = 1)
         {
             var pageEntity = PageListHepler.BuildPageEntity(pageIndex, 8, "RoleId", "ASC");
@@ -45,10 +46,13 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ActionDescription(Name = "编辑", Action = "Save")]
         public ActionResult Save()
         {
             var saveState = BusinessHelper.BuildSaveState(Request);
             if (saveState == null) throw new ArgumentNullException(nameof(saveState));
+
+            ViewBag.ActionList = AssemblyHelper.LoadAction(WebConfig.AssemblyName);
 
             switch (saveState.OperationState)
             {
@@ -61,6 +65,9 @@ namespace WorkData.Web.Areas.Admin.Controllers
                     ViewBag.ResourceTree = resourceTree;
                     ViewBag.SaveState = saveState.ToJson();
 
+                    ViewBag.InfoList= string.Join(",", roleDto.Resources.Select(p => p.ResourceId));
+                    ViewBag.AuthConfigList = AuthConfigXmlHelper.GetAuthConfigListByXml(Api.PhysicsUrl + "/Config/AuthConfig.xml",
+                        roleDto.Code);
                     return View(roleDto);
                 case OperationState.Remove:
                     //逻辑删除
@@ -79,6 +86,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ActionDescription(Name = "保存", Action = "Save")]
         public ActionResult Save(RoleDto model)
         {
             var saveState = BusinessHelper.BuildSaveState(Request);
@@ -89,9 +97,15 @@ namespace WorkData.Web.Areas.Admin.Controllers
             var arrayStr = BusinessHelper.BreakUpOptions(resourceList, ',');
             _roleBll.HttpPostSave(model, saveState, array);
 
-            //授权
+            var actionList = Request["actionList"];
+
+            var actionArr = BusinessHelper.BreakUpOptions(actionList, '|');
+            //资源授权
             AuthConfigXmlHelper.UpateRolesAuthConfigByXml(Api.PhysicsUrl + "/Config/AuthConfig.xml"
                 , arrayStr, model.Code);
+            //Action授权
+            AuthConfigXmlHelper.UpateActionRolesAuthConfigByXml(Api.PhysicsUrl + "/Config/AuthConfig.xml"
+                , model.Code,actionArr);
 
             return RedirectToAction("Index", "Role");
         }
@@ -103,6 +117,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [ActionDescription(Name = "验证", Action = "Validate")]
         public string Validate()
         {
             var param = Request["param"];
@@ -110,6 +125,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
 
             return validateEntity.ToJson();
         }
+
         #endregion
     }
 }

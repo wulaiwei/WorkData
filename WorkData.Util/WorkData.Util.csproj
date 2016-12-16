@@ -37,6 +37,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Text">
       <HintPath>..\packages\ServiceStack.Text.dll</HintPath>
     </Reference>
@@ -80,11 +83,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api.cs" />
+    <Compile Include="AssemblyHelper.cs" />
     <Compile Include="BusinessHelper.cs" />
     <Compile Include="CacheHelper.cs" />
     <Compile Include="DesEncrypt.cs" />
     <Compile Include="DynamicHelper.cs" />
     <Compile Include="Encrypt.cs" />
+    <Compile Include="Entity\ActionDescriptionAttribute.cs" />
+    <Compile Include="Entity\AssemblyControllerResult.cs" />
     <Compile Include="Entity\AuthConfig.cs" />
     <Compile Include="Entity\FromDesign.cs" />
     <Compile Include="Entity\PageEntity.cs" />
@@ -96,6 +102,7 @@
     <Compile Include="Enum\OperationState.cs" />
     <Compile Include="ExpressionHelper.cs" />
     <Compile Include="JsonHelper.cs" />
+    <Compile Include="LoggerHelper.cs" />
     <Compile Include="MD5Encrypt.cs" />
     <Compile Include="PageListHepler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

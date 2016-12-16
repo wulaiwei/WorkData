@@ -85,6 +85,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="RazorEngine, Version=3.9.3.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
       <HintPath>..\packages\RazorEngine.3.9.3\lib\net45\RazorEngine.dll</HintPath>
       <Private>True</Private>
@@ -368,6 +371,7 @@
     <Content Include="editor\themes\simple\simple.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="scripts\angular-sanitize.js" />
     <Content Include="scripts\angular.min.js" />
     <Content Include="scripts\artdialog\dialog-min.js" />
     <Content Include="scripts\artdialog\dialog-plus-min.js" />
@@ -435,6 +439,7 @@
     <Compile Include="App_Start\LoginAuthorizeAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SystemConfigurationSectionHandler.cs" />
+    <Compile Include="App_Start\WebConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
@@ -451,6 +456,7 @@
     <Compile Include="Areas\Admin\Models\SiteConfig.cs" />
     <Compile Include="Bootstrap.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Filter\FilterExceptionAttribute.cs" />
     <Compile Include="Filter\OperationFilter.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
@@ -488,6 +494,7 @@
     <Content Include="Areas\Admin\Views\Content\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Content\Save.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
+    <Content Include="NLog.config" />
     <None Include="Properties\PublishProfiles\Web.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

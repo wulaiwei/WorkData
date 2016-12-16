@@ -111,6 +111,7 @@ namespace WorkData.BLL.Impl
             }
             //同步数据
             DataSynchronization(categoryDto, parentCategory, saveState);
+
         }
 
         /// <summary>
@@ -185,7 +186,7 @@ namespace WorkData.BLL.Impl
 
             if (!categoryDto.HasLevel)
             {
-                resourceDto.ResourceUrl = $"/Admin/Content/Index?Key={category.CategoryId}";
+                resourceDto.ResourceUrl = $"/Admin/Content/Index?CategoryKey={category.CategoryId}";
             }
 
             switch (saveState.OperationState)
@@ -198,6 +199,15 @@ namespace WorkData.BLL.Impl
                     break;
                 default:
                     break;
+            }
+            //更新资源数据
+            if (!resourceDto.ResourceUrl.Contains("ResourceKey"))
+            {
+                resourceDto.ResourceUrl += resourceDto.ResourceUrl.Contains("?")
+             ? "&ResourceKey=" + resourceDto.ResourceId
+             : "?ResourceKey=" + resourceDto.ResourceId;
+
+                _resourceService.Update(resourceDto, null);
             }
 
             parentResourceDto.HasLevel = true;

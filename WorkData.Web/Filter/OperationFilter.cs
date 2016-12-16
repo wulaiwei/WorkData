@@ -41,6 +41,7 @@ namespace WorkData.Web.Filter
             var topHtml = CreateHtmlHelper.CreateOperationTopList(topOperations);
             var listHtml = CreateHtmlHelper.CreateOperationIndexList(listOperations);
 
+            //filterContext.Controller.ViewData["ResourceKey"] = filterContext.HttpContext.Request.QueryString["ResourceKey"];
             filterContext.Controller.ViewData["TopHtml"] =topHtml;
             filterContext.Controller.ViewData["ListHtml"] = listHtml;
 

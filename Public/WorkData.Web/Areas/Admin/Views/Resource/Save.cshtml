@@ -1,0 +1,199 @@
+﻿@using WorkData.Dto.Entity
+@using WorkData.Web.Areas.Admin.Controllers
+@model ResourceDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>编辑后台导航</title>
+    @Html.Partial("StaticResource")
+
+    <script type="text/javascript">
+        $(function () {
+            //初始化表单验证
+            $("#form1").initValidform();
+            //初始化上传控件
+            $(".upload-img").InitUploader({
+                sendurl: "/Admin/File/ProcessRequest",
+                swf: "../../scripts/webuploader/uploader.swf"
+            });
+
+            var id=@Model.ResourceId;
+            if (id>0) {
+                $("#txtCode").removeAttr("ajaxurl");
+            }
+        });
+    </script>
+</head>
+<body class="mainbody">
+<form id="form1" action="~/Admin/Resource/Save" method="post" onsubmit="return submitForm(this)">
+    @Html.AntiForgeryToken()
+    <!--导航栏-->
+    <div class="location">
+        <a href="~/Admin/Resource/Index" class="back"><i></i><span>返回列表页</span></a>
+        <i class="arrow"></i>
+        <span>编辑后台导航</span>
+    </div>
+    <div class="line10"></div>
+    <!--/导航栏-->
+    <!--内容-->
+    <div id="floatHead" class="content-tab-wrap">
+        <div class="content-tab">
+            <div class="content-tab-ul-wrap">
+                <ul>
+                    <li><a class="selected" href="javascript:;">基本信息</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content">
+        <dl>
+            <dt>上级导航</dt>
+            <dd>
+                <div class="rule-single-select">
+                    <select name="ParentId">
+                        <option value="0">无父级导航</option>
+                        @foreach (var item in (IEnumerable<ResourceDto>) ViewBag.ResourceTree)
+                        {
+                            var name = item.ParentId == 0 ? item.ResourceName : "├" + item.ResourceName;
+                            if (item.ResourceId == Model.ParentId)
+                            {
+                                <option value="@item.ResourceId" selected="selected">
+                                    @Html.Raw(ResourceController.StringOfChar(item.Layer - 1, "&nbsp;&nbsp;"))@name
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@item.ResourceId">@Html.Raw(ResourceController.StringOfChar(item.Layer - 1, "&nbsp;&nbsp;"))@name</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </dd>
+        </dl>
+        <dl>
+            <dt>排序数字</dt>
+            <dd>
+
+                <input name="Sort" type="text" value="@(Model.Sort <= 0 ? 1 : Model.Sort )" class="input small" datatype="n" sucmsg=" "/>
+                <span class="Validform_checktip">*数字，越小越向前(最小值为1)</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>是否隐藏</dt>
+            <dd>
+                <div class="rule-single-checkbox">
+                    @Html.Hidden("IsLock", Model.IsLock, new {@class = "CheckUpdateValue"})
+                    @if (Model.IsLock)
+                    {
+                        <input type="checkbox" checked="checked"/>
+                    }
+                    else
+                    {
+                        <input type="checkbox"/>
+                    }
+                </div>
+                <span class="Validform_checktip">*隐藏后不显示在界面导航菜单中。</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>导航标题</dt>
+            <dd>
+                <input name="resourceName" type="text" value="@Model.ResourceName" class="input normal"
+                       datatype="*1-100" sucmsg=" "/>
+                <span class="Validform_checktip">*导航中文标题，100字符内</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>资源代码</dt>
+            <dd>
+                <input id="txtCode" name="Code" type="text" value="@Model.Code" class="input normal"
+                       datatype="*1-100" sucmsg="" ajaxurl="/Admin/Resource/Validate"/>
+                <span class="Validform_checktip">*标识，50字符内</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>资源控制器</dt>
+            <dd>
+                <input name="ControllerName" type="text" value="@Model.ControllerName" class="input normal"/>
+                <span class="Validform_checktip">*绑定资源与控制器权限,url不为空时必须填写,50字符内</span>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt>自定义图标</dt>
+            <dd>
+                <input name="resourceImg" type="text" maxlength="255" value="@Model.ResourceImg"
+                       class="input normal upload-path"/>
+                <div class="upload-box upload-img"></div>
+            </dd>
+        </dl>
+        <dl>
+            <dt>链接地址</dt>
+            <dd>
+                <input name="resourceUrl" type="text" maxlength="255" value="@Model.ResourceUrl"
+                       class="input normal"/>
+                <span class="Validform_checktip">当前管理目录，有子导航不用填</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>权限资源</dt>
+            <dd>
+                <div class="rule-multi-porp">
+                    <span id="cblActionType">
+                            <input type="hidden" id="OperationList" name="OperationList" />
+                            @foreach (var item in (IEnumerable<OperationDto>) ViewBag.OperationList)
+                            {
+                                if (Model.Operations.Any(p => p.OperationId == item.OperationId))
+                                {
+                                    <input name="Operation" type="checkbox" checked="checked" value="@item.OperationId" />
+                                }
+                                else
+                                {
+                                    <input name="Operation" type="checkbox" value="@item.OperationId" />
+                                }
+                                <label for="cblActionType">@item.Name (@item.Code)</label>
+                            }
+                        </span>
+                </div>
+            </dd>
+        </dl>
+    </div>
+
+
+
+    <!--/内容-->
+    <!--工具栏-->
+    <div class="page-footer">
+        <div class="btn-wrap">
+            <input type="hidden" name="resourceId" value="@Model.ResourceId"/>
+            @Html.Hidden("HasLevel", Model.HasLevel)
+            <input type="hidden" name="Layer" value="@Model.Layer"/>
+            <input type="hidden" value="@ViewBag.SaveState" name="SaveState"/>
+
+            <input type="submit" name="btnSubmit" value="提交保存" onclick="submitForm()" id="btnSubmit" class="btn"/>
+            <input name="btnReturn" type="button" value="返回上一页" class="btn yellow" onclick="javascript:history.back(-1);"/>
+        </div>
+    </div>
+    <!--/工具栏-->
+</form>
+
+<script type="text/javascript">
+        function submitForm() {
+            var actiontype = "";
+            $.each($("#cblActionType :checked"), function (index, value) {
+                actiontype += $(this).val() + ",";
+            });
+
+            actiontype = actiontype.substring(0, actiontype.length - 1);
+            $("#OperationList").val(actiontype);
+        }
+    </script>
+</body>
+</html>

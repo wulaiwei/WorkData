@@ -1,0 +1,146 @@
+﻿@using WorkData.Dto.Entity
+@model WorkData.Dto.Entity.ModelDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>编辑操作</title>
+    @Html.Partial("StaticResource")
+
+    <script type="text/javascript">
+        $(function () {
+            //初始化表单验证
+            $("#form1").initValidform();
+            //初始化上传控件
+            $(".upload-img").InitUploader({
+                sendurl: "/Admin/AjaxUpload/ProcessRequest",
+                swf: "../../scripts/webuploader/uploader.swf"
+            });
+
+            var id=@Model.ModelId;
+            if (id>0) {
+                $("#txtCode").removeAttr("ajaxurl");
+            }
+        });
+    </script>
+</head>
+<body class="mainbody">
+<form id="form1" action="~/Admin/Model/Save" method="post" onsubmit="return submitForm(this)">
+    @Html.AntiForgeryToken()
+    <!--导航栏-->
+    <div class="location">
+        <a href="~/Admin/Model/Index" class="back"><i></i><span>返回列表页</span></a>
+        <i class="arrow"></i>
+        <span>编辑操作</span>
+    </div>
+    <div class="line10"></div>
+    <!--/导航栏-->
+    <!--内容-->
+    <div id="floatHead" class="content-tab-wrap">
+        <div class="content-tab">
+            <div class="content-tab-ul-wrap">
+                <ul>
+                    <li><a class="selected" href="javascript:;">基本信息</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content">
+        <dl>
+            <dt>模型名称</dt>
+            <dd>
+                <input name="Name" type="text" value="@Model.Name"
+                       class="input normal" datatype="*1-100" sucmsg=""/>
+                <span class="Validform_checktip">*导航中文标题，50字符内</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>模型代码</dt>
+            <dd>
+                <input id="txtCode" name="Code" type="text" value="@Model.Code" class="input normal"
+                       datatype="*1-100" sucmsg="" ajaxurl="/Admin/Model/Validate"/>
+                <span class="Validform_checktip">*标识，50字符内</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>模型描述</dt>
+            <dd>
+                <textarea name="Description" rows="2" cols="20" class="input" datatype="*0-255">@Model.Description</textarea>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt>是否启用</dt>
+            <dd>
+                <div class="rule-single-checkbox">
+
+                    @Html.Hidden("Status", Model.Status, new {@class = "CheckUpdateValue"})
+                    @if (Model.Status)
+                    {
+                        <input type="checkbox" checked="checked"/>
+                    }
+                    else
+                    {
+                        <input type="checkbox"/>
+                    }
+                </div>
+                <span class="Validform_checktip">*禁用后，模型将无法使用。</span>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt>模型字段</dt>
+            <dd>
+                <div class="rule-multi-porp">
+                    <span id="cblActionType">
+                            <input type="hidden" id="ModelFieldList" name="ModelFieldList" />
+                            @foreach (var item in (IEnumerable<ModelFieldDto>) ViewBag.ModelFieldList)
+                            {
+                                if (Model.ModelFields.Any(p => p.ModelFieldId == item.ModelFieldId))
+                                {
+                                    <input name="ModelField" type="checkbox" checked="checked" value="@item.ModelFieldId" />
+                                }
+                                else
+                                {
+                                    <input name="ModelField" type="checkbox" value="@item.ModelFieldId" />
+                                }
+                                <label for="cblActionType">@item.Name (@item.Code)</label>
+                            }
+                        </span>
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <!--/内容-->
+    <!--工具栏-->
+    <div class="page-footer">
+        <div class="btn-wrap">
+            <input type="hidden" value="@Model.ModelId" name="ModelId"/>
+            <input type="hidden" value="@ViewBag.SaveState" name="SaveState"/>
+            <input type="submit" name="btnSubmit" value="提交保存" id="btnSubmit" class="btn"/>
+            <input name="btnReturn" type="button" value="返回上一页" class="btn yellow" onclick="javascript:history.back(-1);"/>
+        </div>
+    </div>
+    <!--/工具栏-->
+</form>
+
+    <script type="text/javascript">
+        function submitForm() {
+            var actiontype = "";
+            $.each($("#cblActionType :checked"), function (index, value) {
+                actiontype += $(this).val() + ",";
+            });
+
+            actiontype = actiontype.substring(0, actiontype.length - 1);
+            $("#ModelFieldList").val(actiontype);
+        }
+    </script>
+</body>
+</html>

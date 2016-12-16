@@ -96,9 +96,7 @@ namespace WorkData.Service.Impl
                 var info = AutoMapperHelper.Signle<OperationDto,Operation>(entity);
                 var repository = _unitOfWork.Repository<Operation>();
                 repository.Add(info);
-
                 _unitOfWork.Commit();
-
             }
         }
 

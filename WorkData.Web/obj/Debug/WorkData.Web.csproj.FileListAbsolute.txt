@@ -83,3 +83,4 @@ G:\PersonGit\WorkData\WorkData.Web\obj\Debug\WorkData.Web.pdb
 G:\PersonGit\WorkData\WorkData.Web\bin\Glimpse.AspNet.dll
 G:\PersonGit\WorkData\WorkData.Web\bin\Glimpse.Core.dll
 G:\PersonGit\WorkData\WorkData.Web\bin\Glimpse.Mvc5.dll
+G:\PersonGit\WorkData\WorkData.Web\bin\NLog.dll

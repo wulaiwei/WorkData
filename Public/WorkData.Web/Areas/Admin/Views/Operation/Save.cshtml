@@ -1,0 +1,142 @@
+﻿@model WorkData.Dto.Entity.OperationDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>编辑操作</title>
+    @Html.Partial("StaticResource")
+
+    <script type="text/javascript">
+        $(function () {
+            //初始化表单验证
+            $("#form1").initValidform();
+            //初始化上传控件
+            $(".upload-img").InitUploader({
+                sendurl: "/Admin/AjaxUpload/ProcessRequest",
+                swf: "../../scripts/webuploader/uploader.swf"
+            });
+
+            var id=@Model.OperationId;
+            if (id>0) {
+                $("#txtCode").removeAttr("ajaxurl");
+            }
+        });
+    </script>
+</head>
+<body class="mainbody">
+<form id="form1" action="~/Admin/Operation/Save" method="post">
+    @Html.AntiForgeryToken()
+    <!--导航栏-->
+    <div class="location">
+        <a href="~/Admin/Operation/Index" class="back"><i></i><span>返回列表页</span></a>
+        <i class="arrow"></i>
+        <span>编辑操作</span>
+    </div>
+    <div class="line10"></div>
+    <!--/导航栏-->
+    <!--内容-->
+    <div id="floatHead" class="content-tab-wrap">
+        <div class="content-tab">
+            <div class="content-tab-ul-wrap">
+                <ul>
+                    <li><a class="selected" href="javascript:;">基本信息</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content">
+        <dl>
+            <dt>操作名称</dt>
+            <dd>
+                <input id="txtCode" name="Name" type="text" value="@Model.Name" class="input normal" datatype="*1-100" sucmsg=""
+                       ajaxurl="/Admin/Operation/Validate"/>
+                <span class="Validform_checktip">*标识，50字符内</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>操作代码</dt>
+            <dd>
+                <input name="Code" type="text" value="@Model.Code" class="input normal" datatype="*1-100" sucmsg=""/>
+                <span class="Validform_checktip">*导航中文标题，50字符内</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>按钮Class</dt>
+            <dd>
+                <input name="Class" type="text" value="@Model.Class" class="input normal"/>
+            </dd>
+        </dl>
+        <dl>
+            <dt>按钮ID</dt>
+            <dd>
+                <input name="Id" type="text" value="@Model.Id" class="input normal"/>
+            </dd>
+        </dl>
+        <dl>
+            <dt>分类</dt>
+            <dd>
+                <div class="rule-single-select">
+                    <select class="operationCategory" name="OperationCategory">
+                        <option value="0" @if (Model.OperationCategory == 0)
+                                          {
+                                              @("selected = \"selected\"")
+                                          }>工具栏</option>
+                        <option value="1" @if (Model.OperationCategory == 1)
+                                          {
+                                              @("selected = \"selected\"")
+                                          }>列表栏</option>
+                    </select>
+                </div>
+
+            </dd>
+        </dl>
+        <dl>
+            <dt>事件</dt>
+            <dd>
+                <input name="OnClick" type="text" value="@Model.OnClick" class="input normal"/>
+            </dd>
+        </dl>
+        <dl>
+            <dt>按钮样式</dt>
+            <dd>
+                <input name="Style" type="text" value="@Model.Style" class="input normal"/>
+            </dd>
+        </dl>
+        <dl>
+            <dt>是否启用</dt>
+            <dd>
+                <div class="rule-single-checkbox">
+                    @Html.Hidden("Status", Model.Status, new {@class = "CheckUpdateValue"})
+                    @if (Model.Status)
+                    {
+                        <input type="checkbox" checked="checked"/>
+                    }
+                    else
+                    {
+                        <input type="checkbox"/>
+                    }
+                </div>
+                <span class="Validform_checktip">*禁用后，模型将无法使用。</span>
+            </dd>
+        </dl>
+    </div>
+    <!--/内容-->
+    <!--工具栏-->
+    <div class="page-footer">
+        <div class="btn-wrap">
+            <input type="hidden" value="@Model.OperationId" name="OperationId"/>
+            <input type="hidden" value="@ViewBag.SaveState" name="SaveState"/>
+            <input type="submit" name="btnSubmit" value="提交保存" id="btnSubmit" class="btn"/>
+            <input name="btnReturn" type="button" value="返回上一页" class="btn yellow" onclick="javascript:history.back(-1);"/>
+        </div>
+    </div>
+    <!--/工具栏-->
+</form>
+</body>
+</html>

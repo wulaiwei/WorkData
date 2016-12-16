@@ -1,0 +1,98 @@
+﻿@model PagedList<WorkData.Dto.Entity.ModelFieldDto>
+@using Webdiyer.WebControls.Mvc
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>模型字段列表</title>
+    @Html.Partial("StaticResource")
+</head>
+<body class="mainbody">
+    <!--导航栏-->
+    <div class="location">
+        <a href="javascript:history.back(-1);" class="back"><i></i><span>返回上一页</span></a>
+        <i class="arrow"></i>
+        <span>模型字段列表</span>
+    </div>
+    <!--/导航栏-->
+    <!--工具栏-->
+    <div id="floatHead" class="toolbar-wrap">
+        <div class="toolbar">
+            <div class="box-wrap">
+                <a class="Resource-btn"></a>
+                <div class="l-list">
+                    <ul class="icon-list">
+                        @Html.Raw(ViewData["TopHtml"])
+             
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/工具栏-->
+    <!--列表-->
+    <div class="table-container" ng-app="App" ng-controller="Cro">
+        <table class="ltable">
+            <tr>
+                <th width="6%">选择</th>
+                <th class="thleft">名称</th>
+                <th width="10%">代码</th>
+                <th width="10%">状态</th>
+                <th width="30%">操作</th>
+            </tr>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="tdcenter">
+                            <input type="checkbox" class="checkall" value="@item.ModelFieldId" />
+                        </td>
+                        <td>
+                            <span>@item.Name</span>
+                        </td>
+                        <td class="tdcenter">
+                            <span>@item.Code</span>
+                        </td>
+                        <td class="tdcenter">@(item.Status ? "启用" : "禁用")</td>
+                        <td class="tdcenter">
+                            <input type="hidden" class="hideKey" value="@item.ModelFieldId" />
+                            @Html.Raw(ViewData["ListHtml"])
+                      
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!--内容底部-->
+    <div class="line20"></div>
+    <div class="pagelist">
+        <div id="PageContent" class="default">
+            @Html.Pager(Model, new PagerOptions { PrevPageText = "上页", NextPageText = "下页", FirstPageText = "首页", LastPageText = "尾页", PageIndexParameterName = "pageIndex", ContainerTagName = "div", CssClass = "pagination", CurrentPagerItemTemplate = "<span class=\"current\">{0}</span>", DisabledPagerItemTemplate = "<span class=\"disabled\">{0}</span>" })
+        </div>
+    </div>
+<!--/内容底部-->
+
+    <script src="~/Areas/Admin/js/Operation.js"></script>
+    <script>
+    $(function () {
+        var addHref = "/Admin/ModelField/Save?Action=Add";
+        var removeHref = "/Admin/ModelField/Save?Action=Remove&Key=";
+        var editHref = "/Admin/ModelField/Save?Action=Edit&Key=";
+        //添加赋值
+        AddAttr(addHref);
+        //删除赋值
+        RemoveAttr(removeHref);
+        //编辑赋值
+        EditAttr(editHref);
+    });
+    </script>
+</body>
+</html>

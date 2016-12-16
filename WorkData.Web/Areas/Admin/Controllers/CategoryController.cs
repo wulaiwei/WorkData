@@ -14,7 +14,7 @@ using WorkData.Web.HtmlFactory;
 
 namespace WorkData.Web.Areas.Admin.Controllers
 {
-
+    [MvcTokenAutorize]
     public class CategoryController : Controller
     {
         private readonly IModelBll _modelBll;
@@ -31,8 +31,9 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// 列表
         /// </summary>
         /// <returns></returns>
-        [MvcTokenAutorize]
         [OperationFilter]
+        [ActionDescription(Name = "列表", Action = "Index")]
+        [HttpGet]
         public ActionResult Index()
         {
             var infoList = _categoryBll.GetList();
@@ -45,6 +46,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ActionDescription(Name = "编辑", Action = "Save")]
         public ActionResult Save()
         {
             var saveState = BusinessHelper.BuildSaveState(Request);
@@ -82,6 +84,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ActionDescription(Name = "保存", Action = "Save")]
         public ActionResult Save(CategoryDto model)
         {
             var saveState = BusinessHelper.BuildSaveState(Request);
@@ -99,6 +102,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ActionDescription(Name = "表单排版", Action = "DesignForm")]
         public ActionResult DesignForm()
         {
             var modelKey = Request.QueryString["ModelKey"];
@@ -126,6 +130,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateInput(false)]
+        [ActionDescription(Name = "保存表单排版", Action = "DesignForm")]
         public void DesignForm(string json, string key)
         {
             var info = json.ToList<ModelFieldDto>();
@@ -141,6 +146,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ActionDescription(Name = "列表排版", Action = "DesignIndex")]
         public ActionResult DesignIndex()
         {
             var modelKey = Request.QueryString["ModelKey"];
@@ -168,6 +174,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateInput(false)]
+        [ActionDescription(Name = "保存列表排版", Action = "DesignIndex")]
         public void DesignIndex(string json, string key)
         {
             var info = json.ToList<ModelFieldDto>();
@@ -185,6 +192,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [ActionDescription(Name = "验证", Action = "Validate")]
         public string Validate()
         {
             var param = Request["param"];

@@ -1,0 +1,187 @@
+﻿@model WorkData.Dto.Entity.ModelFieldDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>编辑字段</title>
+    @Html.Partial("StaticResource")
+    <script type="text/javascript">
+        $(function () {
+            //更改页面Dom结果
+            UpdatePageDocment();
+            //初始化表单验证
+            $("#form1").initValidform();
+
+            $("#ddlControlType").change(function(){
+                $("#dlItemOption").hide();
+                var obj=$(this).val();
+                switch (obj) {
+                    case "multi-radio":
+                    case "multi-checkbox":
+                        $("#dlItemOption").show();
+                    default:
+                }
+            });
+        });
+
+        function UpdatePageDocment() {
+            $("#ddlControlType option[value='@Model.ControlType']").attr("selected", "selected");
+            var id=@Model.ModelFieldId;
+            if (id>0) {
+                $("#txtName").attr("readonly", true);
+                $("#txtName").removeAttr("ajaxurl");
+                $("#txtName").removeAttr("datatype");
+                var obj= $("#ddlControlType").val();
+                switch (obj) {
+                    case "multi-radio":
+                    case "multi-checkbox":
+                        $("#dlItemOption").show();
+                    default:
+                }
+            }
+        }
+    </script>
+</head>
+<body class="mainbody">
+    <!--导航栏-->
+    <div class="location">
+        <a href="~/Admin/ModelField/Index" class="back"><i></i><span>返回列表页</span></a>
+        <i class="arrow"></i>
+        <span>编辑字段</span>
+    </div>
+    <div class="line10"></div>
+    <!--/导航栏-->
+    <!--内容-->
+    <div id="floatHead" class="content-tab-wrap">
+        <div class="content-tab">
+            <div class="content-tab-ul-wrap">
+                <ul>
+                    <li><a class="selected" href="javascript:;">基本信息</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<form id="form1" action="~/Admin/ModelField/Save" method="post">
+    @Html.AntiForgeryToken()
+    <div class="tab-content">
+        <dl>
+            <dt>控件类型</dt>
+            <dd>
+                <div class="rule-single-select">
+                    <input type="hidden" class="UpdateSelectValue" value="@Model.ControlType" name="ControlType"/>
+                    <select id="ddlControlType" datatype="*" errormsg="请选择控件类型！" sucmsg=" ">
+                        <option value="">请选择类型...</option>
+                        <option value="single-text">单行文本</option>
+                        <option value="password">密码</option>
+                        <option value="multi-text">多行文本</option>
+                        <option value="editor">编辑器</option>
+                        <option value="images">图片上传</option>
+                        <option value="video">视频上传</option>
+                        <option value="number">数字</option>
+                        <option value="datetime">时间</option>
+                        <option value="multi-radio">多项单选</option>
+                        <option value="multi-checkbox">多项多选</option>
+                    </select>
+                </div>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt>字段代码</dt>
+            <dd>
+                <input name="Code" value="@Model.Code" type="text" id="txtName" class="input normal"
+                       datatype="/^[a-zA-Z0-9\-\_]{2,50}$/" sucmsg=" "
+                       ajaxurl="/Admin/ModelField/Validate"/> <span class="Validform_checktip">*字母、下划线，不可修改</span>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt>字段名称</dt>
+            <dd><input name="Name" value="@Model.Name" type="text" id="txtTitle" class="input normal" datatype="*" sucmsg=" "/> <span class="Validform_checktip">*中文标题，做为备注</span></dd>
+        </dl>
+
+        <dl>
+            <dt>默认值</dt>
+            <dd>
+                <input value="@Model.DefaultValue" name="DefaultValue" type="text" id="txtDefaultValue" class="input normal"/>
+                <span class="Validform_checktip">*控件的默认字符，可为空</span>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt>是否启用</dt>
+            <dd>
+                <div class="rule-single-checkbox">
+                    @Html.Hidden("Status", Model.Status, new {@class = "CheckUpdateValue"})
+                    @if (Model.Status)
+                    {
+                        <input type="checkbox" checked="checked"/>
+                    }
+                    else
+                    {
+                        <input type="checkbox"/>
+                    }
+                </div>
+                <span class="Validform_checktip">*禁用后，模型将无法使用。</span>
+            </dd>
+        </dl>
+
+        <dl id="dlValidPattern">
+            <dt>验证正则表达式</dt>
+            <dd>
+                <textarea name="ValidPattern" rows="2" cols="20" id="txtValidPattern" class="input">@Model.ValidPattern</textarea> <span class="Validform_checktip">*不填写则不验证</span>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt>验证提示信息</dt>
+            <dd>
+                <textarea name="ValidTipMsg" rows="2" cols="20" id="txtValidTipMsg" class="input">@Model.ValidTipMsg</textarea>
+            </dd>
+        </dl>
+
+        <dl id="dlValidErrorMsg">
+            <dt>验证失败信息</dt>
+            <dd>
+                <textarea name="ValidErrorMsg" rows="2" cols="20" id="txtValidErrorMsg" class="input">@Model.ValidErrorMsg</textarea>
+            </dd>
+        </dl>
+
+
+        <dl id="dlItemOption" style="display: none">
+            <dt>选项列表</dt>
+            <dd>
+                <textarea name="ItemOption" rows="2" cols="20" class="input">@Model.ItemOption</textarea>
+                <span class="Validform_checktip">*填写说明：选项值,名称|以回车换行为一行。</span>
+            </dd>
+        </dl>
+    </div>
+    <!--/内容-->
+    <!--工具栏-->
+    <div class="page-footer">
+        <div class="btn-wrap">
+            <input type="hidden" value="@Model.ModelFieldId" name="ModelFieldId"/>
+            <input type="hidden" value="@Model.IsSystemField" name="IsSystemField"/>
+            <input type="hidden" value="@Model.HtmlTemplate" name="HtmlTemplate"/>
+            <input type="hidden" value="@Model.FieldType" name="FieldType"/>
+
+            <input type="hidden" value="@ViewBag.SaveState" name="SaveState"/>
+
+            <input type="submit" name="btnSubmit" value="提交保存" id="btnSubmit" class="btn"/>
+            <input name="btnReturn" type="button" value="返回上一页" class="btn yellow" onclick="javascript:history.back(-1);"/>
+        </div>
+    </div>
+    <!--/工具栏-->
+</form>
+
+    <script src="~/editor/kindeditor-min.js"></script>
+    <script src="~/Areas/Admin/js/common.js"></script>
+
+</body>
+</html>

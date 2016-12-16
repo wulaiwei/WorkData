@@ -1,0 +1,102 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>后台导航管理</title>
+    @Html.Partial("StaticResource")
+    <script src="~/scripts/angular.min.js"></script>
+</head>
+<body class="mainbody">
+    <!--导航栏-->
+    <div class="location">
+        <a href="javascript:history.back(-1);" class="back"><i></i><span>返回上一页</span></a>
+        <i class="arrow"></i>
+        <span>后台导航管理</span>
+    </div>
+    <!--/导航栏-->
+    <!--工具栏-->
+    <div id="floatHead" class="toolbar-wrap">
+        <div class="toolbar">
+            <div class="box-wrap">
+                <a class="Resource-btn"></a>
+                <div class="l-list">
+                    <ul class="icon-list">
+                        <li><a class="add" href="~/Admin/Resource/Save?Action=Add"><i></i><span>新增</span></a></li>
+                        <li><a onclick="ExePostBack()" id="btnAudit" class="lock" href="javascript:;"><i></i><span>审核</span></a></li>
+                        <li><a class="all" href="javascript:;" onclick="checkAll(this);"><i></i><span>全选</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/工具栏-->
+    <!--列表-->
+    <div class="table-container" ng-app="ResourceApp" ng-controller="ResourceCro">
+        <table class="ltable">
+            <tr>
+                <th width="6%">选择</th>
+                <th class="thleft">标题</th>
+                <th class="thleft" width="12%">调用Url</th>
+                <th width="10%">是否显示</th>
+                <th class="thleft" width="65">排序</th>
+                <th width="30%">操作</th>
+            </tr>
+            <tbody>
+                <tr ng-repeat="resource in Resources">
+                    <td class="tdcenter">
+                        <input type="checkbox" class="checkall" value="{{resource.ResourceId}}" />
+                    </td>
+                    <td>
+                        <span style="display:inline-block;" ng-style="{width: 24*resource.Layer}"></span>
+                        <span class="folder-line"></span>
+                        <span class="folder-open"></span>
+                        <span>{{resource.ResourceName}}</span>
+                    </td>
+                    <td >
+                        <span>{{resource.ResourceUrl}}</span>
+                    </td>
+                    <td class="tdcenter">{{resource.IsLock ? 'X' : '√'}}</td>
+                    <td>
+                        <input type="text" ng-change="Change(resource)" ng-model="resource.Sort" class="noborder" style="width:50px;" />
+                    </td>
+                    <td  class="tdcenter">
+                        <input type="button" class="btn btn-danger" ng-click="Delete(resource)" value="锁定" />
+                        <a href="~/Admin/Resource/Save?Action=Edit&Key={{resource.ResourceId}}" 
+                           class="btn btn-default" style="color:#fff">编辑</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--/列表-->
+    <script type="text/javascript">
+        var app = angular.module('ResourceApp', []);
+        app.controller('ResourceCro', function ($scope, $http) {
+
+            $http.get('/Admin/Resource/GetResourceTree')
+                .success(function (response) {
+                    $scope.Resources = response;
+                });
+
+            $scope.Change = function (resource) {
+                $http.post('/Admin/Resource/AjaxUpdate', { ResourceDto: resource, action: "Update" })
+                        .success(function (data) {
+                            $scope.Resources = data;
+                        });
+            };
+
+            $scope.Delete = function (resource) {
+                $http.post('/Admin/Resource/AjaxUpdate', { ResourceDto: resource, action: "Remove" })
+                    .success(function (data) {
+                        $scope.Resources = data;
+                    });
+            }
+        });
+    </script>
+</body>
+</html>

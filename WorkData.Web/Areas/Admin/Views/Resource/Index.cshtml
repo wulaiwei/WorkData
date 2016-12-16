@@ -66,7 +66,7 @@
                     </td>
                     <td  class="tdcenter">
                         <input type="button" class="btn btn-danger" ng-click="Delete(resource)" value="锁定" />
-                        <a href="~/Admin/Resource/Save?Action=Edit&Key={{resource.ResourceId}}" 
+                        <a href="~/Admin/Resource/Save?ResourceKey=@ViewData["ResourceKey"]&Action=Edit&Key={{resource.ResourceId}}" 
                            class="btn btn-default" style="color:#fff">编辑</a>
                     </td>
                 </tr>
@@ -74,29 +74,29 @@
         </table>
     </div>
     <!--/列表-->
-    <script type="text/javascript">
-        var app = angular.module('ResourceApp', []);
-        app.controller('ResourceCro', function ($scope, $http) {
+<script type="text/javascript">
+    var app = angular.module('ResourceApp', []);
+    app.controller('ResourceCro', function ($scope, $http) {
 
-            $http.get('/Admin/Resource/GetResourceTree')
-                .success(function (response) {
-                    $scope.Resources = response;
+        $http.get('/Admin/Resource/GetResourceTree')
+            .success(function (response) {
+                $scope.Resources = response;
+            });
+
+        $scope.Change = function (resource) {
+            $http.post('/Admin/Resource/AjaxUpdate', { ResourceDto: resource, action: "Update" })
+                .success(function (data) {
+                    $scope.Resources = data;
                 });
+        };
 
-            $scope.Change = function (resource) {
-                $http.post('/Admin/Resource/AjaxUpdate', { ResourceDto: resource, action: "Update" })
-                        .success(function (data) {
-                            $scope.Resources = data;
-                        });
-            };
-
-            $scope.Delete = function (resource) {
-                $http.post('/Admin/Resource/AjaxUpdate', { ResourceDto: resource, action: "Remove" })
-                    .success(function (data) {
-                        $scope.Resources = data;
-                    });
-            }
-        });
-    </script>
+        $scope.Delete = function (resource) {
+            $http.post('/Admin/Resource/AjaxUpdate', { ResourceDto: resource, action: "Remove"})
+                .success(function (data) {
+                    $scope.Resources = data;
+                });
+        }
+    });
+</script>
 </body>
 </html>

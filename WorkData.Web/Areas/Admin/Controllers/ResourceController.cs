@@ -11,6 +11,7 @@ using WorkData.Util.Enum;
 
 namespace WorkData.Web.Areas.Admin.Controllers
 {
+    [MvcTokenAutorize]
     public class ResourceController : Controller
     {
 
@@ -27,7 +28,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [MvcTokenAutorize]
+        [ActionDescription(Name = "列表", Action = "Index")]
         public ActionResult Index()
         {
             return View();
@@ -38,6 +39,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ActionDescription(Name = "编辑", Action = "Save")]
         public ActionResult Save()
         {
             var saveState = BusinessHelper.BuildSaveState(Request);
@@ -71,6 +73,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [ActionDescription(Name = "保存", Action = "Save")]
         public ActionResult Save(ResourceDto model)
         {
             var saveState = BusinessHelper.BuildSaveState(Request);
@@ -129,6 +132,8 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// <param name="action"></param>
         /// <returns></returns>
         [HttpPost]
+
+        [ActionDescription(Name = "更新列表", Action = "AjaxUpdate")]
         public JsonResult AjaxUpdate(ResourceDto resourceDto,string action)
         {
             if (action=="Remove")
@@ -147,6 +152,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [ActionDescription(Name = "验证", Action = "Validate")]
         public string Validate()
         {
             var param = Request["param"];
@@ -160,6 +166,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ActionDescription(Name = "资源树", Action = "GetResourceTree")]
         public JsonResult GetResourceTree()
         {
             var treeList = _resourceBll.GetSourceTree(true,null);
@@ -171,6 +178,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ActionDescription(Name = "导航栏", Action = "Resource")]
         public HtmlString Resource()
         {
             var user = Session["User"] as UserDto;

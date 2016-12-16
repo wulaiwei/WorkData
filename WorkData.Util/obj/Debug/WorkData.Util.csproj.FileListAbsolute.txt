@@ -30,3 +30,4 @@ G:\PersonGit\WorkData\WorkData.Util\bin\Debug\zh-CHT\Webdiyer.MvcPager.resources
 G:\PersonGit\WorkData\WorkData.Util\obj\Debug\WorkData.Util.dll
 G:\PersonGit\WorkData\WorkData.Util\obj\Debug\WorkData.Util.pdb
 G:\PersonGit\WorkData\WorkData.Util\obj\Debug\WorkData.Util.csprojResolveAssemblyReference.cache
+G:\PersonGit\WorkData\WorkData.Util\bin\Debug\NLog.dll

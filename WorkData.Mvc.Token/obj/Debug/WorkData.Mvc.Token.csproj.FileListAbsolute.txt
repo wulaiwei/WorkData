@@ -36,3 +36,4 @@ G:\PersonGit\WorkData\WorkData.Mvc.Token\bin\Debug\zh-Hans\System.Web.WebPages.D
 G:\PersonGit\WorkData\WorkData.Mvc.Token\obj\Debug\WorkData.Mvc.Token.csprojResolveAssemblyReference.cache
 G:\PersonGit\WorkData\WorkData.Mvc.Token\obj\Debug\WorkData.Mvc.Token.dll
 G:\PersonGit\WorkData\WorkData.Mvc.Token\obj\Debug\WorkData.Mvc.Token.pdb
+G:\PersonGit\WorkData\WorkData.Mvc.Token\bin\Debug\NLog.dll

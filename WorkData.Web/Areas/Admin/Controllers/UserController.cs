@@ -7,17 +7,17 @@ using WorkData.BLL.Interface;
 using WorkData.Dto.Entity;
 using WorkData.Mvc.Token;
 using WorkData.Util;
+using WorkData.Util.Entity;
 using WorkData.Util.Enum;
 using WorkData.Web.Filter;
 
 namespace WorkData.Web.Areas.Admin.Controllers
 {
+    [MvcTokenAutorize]
     public class UserController : Controller
     {
         private readonly IUserBll _userBll;
         private readonly IRoleBll _roleBll;
-
-
         public UserController(IUserBll userBll, IRoleBll roleBll)
         {
             _userBll = userBll;
@@ -28,9 +28,9 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// 列表
         /// </summary>
         /// <returns></returns>
-        [MvcTokenAutorize]
         [OperationFilter]
         [HttpGet]
+        [ActionDescription(Name ="列表",Action = "Index")]
         public ActionResult Index(int pageIndex = 1)
         {
             var pageEntity = PageListHepler.BuildPageEntity(pageIndex, 8, "UserId", "ASC");
@@ -45,6 +45,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ActionDescription(Name = "编辑", Action = "Save")]
         public ActionResult Save()
         {
             var saveState = BusinessHelper.BuildSaveState(Request);
@@ -79,6 +80,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ActionDescription(Name = "保存", Action = "Save")]
         public ActionResult Save(UserDto model)
         {
             var saveState = BusinessHelper.BuildSaveState(Request);
@@ -99,6 +101,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [ActionDescription(Name = "验证", Action = "Validate")]
         public string Validate()
         {
             var param = Request["param"];

@@ -1,0 +1,173 @@
+﻿@using WorkData.Dto.Entity
+
+@model RoleDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>编辑角色</title>
+    @Html.Partial("StaticResource")
+    <script type="text/javascript">
+        $(function () {
+            //初始化表单验证
+            $("#form1").initValidform();
+            var id=@Model.RoleId;
+            if (id>0) {
+                $("#txtCode").removeAttr("ajaxurl");
+            }
+        });
+    </script>
+</head>
+<body class="mainbody">
+<form id="form1" action="~/Admin/Role/Save" method="post" onsubmit="return submitForm(this)">
+    @Html.AntiForgeryToken()
+    <!--导航栏-->
+    <div class="location">
+        <a href="~/Admin/Role/Index" class="back"><i></i><span>返回列表页</span></a>
+        <i class="arrow"></i>
+        <span>编辑角色</span>
+    </div>
+    <div class="line10"></div>
+    <!--/导航栏-->
+    <!--内容-->
+    <div id="floatHead" class="content-tab-wrap">
+        <div class="content-tab">
+            <div class="content-tab-ul-wrap">
+                <ul>
+                    <li><a class="selected" href="javascript:;">基本信息</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="tab-content">
+        <dl>
+            <dt>角色代码</dt>
+            <dd>
+                <input id="txtCode" name="Code" type="text" value="@Model.Code" class="input normal"
+                       datatype="*1-50" sucmsg=" " ajaxurl="/Admin/Role/Validate"/>
+                <span class="Validform_checktip">*标识，50字符内</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>角色名称</dt>
+            <dd><input name="Name" type="text" value="@Model.Name" class="input normal" datatype="*1-50" sucmsg=" "/> <span class="Validform_checktip">*导航中文标题，50字符内</span></dd>
+        </dl>
+        <dl>
+            <dt>是否启用</dt>
+            <dd>
+                <div class="rule-single-checkbox">
+                    @Html.Hidden("Status", Model.Status, new {@class = "CheckUpdateValue"})
+                    @if (Model.Status)
+                    {
+                        <input type="checkbox" checked="checked"/>
+                    }
+                    else
+                    {
+                        <input type="checkbox"/>
+                    }
+                </div>
+                <span class="Validform_checktip">*禁用后，模型将无法使用。</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>管理权限</dt>
+            <dd>
+                <table class="border-table">
+                    <thead>
+                    <tr>
+                        <th width="30%">导航名称</th>
+                        <th width="10">状态</th>
+                        <th>Url</th>
+                        <th width="10%">授权</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in (IEnumerable<ResourceDto>) ViewBag.ResourceTree)
+                    {
+                        <tr>
+                            <td>
+                                <span style="display: inline-block; width: @Html.Raw(item.Layer*24)px"></span>
+                                <span class="folder-line"></span>
+                                <span class="folder-open"></span>
+                                @item.ResourceName
+
+                                <input type="hidden" class="ResCode" ResCode="@item.Code"/>
+                            </td>
+                            <td>
+                                @(item.IsLock ? "禁用" : "启用")
+                            </td>
+                            <td>
+                                @item.ResourceUrl
+
+                            </td>
+                            <td>
+                                <input type="hidden" class="hideResourceId" value="@item.ResourceId"/>
+                                <input type="hidden" class="hideControllerName" value="@item.ControllerName"/>
+                                @{
+                                    var isCheck = Model.Resources.Select(p => p.ResourceId).Contains(item.ResourceId);
+                                }
+
+                                <input class="resourceAuthorize" type="checkbox" @if (isCheck)
+                                                                                 {
+                                                                                     @("checked=\"checked\"")
+                                                                                 }>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </dd>
+        </dl>
+    </div>
+    <!--/内容-->
+    <!--工具栏-->
+    <div class="page-footer">
+        <div class="btn-wrap">
+            <input type="hidden" value="@Model.RoleId" name="RoleId"/>
+            <input type="hidden" value="@ViewBag.SaveState" name="SaveState"/>
+
+            <input type="hidden" name="resourceList" id="resourceList"/>
+            <input type="hidden" name="controllerNameList" id="controllerNameList"/>
+
+            <input type="submit" name="btnSubmit" onclick="submitForm()" value="提交保存" id="btnSubmit" class="btn"/>
+            <input name="btnReturn" type="button" value="返回上一页" class="btn yellow" onclick="javascript:history.back(-1);"/>
+        </div>
+    </div>
+    <!--/工具栏-->
+</form>
+    <script type="text/javascript">
+        $(function () {
+            UpdatePageDocment();
+
+        });
+
+        function submitForm() {
+            var resourceList = [];
+            var controllerNameList  = [];
+
+            $(".resourceAuthorize").each(function () {
+                if ($(this).is(':checked')) {
+                    resourceList.push($(this).parent().find(".hideResourceId").val());
+                    controllerNameList.push($(this).parent().find(".hideControllerName").val());
+                }
+            });
+            $("#resourceList").val(resourceList);
+            $("#controllerNameList").val(controllerNameList);
+        }
+
+        function UpdatePageDocment() {
+            var action = "@ViewBag.action";
+            if (action == "edit") {
+                $("#txtCode").attr("readonly", true);
+                $("#txtCode").removeAttr("ajaxurl");
+                $("#txtCode").removeAttr("datatype");
+            }
+        }
+    </script>
+</body>
+</html>

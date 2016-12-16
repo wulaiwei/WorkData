@@ -3,20 +3,108 @@
   <AuthConfig ResourceId="1" ControllerName="" ResourceUrl="" Roles="Administrator" />
   <AuthConfig ResourceId="2" ControllerName="" ResourceUrl="" Roles="Administrator" />
   <AuthConfig ResourceId="3" ControllerName="" ResourceUrl="" Roles="Administrator" />
-  <AuthConfig ResourceId="4" ControllerName="Operation" ResourceUrl="/Admin/Operation/Index" Roles="Administrator" />
-  <AuthConfig ResourceId="5" ControllerName="Resource" ResourceUrl="/Admin/Resource/Index" Roles="Administrator" />
-  <AuthConfig ResourceId="7" ControllerName="User" ResourceUrl="/Admin/User/Index" Roles="Administrator" />
-  <AuthConfig ResourceId="8" ControllerName="Role" ResourceUrl="/Admin/Role/Index" Roles="Administrator" />
+  <AuthConfig ResourceId="4" ControllerName="Operation" ResourceUrl="/Admin/Operation/Index?ResourceKey=4" Roles="Administrator">
+    <Actions ControllerName="Operation">
+      <Action ActionName="Index" Roles="Administrator" Method="Get" Name="列表" />
+      <Action ActionName="Save" Roles="Administrator" Method="Get" Name="编辑" />
+      <Action ActionName="Save" Roles="Administrator" Method="Post" Name="保存" />
+      <Action ActionName="Validate" Roles="Administrator" Method="Post" Name="验证" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="5" ControllerName="Resource" ResourceUrl="/Admin/Resource/Index?ResourceKey=5" Roles="Administrator">
+    <Actions ControllerName="Resource">
+      <Action ActionName="Index" Roles="Administrator" Method="Get" Name="列表" />
+      <Action ActionName="Save" Roles="Administrator" Method="Get" Name="编辑" />
+      <Action ActionName="Save" Roles="Administrator" Method="Post" Name="保存" />
+      <Action ActionName="AjaxUpdate" Roles="Administrator" Method="Post" Name="更新列表" />
+      <Action ActionName="Validate" Roles="Administrator" Method="Post" Name="验证" />
+      <Action ActionName="GetResourceTree" Roles="Administrator" Method="Get" Name="资源树" />
+      <Action ActionName="Resource" Roles="Administrator,Tourist" Method="Get" Name="导航栏" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="7" ControllerName="User" ResourceUrl="/Admin/User/Index?ResourceKey=7" Roles="Administrator">
+    <Actions ControllerName="User">
+      <Action ActionName="Index" Roles="Administrator" Method="Get" Name="列表" />
+      <Action ActionName="Save" Roles="Administrator" Method="Get" Name="编辑" />
+      <Action ActionName="Save" Roles="Administrator" Method="Post" Name="保存" />
+      <Action ActionName="Validate" Roles="Administrator" Method="Post" Name="验证" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="8" ControllerName="Role" ResourceUrl="/Admin/Role/Index?ResourceKey=8" Roles="Administrator">
+    <Actions ControllerName="Role">
+      <Action ActionName="Index" Roles="Administrator" Method="Get" Name="列表" />
+      <Action ActionName="Save" Roles="Administrator" Method="Get" Name="编辑" />
+      <Action ActionName="Save" Roles="Administrator" Method="Post" Name="保存" />
+      <Action ActionName="Validate" Roles="Administrator" Method="Post" Name="验证" />
+    </Actions>
+  </AuthConfig>
   <AuthConfig ResourceId="10" ControllerName="" ResourceUrl="" Roles="Administrator" />
-  <AuthConfig ResourceId="12" ControllerName="Model" ResourceUrl="/Admin/Model/Index" Roles="Administrator" />
-  <AuthConfig ResourceId="14" ControllerName="ModelField" ResourceUrl="/Admin/ModelField/Index" Roles="Administrator" />
-  <AuthConfig ResourceId="15" ControllerName="" ResourceUrl="" Roles="AverageUser,Tourist,Administrator" />
-  <AuthConfig ResourceId="23" ControllerName="Category" ResourceUrl="/Admin/Category/Index" Roles="Administrator" />
-  <AuthConfig ResourceId="32" ControllerName="" ResourceUrl="" Roles="AverageUser,Administrator" />
-  <AuthConfig ResourceId="33" ControllerName="Content" ResourceUrl="/Admin/Content/Index?Key=27" Roles="AverageUser,Administrator" />
-  <AuthConfig ResourceId="34" ControllerName="Content" ResourceUrl="/Admin/Content/Index?Key=28" Roles="AverageUser,Administrator" />
-  <AuthConfig ResourceId="35" ControllerName="" ResourceUrl="" Roles="Tourist,Administrator" />
-  <AuthConfig ResourceId="36" ControllerName="Content" ResourceUrl="/Admin/Content/Index?Key=30" Roles="Tourist,Administrator" />
-  <AuthConfig ResourceId="37" ControllerName="Content" ResourceUrl="/Admin/Content/Index?Key=31" Roles="Tourist,Administrator" />
-  <AuthConfig ResourceId="38" ControllerName="Content" ResourceUrl="/Admin/Content/Index?Key=32" Roles="Tourist,Administrator" />
+  <AuthConfig ResourceId="12" ControllerName="Model" ResourceUrl="/Admin/Model/Index?ResourceKey=12" Roles="Administrator">
+    <Actions ControllerName="Model">
+      <Action ActionName="Index" Roles="Administrator" Method="Get" Name="列表" />
+      <Action ActionName="Save" Roles="Administrator" Method="Get" Name="编辑" />
+      <Action ActionName="Save" Roles="Administrator" Method="Post" Name="保存" />
+      <Action ActionName="Validate" Roles="Administrator" Method="Post" Name="验证" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="14" ControllerName="ModelField" ResourceUrl="/Admin/ModelField/Index?ResourceKey=14" Roles="Administrator">
+    <Actions ControllerName="ModelField">
+      <Action ActionName="Index" Roles="Administrator" Method="Get" Name="列表" />
+      <Action ActionName="Save" Roles="Administrator" Method="Get" Name="编辑" />
+      <Action ActionName="Save" Roles="Administrator" Method="Post" Name="保存" />
+      <Action ActionName="Validate" Roles="Administrator" Method="Post" Name="验证" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="15" ControllerName="" ResourceUrl="" Roles="Administrator,Tourist" />
+  <AuthConfig ResourceId="23" ControllerName="Category" ResourceUrl="/Admin/Category/Index?ResourceKey=23" Roles="Administrator">
+    <Actions ControllerName="Category">
+      <Action ActionName="Index" Roles="Administrator" Method="Get" Name="列表" />
+      <Action ActionName="Save" Roles="Administrator" Method="Get" Name="编辑" />
+      <Action ActionName="Save" Roles="Administrator" Method="Post" Name="保存" />
+      <Action ActionName="DesignForm" Roles="Administrator" Method="Get" Name="表单排版" />
+      <Action ActionName="DesignForm" Roles="Administrator" Method="Post" Name="保存表单排版" />
+      <Action ActionName="DesignIndex" Roles="Administrator" Method="Get" Name="列表排版" />
+      <Action ActionName="DesignIndex" Roles="Administrator" Method="Post" Name="保存列表排版" />
+      <Action ActionName="Validate" Roles="Administrator" Method="Post" Name="验证" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="32" ControllerName="" ResourceUrl="" Roles="Administrator" />
+  <AuthConfig ResourceId="33" ControllerName="Content" ResourceUrl="/Admin/Content/Index?CategoryKey=27&amp;ResourceKey=33" Roles="Administrator">
+    <Actions ControllerName="Content">
+      <Action ActionName="Index" Roles="Administrator" Method="Get" Name="列表" />
+      <Action ActionName="Save" Roles="Administrator" Method="Get" Name="编辑" />
+      <Action ActionName="Save" Roles="Administrator" Method="Post" Name="保存" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="34" ControllerName="Content" ResourceUrl="/Admin/Content/Index?CategoryKey=28&amp;ResourceKey=34" Roles="Administrator">
+    <Actions ControllerName="Content">
+      <Action ActionName="Index" Roles="Administrator" Method="Get" Name="列表" />
+      <Action ActionName="Save" Roles="Administrator" Method="Get" Name="编辑" />
+      <Action ActionName="Save" Roles="Administrator" Method="Post" Name="保存" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="35" ControllerName="" ResourceUrl="" Roles="Administrator,Tourist" />
+  <AuthConfig ResourceId="36" ControllerName="Content" ResourceUrl="/Admin/Content/Index?CategoryKey=30&amp;ResourceKey=36" Roles="Administrator,Tourist">
+    <Actions ControllerName="Content">
+      <Action ActionName="Index" Roles="Administrator,Tourist" Method="Get" Name="列表" />
+      <Action ActionName="Save" Roles="Administrator,Tourist" Method="Get" Name="编辑" />
+      <Action ActionName="Save" Roles="Administrator,Tourist" Method="Post" Name="保存" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="37" ControllerName="Content" ResourceUrl="/Admin/Content/Index?CategoryKey=31&amp;ResourceKey=37" Roles="Administrator,Tourist">
+    <Actions ControllerName="Content">
+      <Action ActionName="Index" Roles="Administrator,Tourist" Method="Get" Name="列表" />
+      <Action ActionName="Save" Roles="Administrator,Tourist" Method="Get" Name="编辑" />
+      <Action ActionName="Save" Roles="Administrator,Tourist" Method="Post" Name="保存" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="38" ControllerName="Content" ResourceUrl="/Admin/Content/Index?CategoryKey=32&amp;ResourceKey=38" Roles="Administrator,Tourist">
+    <Actions ControllerName="Content">
+      <Action ActionName="Index" Roles="Administrator" Method="Get" Name="列表" />
+      <Action ActionName="Save" Roles="Administrator" Method="Get" Name="编辑" />
+      <Action ActionName="Save" Roles="Administrator" Method="Post" Name="保存" />
+    </Actions>
+  </AuthConfig>
+  <AuthConfig ResourceId="40" ControllerName="" ResourceUrl="/Admin/Content/Index?CategoryKey=33&amp;ResourceKey=40" Roles="" />
+  <AuthConfig ResourceId="41" ControllerName="" ResourceUrl="/Admin/Content/Index?CategoryKey=34&amp;ResourceKey=41" Roles="" />
 </AuthConfigs>

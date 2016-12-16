@@ -28,8 +28,19 @@ namespace WorkData.Util.Entity
         public string ResourceUrl { get; set; }
 
         /// <summary>
+        /// Action
+        /// </summary>
+        public string  Action { get; set; }
+
+        /// <summary>
         /// 角色
         /// </summary>
-        public string Roles { get; set; } 
+        public string Roles { get; set; }
+
+
+        /// <summary>
+        /// Action描述名
+        /// </summary>
+        public string Name{ get; set; }
     }
 }

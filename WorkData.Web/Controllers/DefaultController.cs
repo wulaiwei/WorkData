@@ -7,6 +7,8 @@ using WorkData.Util;
 using WorkData.Util.Entity;
 using WorkData.Web.HtmlFactory;
 using System.Linq;
+using System.Reflection;
+using WorkData.Util.Enum;
 using WorkData.Web;
 
 namespace WorkData.Web.Controllers
@@ -25,37 +27,24 @@ namespace WorkData.Web.Controllers
         // GET: Default
         public ActionResult Index()
         {
-            //var model = new ModelFieldDto()
+            //LoggerHelper.BusinessLog.Error("BusinessLog");
+            //LoggerHelper.SystemLog.Error("SystemLog");
+            //var info = AssemblyHelper.LoadAction("WorkData.Web");
+            //var list = _resourceBll.GetList();
+            //var infoList = list.Select(x => new AuthConfig
             //{
-            //    Name="ces"
-            //};
-            //var s= CreateHtmlHelper.CreateTip(model);
-            //_operationBll.GetList();
-            var list= _resourceBll.GetList();
-            var infoList = list.Select(x => new AuthConfig
-            {
-                ControllerName = x.ControllerName,
-                ResourceId = x.ResourceId,
-                ResourceUrl = x.ResourceUrl,
-                Roles = ""
-            }).ToList();
-            //AuthConfigXmlHelper.CreateAuthConfigXml(infoList,Api.PhysicsUrl + "/Config/AuthConfig.xml");
+            //    ControllerName = x.ControllerName,
+            //    ResourceId = x.ResourceId,
+            //    ResourceUrl = x.ResourceUrl,
+            //    Roles = ""
+            //}).ToList();
+            //AuthConfigXmlHelper.CreateAuthConfigXml(infoList, info, Api.PhysicsUrl + "/Config/AuthConfig.xml");
 
-            //var info= AuthConfigXmlHelper.GetAuthConfigByXml(Api.PhysicsUrl + "/Config/AuthConfig.xml"
-            //    , "/Admin/Content/Index?Key=32", "Content");
+            //AuthConfigXmlHelper.UpdateConfig(Api.PhysicsUrl + "/Config/AuthConfig.xml", info);
 
-            //var att = new string[] { "1", "2" };
-            //var info = new AuthConfig
-            //{
-            //    ControllerName = "xx",
-            //    ResourceId = 1,
-            //    ResourceUrl = "yy",
-            //    Roles = "xxx"
-            //};
 
-            //AuthConfigXmlHelper.AttachAuthConfigByXml(Api.PhysicsUrl + "/Config/AuthConfig.xml"
-            //    , info);
-
+            //var assembly = Assembly.Load("WorkData.Web");    //加载程序集
+      
             return View();
         }
     }

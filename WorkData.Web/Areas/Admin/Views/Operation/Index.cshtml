@@ -81,16 +81,16 @@
 <!--/内容底部-->
     <script src="~/Areas/Admin/js/Operation.js"></script>
     <script>
-    $(function () {
-        var addHref = "/Admin/Operation/Save?Action=Add";
-        var removeHref = "/Admin/Operation/Save?Action=Remove&Key=";
-        var editHref = "/Admin/Operation/Save?Action=Edit&Key=";
-        //添加赋值
-        AddAttr(addHref);
-        //删除赋值
-        RemoveAttr(removeHref);
-        //编辑赋值
-        EditAttr(editHref);
+        $(function () {
+            var addHref = "/Admin/Operation/Save?Action=Add";
+            var removeHref = "/Admin/Operation/Save?&Action=Remove&Key=";
+            var editHref = "/Admin/Operation/Save?&Action=Edit&Key=";
+            //添加赋值
+            AddAttr(addHref);
+            //删除赋值
+            RemoveAttr(removeHref);
+            //编辑赋值
+            EditAttr(editHref);
     });
     </script>
 </body>

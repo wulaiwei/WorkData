@@ -1,0 +1,137 @@
+﻿@using WorkData.Dto.Entity
+@using WorkData.Web.Areas.Admin.Controllers
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>编辑</title>
+    <link href="~/scripts/artdialog/ui-dialog.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/skin/default/style.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/skin/common.css" rel="stylesheet" />
+    <link href="~/Css/pagination.css" rel="stylesheet" />
+
+    <script type="text/javascript" charset="utf-8" src="~/scripts/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="~/scripts/jquery/jquery.nicescroll.js"></script>
+    <script src="~/scripts/datepicker/WdatePicker.js"></script>
+    <script type="text/javascript" charset="utf-8" src="~/scripts/artdialog/dialog-plus-min.js"></script>
+    <script src="~/scripts/jquery/Validform_v5.3.2_min.js"></script>
+
+    <script src="~/Areas/Admin/js/layindex.js"></script>
+    <script src="~/Areas/Admin/js/laymain.js"></script>
+
+
+    <script src="~/scripts/webuploader/webuploader.min.js"></script>
+    <script src="~/Areas/Admin/js/uploader.js"></script>
+
+</head>
+<body class="mainbody" ng-app="App" ng-controller="Cro">
+<form id="form1" action="~/Admin/Content/Save" method="post">
+    @Html.AntiForgeryToken()
+    <!--导航栏-->
+    <div class="location">
+        <a href="~/Admin/Content/Index" class="back"><i></i><span>返回列表页</span></a>
+        <i class="arrow"></i>
+        <span>编辑后台导航</span>
+    </div>
+    <div class="line10"></div>
+    <!--/导航栏-->
+    <!--内容-->
+    <div id="floatHead" class="content-tab-wrap">
+        <div class="content-tab">
+            <div class="content-tab-ul-wrap">
+                <ul>
+                    <li><a class="selected" href="javascript:;">基本信息</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    @Html.Raw(ViewBag.FormTempalte)
+
+
+    <!--/内容-->
+    <!--工具栏-->
+    <div class="page-footer">
+        <div class="btn-wrap">
+            <input type="hidden" name="ContentId" ng-value="{{content.ContentId}}"/>
+            <input type="hidden" name="ModelId" ng-value="{{content.ModelId}}"/>
+            <input type="hidden" name="CategoryId" ng-value="{{content.CategoryId}}"/>
+            <input type="hidden" value="@ViewBag.SaveState" name="SaveState"/>
+
+            <input type="submit" name="btnSubmit" value="提交保存" id="btnSubmit" class="btn"/>
+            <input name="btnReturn" type="button" value="返回上一页" class="btn yellow" onclick="javascript:history.back(-1);"/>
+        </div>
+    </div>
+    <!--/工具栏-->
+</form>
+    <script src="~/scripts/angular.min.js"></script>
+    <script src="~/editor/kindeditor-min.js"></script>
+
+    @* ReSharper disable once AssignedValueIsNeverUsed *@
+    <script type="text/javascript">
+        var app = angular.module('App', []);
+        app.controller('Cro', function($scope, $http) {
+            var json = @Html.Raw(ViewBag.Content);
+            $scope.content = json;
+
+            $scope.isChecked = function(data) {
+                var strs = new Array(); //定义一数组
+                strs = data.split(","); //字符分割
+                for (var i = 0; i < strs.length; i++) {
+                    document.write(strs[i] + "<br/>"); //分割后的字符输出
+                }
+            }
+        });
+
+        $(function() {
+            //初始化表单验证
+            $("#form1").initValidform();
+            //初始化编辑器
+            var editor = KindEditor.create('.editor', {
+                width: '100%',
+                height: '350px',
+                resizeType: 1,
+                uploadJson: '/Admin/File/ProcessRequest',
+                allowFileManager: true
+            });
+            //初始化上传控件
+            $(".upload-img").InitUploader({
+                sendurl: "/Admin/File/ProcessRequest",
+                swf: "../../scripts/webuploader/uploader.swf"
+            });
+            $(".time").attr("onfocus", "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})");
+
+            //复选框选中
+            $(".multi-check").parent().find(":checkbox").each(function(i) {
+                var key = $(this).parent().parent().find(".multi-check").val();
+                var strs = new Array(); //定义一数组
+                strs = key.split(","); //字符分割
+                if ($.inArray($(this).val(), strs) != -1) {
+                    $(this).attr("checked", true);
+                }
+            });
+
+            //单选框选中
+            $(".multi-check").parent().find(":radio").each(function(i) {
+                var key = $(this).parent().parent().find(".multi-check").val();
+                var strs = new Array(); //定义一数组
+                strs = key.split(","); //字符分割
+                if ($.inArray($(this).val(), strs) != -1) {
+                    $(this).attr("checked", true);
+                }
+            });
+
+        });
+
+
+    </script>
+
+    <script src="~/Areas/Admin/js/common.js"></script>
+</body>
+</html>

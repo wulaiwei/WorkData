@@ -15,11 +15,13 @@ using WorkData.BLL.Interface;
 using WorkData.Dto.Entity;
 using WorkData.Mvc.Token;
 using WorkData.Util;
+using WorkData.Util.Entity;
 using WorkData.Util.Enum;
 using WorkData.Web.Filter;
 
 namespace WorkData.Web.Areas.Admin.Controllers
 {
+    [MvcTokenAutorize]
     public class ContentController : Controller
     {
         private readonly IContentBll _contentBll;
@@ -39,10 +41,10 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [MvcTokenAutorize]
+        [ActionDescription(Name = "列表", Action = "Index")]
         public ActionResult Index(int pageIndex = 1)
         {
-            var key = Request.QueryString["Key"];
+            var key = Request.QueryString["CategoryKey"];
             var pageEntity = PageListHepler.BuildPageEntity(pageIndex, 8, "ContentId", "DESC");
             var category = _categoryBll.Query(key, false);
             if (category == null) throw new ArgumentNullException(nameof(category));
@@ -64,6 +66,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ActionDescription(Name = "编辑", Action = "Save")]
         public ActionResult Save()
         {
             var saveState = BusinessHelper.BuildSaveState(Request);
@@ -71,6 +74,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
 
             var key = Request.QueryString["CategoryKey"];
             var category = _categoryBll.Query(key, false);
+            ViewBag.CategoryKey = key;
             if (category == null) throw new ArgumentNullException(nameof(category));
 
             switch (saveState.OperationState)
@@ -92,7 +96,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
    
                     _contentBll.HttpGetSave(saveState);
 
-                    return RedirectToAction("Index", "Content", new { Key = category.CategoryId });
+                    return RedirectToAction("Index", "Content", new { CategoryKey = category.CategoryId });
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -106,6 +110,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
+        [ActionDescription(Name = "保存", Action = "Save")]
         public ActionResult Save(ContentDto entity)
         {
             var model = _modelBll.Query(entity.ModelId);
@@ -117,7 +122,7 @@ namespace WorkData.Web.Areas.Admin.Controllers
 
             _contentBll.HttpPostSave(entity, saveState, dictionary);
 
-            return RedirectToAction("Index", "Content", new { Key = entity.CategoryId});
+            return RedirectToAction("Index", "Content", new { CategoryKey = entity.CategoryId});
         }
 
     
